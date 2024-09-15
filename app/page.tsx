@@ -32,10 +32,9 @@ export default function Home() {
   )
 
   function showPreview(e: ChangeEvent<HTMLInputElement>){
-    if(e.target.files === null){
-      setPreview(undefined);
-      return
-    }else{
+    if(!e.target.files) return;
+
+    if(e.target.files.length !== 0){
       const submitedFile = e.target.files[0]
       const submitedFileUrl = URL.createObjectURL(submitedFile)
       setPreview(submitedFileUrl)
