@@ -1,13 +1,12 @@
 "use client"
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { PreviewImage } from "./PreviewImage";
 
 export default function ImageForm() {
   const [previewFile, setPreview] = useState<File>()
-
   return (
-    <form action="" method="post">
+    <form onSubmit={submitHandler} method="post">
       {previewFile ?<PreviewImage previewFile={previewFile}/>
                    :<div>preview</div>
       }
@@ -30,6 +29,18 @@ export default function ImageForm() {
       </div>
     </form>
   )
+
+  async function submitHandler(e:FormEvent<HTMLFormElement>){
+    e.preventDefault()
+
+    const formData = new FormData(e.currentTarget)
+
+    const res = await fetch("/api/form", {
+      method:"post",
+      body:formData
+    })
+
+  }
 
   function showPreview(e: ChangeEvent<HTMLInputElement>){
     if(!e.target.files) return;
