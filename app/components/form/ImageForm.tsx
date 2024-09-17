@@ -15,7 +15,7 @@ export default function ImageForm() {
           htmlFor="image_uploads" 
           className="border border-black cursor-pointer"
         >
-          アップロードする画像を選択してください
+          {previewFile ? "変更する":"アップロードする画像を選択してください"}
         </label>
             <input 
               type="file" 
@@ -45,8 +45,10 @@ export default function ImageForm() {
   function showPreview(e: ChangeEvent<HTMLInputElement>){
     if(!e.target.files) return;
 
-    // ファイル選択画面でキャンセルを押した場合はlengthが0になる
-    if(e.target.files.length !== 0){
+    // ファイル選択画面でキャンセルやescを押した場合はlengthが0になる
+    if(e.target.files.length === 0){
+      setPreview(undefined)
+    }else{
       const submitedFile = e.target.files[0]
       setPreview(submitedFile)
     }
