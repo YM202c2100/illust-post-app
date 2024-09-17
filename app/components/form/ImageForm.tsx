@@ -23,7 +23,7 @@ export default function ImageForm() {
               id="image_uploads" 
               accept=".png, .jpg, .jpeg" //ツールを使って指定外のファイルも入力可能なためバリデーション必須
               className="opacity-0" // デフォルト表記のスタイリングが難しいので代わりにlabelを用いた表示用要素を使用
-              onChange={showPreview}
+              onChange={togglePreview}
             />
         <button type="submit" className="block">送信</button>
       </div>
@@ -42,7 +42,7 @@ export default function ImageForm() {
 
   }
 
-  function showPreview(e: ChangeEvent<HTMLInputElement>){
+  function togglePreview(e: ChangeEvent<HTMLInputElement>){
     if(!e.target.files) return;
 
     // ファイル選択画面でキャンセルやescを押した場合はlengthが0になる
