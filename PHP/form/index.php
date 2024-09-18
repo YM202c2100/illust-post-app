@@ -8,8 +8,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     throw new Error("image not found");
   }
 
-  $db = new FormQuery();
-  $isSuccess = $db->insert($image['name']);
+  $isSuccess = FormQuery::insert($image['name']);
   if($isSuccess){
     move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
   }
