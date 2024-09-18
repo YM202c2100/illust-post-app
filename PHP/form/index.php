@@ -1,4 +1,5 @@
 <?php
+require_once "./formQuery.php";
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $image = $_FILES['image_uploads'] ?? null;
@@ -7,5 +8,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     throw new Error("image not found");
   }
 
-  move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
+  $db = new FormQuery();
+  $isSuccess = $db->insert($image['name']);
+  if($isSuccess){
+    move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
+  }
 }
