@@ -1,4 +1,7 @@
 <?php
+namespace form;
+
+use PDO;
 
 class FormQuery {
   

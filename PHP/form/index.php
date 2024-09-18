@@ -1,4 +1,8 @@
 <?php
+namespace form;
+
+use Error;
+
 require_once "./formQuery.php";
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
