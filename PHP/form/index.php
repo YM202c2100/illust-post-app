@@ -14,6 +14,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
   $isSuccess = FormQuery::insert($image['name']);
   if($isSuccess){
-    move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
+    // move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
   }
 }
