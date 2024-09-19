@@ -1,9 +1,9 @@
 <?php
-namespace form;
+namespace imageForm;
 
 use Error;
 
-require_once "./formQuery.php";
+require_once "./imageFormQuery.php";
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $image = $_FILES['image_uploads'] ?? null;
@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     throw new Error("image not found");
   }
 
-  $isSuccess = FormQuery::insert($image['name']);
+  $isSuccess = ImageFormQuery::insert($image['name']);
   if($isSuccess){
     // move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
   }

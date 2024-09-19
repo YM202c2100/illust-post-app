@@ -1,4 +1,4 @@
-import ImageForm from "./components/form/ImageForm";
+import ImageForm from "./components/imageForm/ImageForm";
 
 export default function Home(){
   return(

@@ -1,6 +1,6 @@
 "use client"
 
-import { ChangeEvent, FormEvent, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { PreviewImage } from "./PreviewImage";
 
 export default function ImageForm() {
@@ -42,7 +42,7 @@ export default function ImageForm() {
     setPending(true)
 
     const formData = new FormData(e.currentTarget)
-    const res = await fetch("/api/form", {
+    const res = await fetch("/api/imageForm", {
       method:"post",
       body:formData
     })
