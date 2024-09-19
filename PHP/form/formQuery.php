@@ -1,18 +1,16 @@
 <?php
 namespace form;
 
-use PDO;
+require_once '../libs/dbConnection.php';
+use libs\DbConnection;
 
 class FormQuery {
-  
   public static function insert($fileName):bool{
-    $dsn = "mysql:host=localhost;port=8889;dbname=illust_post";
-    $db = new PDO($dsn, 'test_user', 'pwd');
-    
+    $db = new DbConnection();
+
     $sql = 'INSERT into test_images (file_name) values (:file_name)';
-    $pst = $db->prepare($sql);
-    $pst->bindValue(':file_name', $fileName);
-    $isSuccess = $pst->execute();
+    $isSuccess = $db->execute($sql, [':file_name'=>$fileName]);
+
     return $isSuccess;
   }
 }
