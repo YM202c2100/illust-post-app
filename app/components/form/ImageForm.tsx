@@ -25,7 +25,7 @@ export default function ImageForm() {
               className="opacity-0" // デフォルト表記のスタイリングが難しいので代わりにlabelを用いた表示用要素を使用
               onChange={togglePreview}
             />
-        <button type="submit" className="block">送信</button>
+        <button type="submit" className="block" disabled={previewFile?false:true}>送信</button>
       </div>
     </form>
   )
