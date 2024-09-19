@@ -13,5 +13,5 @@ export async function POST(req:Request){
     return NextResponse.json({ message: 'response is not ok' }, { status: 500 });
   }
 
-  return NextResponse.json({ message: 'OK' }, { status: 200 });
+  return NextResponse.json({ message: 'image is submited successly' }, { status: 200 });
 }
