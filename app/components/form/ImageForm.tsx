@@ -5,7 +5,7 @@ import { PreviewImage } from "./PreviewImage";
 
 export default function ImageForm() {
   const [previewFile, setPreview] = useState<File>()
-  const submitRef = useRef<HTMLButtonElement>(null);
+  const [pending, setPending] = useState<boolean>(false);
 
   return (
     <form onSubmit={submitHandler} method="post">
@@ -29,18 +29,19 @@ export default function ImageForm() {
           onChange={togglePreview}
         />
 
-        <button type="submit" ref={submitRef} className="block" disabled>送信</button>
+        <button type="submit" className="block" disabled={!previewFile || pending}>
+          {(pending) ? "送信中…":"送信する"}
+        </button>
       </div>
     </form>
   )
 
   async function submitHandler(e:FormEvent<HTMLFormElement>){
-    enableSending(false)
-
     e.preventDefault()
 
-    const formData = new FormData(e.currentTarget)
+    setPending(true)
 
+    const formData = new FormData(e.currentTarget)
     const res = await fetch("/api/form", {
       method:"post",
       body:formData
@@ -50,7 +51,7 @@ export default function ImageForm() {
       const resJson = await res.json();
       console.log(resJson.message);
      
-      enableSending(true)
+      setPending(false)
     }
 
   }
@@ -60,20 +61,11 @@ export default function ImageForm() {
 
     // ファイル選択画面でキャンセルやescを押した場合はlengthが0になる
     if(e.target.files.length === 0){
-      enableSending(false)
       setPreview(undefined)
     }else{
-      enableSending(true)
       const submitedFile = e.target.files[0]
       setPreview(submitedFile)
     }
   }
-
-  function enableSending(enable:boolean):void{
-    if(!submitRef.current) return;
-
-    submitRef.current.disabled = !enable
-  }
-
 }
 
