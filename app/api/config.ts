@@ -1,0 +1,1 @@
+export const PHP_ROOT_PATH = "http://localhost:8888/illust-post-app/PHP"

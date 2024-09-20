@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
+import { PHP_ROOT_PATH } from "../config";
 
 export async function POST(req:Request){
   const formData = await req.formData();
 
-  const res = await fetch("http://localhost:8888/illust-post-app/PHP/imageForm/index.php", {
+  const res = await fetch(`${PHP_ROOT_PATH}/imageForm/index.php`, {
     method:"post",
     body:formData
   })
