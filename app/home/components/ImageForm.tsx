@@ -42,7 +42,7 @@ export default function ImageForm() {
     setPending(true)
 
     const formData = new FormData(e.currentTarget)
-    const res = await fetch("/api/imageForm", {
+    const res = await fetch("home/api", {
       method:"post",
       body:formData
     })

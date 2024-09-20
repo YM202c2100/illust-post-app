@@ -29,7 +29,7 @@ export const RegisterForm:React.FC = ()=>{
 
     try {
       const formData = new FormData(e.currentTarget)
-      const res =await fetch("/api/registerForm", {
+      const res =await fetch("register/api", {
         method:"post",
         body:formData
       })

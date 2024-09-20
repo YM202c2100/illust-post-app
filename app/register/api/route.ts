@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { PHP_ROOT_PATH } from "../config"
+import { PHP_ROOT_PATH } from "@/app/api/config"
 
 export async function POST(req:Request){
   const bodyData = await req.formData()
