@@ -1,10 +1,7 @@
 <?php
-namespace imageForm;
+namespace db;
 
-require_once '../libs/dbConnection.php';
-use libs\DbConnection;
-
-class ImageFormQuery {
+class ImagesQuery {
   public static function insert($fileName):bool{
     $db = new DbConnection();
 

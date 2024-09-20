@@ -1,11 +1,9 @@
 <?php
-namespace registerForm;
+namespace db;
 
-require_once "/MAMP/htdocs/illust-post-app/PHP/libs/dbConnection.php";
-use libs\DbConnection;
 use models\UserModel;
 
-class RegisterQuery{
+class UsersQuery{
   public static function registUser(UserModel $user):bool{
     try {
       $db = new DbConnection();
@@ -20,7 +18,7 @@ class RegisterQuery{
       return $db->execute($sql, $valueMap);
 
     } catch (\Throwable $th) {
-      throw $th;
+      throw $th->getMessage();
     }
   }
 }

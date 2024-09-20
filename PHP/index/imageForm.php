@@ -1,9 +1,11 @@
 <?php
-namespace imageForm;
+namespace index\imageForm;
 
+require_once '../db/images.query.php';
+require_once '../db/dbConnection.php';
+use db\ImagesQuery;
 use Error;
 
-require_once "./imageFormQuery.php";
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $image = $_FILES['image_uploads'] ?? null;
@@ -12,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     throw new Error("image not found");
   }
 
-  $isSuccess = ImageFormQuery::insert($image['name']);
+  $isSuccess = ImagesQuery::insert($image['name']);
   if($isSuccess){
     // move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
   }

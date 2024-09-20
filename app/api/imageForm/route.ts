@@ -4,7 +4,7 @@ import { PHP_ROOT_PATH } from "../config";
 export async function POST(req:Request){
   const formData = await req.formData();
 
-  const res = await fetch(`${PHP_ROOT_PATH}/imageForm/index.php`, {
+  const res = await fetch(`${PHP_ROOT_PATH}/index/imageForm.php`, {
     method:"post",
     body:formData
   })
