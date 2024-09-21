@@ -1,6 +1,10 @@
 <?php
 namespace index\register;
+header('Access-Control-Allow-Origin: http://localhost:3000');
+header('Access-Control-Allow-Credentials: true');
 header('Content-Type: application/json');
+
+session_start();
 
 require_once "../models/userModel.php";
 require_once "../db/users.query.php";
@@ -30,10 +34,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 
   // dbにユーザー情報を格納
   if(UsersQuery::registUser($user)){
-    echo json_encode([
-      'id'=>$id,
-      'pwd'=>$pwd,
-      'userName'=>$userName
-    ]);
+    UserModel::setSession($user);
+    echo json_encode(['status'=>'ok', 'body'=>$user]);
   }
 }

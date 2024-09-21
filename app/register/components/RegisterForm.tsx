@@ -31,7 +31,8 @@ export const RegisterForm:React.FC = ()=>{
       const formData = new FormData(e.currentTarget)
       const res =await fetch("register/api", {
         method:"post",
-        body:formData
+        body:formData,
+        credentials:"include"
       })
 
       if(!res.ok){

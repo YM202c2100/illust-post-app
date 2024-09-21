@@ -11,4 +11,8 @@ class UserModel {
     $this->pwd = $pwd;
     $this->userName = $userName;
   }
+
+  public static function setSession(UserModel $user){
+    $_SESSION['user'] = $user;
+  }
 }
