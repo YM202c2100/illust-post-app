@@ -6,7 +6,6 @@ require_once "../models/userModel.php";
 require_once "../db/users.query.php";
 require_once "../db/dbConnection.php";
 
-use Error;
 use db\UsersQuery;
 use models\UserModel;
 
@@ -16,7 +15,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
   $userName = $_POST['userName'] ?? null;
 
   if(!isset($id, $pwd, $userName)) {
-    throw new Error("need form data");
+    echo json_encode(['status'=>'error', 'body'=>'必要な情報を入力してください']);
+    exit();
   };
 
   // すでに同じIDのユーザーが存在するかどうか
