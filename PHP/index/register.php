@@ -19,6 +19,13 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     throw new Error("need form data");
   };
 
+  // すでに同じIDのユーザーが存在するかどうか
+  $userRecord = UsersQuery::fetchById($id);
+  if(!empty($userRecord)){
+    echo json_encode(['status'=>'error', 'body'=>'既にユーザーが存在している']);
+    exit();
+  }
+
   $user = new UserModel($id, $pwd, $userName);
 
   // dbにユーザー情報を格納

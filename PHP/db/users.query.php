@@ -21,4 +21,13 @@ class UsersQuery{
       throw $th->getMessage();
     }
   }
+
+  public static function fetchById($id){
+    $db = new DbConnection();
+    
+    $sql = "SELECT * from users where id=:id";
+    $records = $db->select($sql, [':id'=>$id]);
+    
+    return $records;
+  }
 }

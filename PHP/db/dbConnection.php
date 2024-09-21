@@ -39,6 +39,17 @@ class DbConnection {
     }
   }
 
+  public function select($sql, $valueMap){
+    $executedStmt = $this->execute($sql, $valueMap, true);
+    $records = $executedStmt->fetchAll();
+    
+    if(count($records)===1){
+      return $records[0];
+    }else{
+      return $records;
+    }
+  }
+
   public static function bindValues($preparedStmt, $valueMap){
     foreach($valueMap as $placeHolder => $value){
       $preparedStmt->bindValue($placeHolder, $value);
