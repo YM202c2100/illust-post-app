@@ -9,6 +9,7 @@ session_start();
 require_once "../models/userModel.php";
 require_once "../db/users.query.php";
 require_once "../db/dbConnection.php";
+require_once "../libs/validate.php";
 
 use db\UsersQuery;
 use models\UserModel;
@@ -18,10 +19,12 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
   $pwd = $_POST['pwd'] ?? null;
   $userName = $_POST['userName'] ?? null;
 
-  if(!isset($id, $pwd, $userName)) {
-    echo json_encode(['status'=>'error', 'body'=>'必要な情報を入力してください']);
+  // バリデーションチェック
+  $errors = UserModel::getValidationErrors(['id'=>$id, 'pwd'=>$pwd, 'userName'=>$userName]);
+  if(isset($errors)){
+    echo json_encode(['status'=>'error', 'body'=>$errors]);
     exit();
-  };
+  }
 
   // すでに同じIDのユーザーが存在するかどうか
   $userRecord = UsersQuery::fetchById($id);
