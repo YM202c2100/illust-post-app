@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { LogoutButton } from "./(userAuth)/components/LogoutButton";
 
 export default function Home(){
   return(
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col space-y-2 items-start">
       <TempLink pageName="home"/>
       <TempLink pageName="register"/>
+      <TempLink pageName="login"/>
+      <LogoutButton/>
     </div>
   )
 }
