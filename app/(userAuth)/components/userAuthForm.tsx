@@ -1,8 +1,12 @@
 "use client"
 
+import { usePathname } from "next/navigation"
 import { FormEvent } from "react"
 
-export const RegisterForm:React.FC = ()=>{
+export const UserAuthForm:React.FC = ()=>{
+  const currentPath = usePathname()
+  const isRegisterPage = (currentPath === "/register")
+
   return(
     <form onSubmit={submitHandler} method="post">
       <div>
@@ -15,10 +19,12 @@ export const RegisterForm:React.FC = ()=>{
         <input type="password" name="pwd" className="border border-black"/>
       </div>
 
-      <div>
-        <p>ユーザーネーム</p>
-        <input type="text" name="userName" className="border border-black"/>
-      </div>
+      {isRegisterPage &&
+        <div>
+          <p>ユーザーネーム</p>
+          <input type="text" name="userName" className="border border-black"/>
+        </div>
+      }
 
       <button type="submit" className="border border-black">登録</button>
     </form>
@@ -27,9 +33,10 @@ export const RegisterForm:React.FC = ()=>{
   async function submitHandler(e:FormEvent<HTMLFormElement>){
     e.preventDefault()
 
+    const endpoit = isRegisterPage ? "register/api" : "login/api"
     try {
       const formData = new FormData(e.currentTarget)
-      const res =await fetch("register/api", {
+      const res =await fetch(endpoit, {
         method:"post",
         body:formData,
         credentials:"include"
