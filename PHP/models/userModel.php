@@ -8,7 +8,7 @@ class UserModel {
   public $pwd;
   public $userName;
 
-  public function __construct($id, $pwd, $userName) {
+  public function __construct($id=null, $pwd=null, $userName=null) {
     $this->id = $id;
     $this->pwd = $pwd;
     $this->userName = $userName;

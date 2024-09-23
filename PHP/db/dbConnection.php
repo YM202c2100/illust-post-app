@@ -9,7 +9,6 @@ class SingleTonPDO {
   public static function getInstance($dsn, $username, $password){
     if(!isset(self::$conn)){
       self::$conn = new PDO($dsn, $username, $password);
-      self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
     return self::$conn;
   }
@@ -39,9 +38,12 @@ class DbConnection {
     }
   }
 
-  public function select($sql, $valueMap){
+  // 一つだけ取得した場合->配列内の一つ目の'要素'を返す
+  // 複数取得した場合->取得した全てのレコードの'配列'を返す
+  // なにも取得できなかった場合->空の'配列'を返す
+  public function select($sql, $valueMap, $class){
     $executedStmt = $this->execute($sql, $valueMap, true);
-    $records = $executedStmt->fetchAll();
+    $records = $executedStmt->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
     
     if(count($records)===1){
       return $records[0];

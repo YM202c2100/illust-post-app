@@ -27,8 +27,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
   }
 
   // すでに同じIDのユーザーが存在するかどうか
-  $userRecord = UsersQuery::fetchById($id);
-  if(!empty($userRecord)){
+  $user = UsersQuery::fetchById($id);
+  if(!empty($user)){
     echo json_encode(['status'=>'error', 'body'=>'既にユーザーが存在している']);
     exit();
   }
