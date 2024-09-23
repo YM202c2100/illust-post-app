@@ -26,8 +26,8 @@ class UsersQuery{
     $db = new DbConnection();
     
     $sql = "SELECT * from users where id=:id";
-    $records = $db->select($sql, [':id'=>$id]);
+    $user = $db->select($sql, [':id'=>$id], UserModel::class);
     
-    return $records;
+    return $user;
   }
 }
