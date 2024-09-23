@@ -19,7 +19,7 @@ export async function sharedCookieRequest(req: Request, endpoint:string){
 
   const resHeaders = new Headers()
   if(setcookie){
-    reqHeaders.set("Set-Cookie", setcookie)
+    resHeaders.set("Set-Cookie", setcookie)
   }
 
   return new Response(
