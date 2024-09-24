@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LogoutButton } from "./(userAuth)/components/LogoutButton";
+import { LogoutButton } from "./(userAuth)/logout/components/LogoutButton";
 
 export default function Home(){
   return(
