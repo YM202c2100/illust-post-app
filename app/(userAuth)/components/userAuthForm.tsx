@@ -48,6 +48,9 @@ export const UserAuthForm:React.FC = ()=>{
 
       const resJson = await res.json()
       console.log(resJson);
+      if(resJson.status === "ok"){
+        window.location.href = "/"
+      }
 
     } catch (error) {
       console.error(`submitHandler:${error}`);
