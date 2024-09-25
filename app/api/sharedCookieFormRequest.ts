@@ -1,4 +1,4 @@
-export async function sharedCookieRequest(req: Request, endpoint:string){
+export async function sharedCookieFormRequest(req: Request, endpoint:string){
   const formData = await req.formData()
   const cookie = req.headers.get("cookie")
 

@@ -1,6 +1,6 @@
 import { PHP_ROOT_PATH } from "@/app/api/config";
-import { sharedCookieRequest } from "../../userAuth/api/sharedCookieRequest";
+import { sharedCookieFormRequest } from "@/app/api/sharedCookieFormRequest";
 
 export async function POST(req:Request){
-  return await sharedCookieRequest(req, PHP_ROOT_PATH+"/index/imageForm.php")
+  return await sharedCookieFormRequest(req, PHP_ROOT_PATH+"/index/imageForm.php")
 }

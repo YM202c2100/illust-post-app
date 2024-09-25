@@ -1,9 +1,9 @@
 import { PHP_ROOT_PATH } from "@/app/api/config";
-import { sharedCookieRequest } from "@/app/features/userAuth/api/sharedCookieRequest";
+import { sharedCookieFormRequest } from "@/app/api/sharedCookieFormRequest";
 import { cookies } from "next/headers";
 
 export async function POST(req:Request) {
-  return await sharedCookieRequest(req, PHP_ROOT_PATH+"/index/login.php")
+  return await sharedCookieFormRequest(req, PHP_ROOT_PATH+"/index/login.php")
 }
 
 export function GET() {
