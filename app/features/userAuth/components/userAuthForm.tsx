@@ -33,7 +33,7 @@ export const UserAuthForm:React.FC = ()=>{
   async function submitHandler(e:FormEvent<HTMLFormElement>){
     e.preventDefault()
 
-    const endpoit = isRegisterPage ? "register/api" : "login/api"
+    const endpoit = isRegisterPage ? "features/userAuth/register/api" : "features/userAuth/login/api"
     try {
       const formData = new FormData(e.currentTarget)
       const res =await fetch(endpoit, {

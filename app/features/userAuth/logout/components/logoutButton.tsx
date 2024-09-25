@@ -6,7 +6,7 @@ export function LogoutButton(){
   )
 
   async function logoutHandler(){
-    const res = await fetch("/logout/api")
+    const res = await fetch("features/userAuth/logout/api")
     const resData = await res.json()
     console.log(resData);
     if(resData.status === "ok"){

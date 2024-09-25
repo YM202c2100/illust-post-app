@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { LogoutButton } from "./(userAuth)/logout/components/LogoutButton";
 
 export default function Home(){
   return(
@@ -7,7 +6,6 @@ export default function Home(){
       <TempLink pageName="home"/>
       <TempLink pageName="register"/>
       <TempLink pageName="login"/>
-      <LogoutButton/>
     </div>
   )
 }
