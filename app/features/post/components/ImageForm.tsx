@@ -49,7 +49,7 @@ export default function ImageForm() {
 
     if(res.ok){
       const resJson = await res.json();
-      console.log(resJson.message);
+      console.log(resJson);
      
       setPending(false)
     }
