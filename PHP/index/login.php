@@ -38,7 +38,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     
     if($user->pwd === $pwd){
       UserModel::setSession($user);
-      echo json_encode(['status'=>'ok', 'body'=>"{$user->userName}でログインしました"]);
+      echo json_encode(['status'=>'ok', 'body'=>"{$user->user_name}でログインしました"]);
     }else{
       echo json_encode(['status'=>'error', 'body'=>'パスワードが間違っています。']);
       exit();

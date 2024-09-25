@@ -8,11 +8,11 @@ class UsersQuery{
     try {
       $db = new DbConnection();
 
-      $sql = 'INSERT into users (id, pwd, userName) values (:id, :pwd, :userName)';
+      $sql = 'INSERT into users (id, pwd, user_name) values (:id, :pwd, :user_name)';
       $valueMap = [
         ':id' => $user->id,
         ':pwd' => $user->pwd,
-        ':userName' => $user->userName
+        ':user_name' => $user->user_name
       ];
 
       return $db->execute($sql, $valueMap);

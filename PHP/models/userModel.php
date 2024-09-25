@@ -6,12 +6,12 @@ use libs\Validate;
 class UserModel {
   public $id;
   public $pwd;
-  public $userName;
+  public $user_name;
 
   public function __construct($id=null, $pwd=null, $userName=null) {
     $this->id = $id;
     $this->pwd = $pwd;
-    $this->userName = $userName;
+    $this->user_name = $userName;
   }
 
   public static function setSession(UserModel $user){
