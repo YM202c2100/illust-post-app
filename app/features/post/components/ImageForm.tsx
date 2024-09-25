@@ -44,7 +44,8 @@ export default function ImageForm() {
     const formData = new FormData(e.currentTarget)
     const res = await fetch("features/post/api", {
       method:"post",
-      body:formData
+      body:formData,
+      credentials:"include"
     })
 
     if(res.ok){
