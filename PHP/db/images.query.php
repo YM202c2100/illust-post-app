@@ -2,11 +2,14 @@
 namespace db;
 
 class ImagesQuery {
-  public static function insert($fileName):bool{
+  public static function insert($fileName, $userId):bool{
     $db = new DbConnection();
 
-    $sql = 'INSERT into test_images (file_name) values (:file_name)';
-    $isSuccess = $db->execute($sql, [':file_name'=>$fileName]);
+    $sql = 'INSERT into images (file_name, user_id) values (:file_name, :user_id)';
+    $isSuccess = $db->execute($sql, [
+      ':file_name'=>$fileName,
+      ':user_id'=>$userId
+    ]);
 
     return $isSuccess;
   }
