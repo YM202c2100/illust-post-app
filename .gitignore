@@ -40,3 +40,6 @@ README.md
 
 #debug
 debug.php
+
+#public
+public/postedImages/*
