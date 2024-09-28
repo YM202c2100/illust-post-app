@@ -2,11 +2,8 @@
 namespace index\judge;
 
 require_once "../libs/header.php";
-
 require_once "../models/user.model.php";
-require_once "../models/image.model.php";
 require_once "../db/images.query.php";
-require_once "../db/dbConnection.php";
 
 use db\ImagesQuery;
 use models\UserModel;

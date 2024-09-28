@@ -1,6 +1,9 @@
 <?php
 namespace db;
 
+require_once "../db/dbConnection.php";
+require_once "../models/image.model.php";
+
 use modles\ImageModel;
 
 class ImagesQuery {

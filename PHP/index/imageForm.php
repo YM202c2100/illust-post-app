@@ -2,9 +2,7 @@
 namespace index\imageForm;
 
 require_once "../libs/header.php";
-
 require_once '../db/images.query.php';
-require_once '../db/dbConnection.php';
 require_once '../models/user.model.php';
 use db\ImagesQuery;
 use models\UserModel;

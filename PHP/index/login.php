@@ -2,10 +2,8 @@
 namespace index\login;
 
 require_once "../libs/header.php";
-
 require_once "../models/user.model.php";
 require_once "../db/users.query.php";
-require_once "../db/dbConnection.php";
 require_once "../libs/validate.php";
 
 use db\UsersQuery;

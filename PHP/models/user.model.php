@@ -1,6 +1,7 @@
 <?php
 namespace models;
 
+require_once "../libs/validate.php";
 use libs\Validate;
 
 class UserModel {
