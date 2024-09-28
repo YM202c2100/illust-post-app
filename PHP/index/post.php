@@ -1,5 +1,5 @@
 <?php
-namespace index\imageForm;
+namespace index\post;
 
 require_once "../libs/header.php";
 require_once '../db/images.query.php';
