@@ -13,8 +13,6 @@ export const Header = async ()=>{
   })
   const user = await res.json()
 
-  console.log(user);
-  
   return(
     <nav>
       <Link href={"/"} className="mx-2">ホーム</Link>
