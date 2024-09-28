@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 
 require_once '../db/images.query.php';
 require_once '../db/dbConnection.php';
-require_once '../models/userModel.php';
+require_once '../models/user.model.php';
 use db\ImagesQuery;
 use models\UserModel;
 

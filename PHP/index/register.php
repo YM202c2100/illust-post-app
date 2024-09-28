@@ -6,7 +6,7 @@ header('Content-Type: application/json');
 
 session_start();
 
-require_once "../models/userModel.php";
+require_once "../models/user.model.php";
 require_once "../db/users.query.php";
 require_once "../db/dbConnection.php";
 require_once "../libs/validate.php";

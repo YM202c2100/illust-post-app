@@ -5,7 +5,7 @@ header('Access-Control-Allow-Origin: http://localhost:3000');
 header('Access-Control-Allow-Credentials: true');
 header('Content-Type: application/json');
 
-require_once "../models/userModel.php";
+require_once "../models/user.model.php";
 require_once "../db/users.query.php";
 require_once "../db/dbConnection.php";
 require_once "../libs/validate.php";
