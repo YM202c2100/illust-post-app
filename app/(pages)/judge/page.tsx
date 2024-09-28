@@ -1,5 +1,6 @@
 import { PHP_ROOT_PATH } from "@/app/api/config"
 import { getHeaderWithSessId } from "@/app/api/cookieHeader"
+import { ImagesToJudge, ImageToJudgeProps } from "@/app/features/judge/components/imagesToJudge"
 
 export default async function Judge(){
   const reqHeaders = getHeaderWithSessId()
@@ -17,18 +18,11 @@ export default async function Judge(){
   }
 
   const data = await res.json()
+  const images:ImageToJudgeProps[] = data.body
   
   if(data.status === "ok"){
     return(
-      <div>
-        <div>
-          画像1:{data.body[0].file_name}
-        </div>
-  
-        <div>
-          画像2:{data.body[1].file_name}
-        </div>
-      </div>
+      <ImagesToJudge images={images} />
     )
   }else{
     return(
