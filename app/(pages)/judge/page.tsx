@@ -3,8 +3,8 @@ import { getHeaderWithSessId } from "@/app/api/cookieHeader"
 
 export default async function Judge(){
   const reqHeaders = getHeaderWithSessId()
-  
-  const res = await fetch(PHP_ROOT_PATH+"/index/judge.php",{
+
+  const res = await fetch(PHP_ROOT_PATH+"judge.php",{
     method: "get",
     credentials: "include",
     headers: reqHeaders

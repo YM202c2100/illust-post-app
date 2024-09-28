@@ -3,7 +3,7 @@ import { sharedCookieFormRequest } from "@/app/api/sharedCookieFormRequest";
 import { cookies } from "next/headers";
 
 export async function POST(req:Request) {
-  return await sharedCookieFormRequest(req, PHP_ROOT_PATH+"/index/login.php")
+  return await sharedCookieFormRequest(req, PHP_ROOT_PATH+"login.php")
 }
 
 export function GET() {
