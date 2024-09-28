@@ -1,11 +1,8 @@
+import { getHeaderWithSessId } from "./cookieHeader"
+
 export async function sharedCookieFormRequest(req: Request, endpoint:string){
   const formData = await req.formData()
-  const cookie = req.headers.get("cookie")
-
-  const reqHeaders = new Headers()
-  if(cookie){
-    reqHeaders.append("Cookie", cookie)
-  }
+  const reqHeaders = getHeaderWithSessId()
 
   const res = await fetch(endpoint,{
     method:"post",

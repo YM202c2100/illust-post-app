@@ -1,13 +1,9 @@
 import { PHP_ROOT_PATH } from "@/app/api/config"
-import { cookies } from "next/headers"
+import { getHeaderWithSessId } from "@/app/api/cookieHeader"
 
 export default async function Judge(){
-  const sessionId = cookies().get("PHPSESSID")
-  const reqHeaders = new Headers()
-  if(sessionId){
-    reqHeaders.append("Cookie", "PHPSESSID="+sessionId.value)
-  }
-
+  const reqHeaders = getHeaderWithSessId()
+  
   const res = await fetch(PHP_ROOT_PATH+"/index/judge.php",{
     method: "get",
     credentials: "include",
