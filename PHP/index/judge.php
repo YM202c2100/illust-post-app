@@ -6,6 +6,7 @@ require_once "../models/user.model.php";
 require_once "../db/images.query.php";
 
 use db\ImagesQuery;
+use models\ParticipantModel;
 use models\UserModel;
 
 if($_SERVER['REQUEST_METHOD']==="GET"){
@@ -17,7 +18,9 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
   if(empty($user)){
     echo json_encode(['status'=>'error', 'body'=>'ログインしてください']);
     exit();
-  }else if( !($user->submitted) ){
+  }
+  
+  if( !ParticipantModel::isSubmitted() ){
     echo json_encode(['status'=>'error', 'body'=>'自分の作品を提出してください']);
     exit();
   }

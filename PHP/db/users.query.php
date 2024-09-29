@@ -25,13 +25,6 @@ class UsersQuery{
     }
   }
 
-  public static function updateSubmittedStatus($id):bool{
-    $db = new DbConnection();
-
-    $sql = "UPDATE users set submitted = true where id=:id";
-    return $db->execute($sql, [':id'=>$id]);
-  }
-
   public static function fetchById($id){
     $db = new DbConnection();
     
