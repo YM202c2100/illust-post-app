@@ -8,13 +8,11 @@ class UserModel {
   public $id;
   public $pwd;
   public $user_name;
-  public $rank_points;
 
-  public function __construct($id=null, $pwd=null, $userName=null, $rank_points=0) {
+  public function __construct($id=null, $pwd=null, $userName=null) {
     $this->id = $id;
     $this->pwd = $pwd;
     $this->user_name = $userName;
-    $this->rank_points = $rank_points;
   }
 
   public static function setSession(UserModel $user){

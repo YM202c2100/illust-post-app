@@ -3,9 +3,12 @@ namespace index\judge;
 
 require_once "../libs/header.php";
 require_once "../models/user.model.php";
+require_once "../models/participant_info.model.php";
+require_once "../db/participants_info.query.php";
 require_once "../db/images.query.php";
 
 use db\ImagesQuery;
+use db\ParticipantsQuery;
 use models\ParticipantModel;
 use models\UserModel;
 
@@ -26,7 +29,8 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
   }
   
   // ユーザーが作品を提出済みなら、二つの画像を返す
-  $images = ImagesQuery::fetchImagesToJudge($user->rank_points);
+  $rankPointsOfEvalator = ParticipantsQuery::getRankPointsOf($user);
+  $images = ImagesQuery::fetchImagesToJudge($rankPointsOfEvalator);
   if(count($images) !== 2){
     echo json_encode(['status'=>'error', 'body'=>'レコード不足']);
     exit();

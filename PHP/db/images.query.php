@@ -25,11 +25,11 @@ class ImagesQuery {
     // まだ比較されていない作品を優先
     $sql = "SELECT img.id, img.file_name 
             from images as img 
-            inner join users as u 
-              on img.user_id = u.id
-            where u.rank_points > :rankPointsOfEvalator
-            order by img.judged asc,
-              u.rank_points asc
+            inner join participants_info as p_info 
+              on img.user_id = p_info.user_id
+            where p_info.rank_points > :rankPointsOfEvalator
+            order by p_info.judged_count asc,
+              p_info.rank_points asc 
             limit 2";
 
     return $db->select($sql, [':rankPointsOfEvalator'=>$rankPointsOfEvalator], ImageModel::class);
