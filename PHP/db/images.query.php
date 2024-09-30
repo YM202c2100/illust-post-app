@@ -27,7 +27,7 @@ class ImagesQuery {
             from images as img 
             inner join participants_info as p_info 
               on img.user_id = p_info.user_id
-            where p_info.rank_points > :rankPointsOfEvalator
+            where p_info.rank_points >= :rankPointsOfEvalator
             order by p_info.judged_count asc,
               p_info.rank_points asc 
             limit 2";
