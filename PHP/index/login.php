@@ -6,7 +6,9 @@ require_once "../models/user.model.php";
 require_once "../db/users.query.php";
 require_once "../libs/validate.php";
 
+use db\ParticipantsQuery;
 use db\UsersQuery;
+use models\ParticipantModel;
 use models\UserModel;
 
 
@@ -34,6 +36,10 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     
     if($user->pwd === $pwd){
       UserModel::setSession($user);
+
+      $isSubmitted = ParticipantsQuery::getSubmitted($user->id);
+      ParticipantModel::setSubmittedSession($isSubmitted);
+
       echo json_encode(['status'=>'ok', 'body'=>"{$user->user_name}でログインしました"]);
     }else{
       echo json_encode(['status'=>'error', 'body'=>'パスワードが間違っています。']);

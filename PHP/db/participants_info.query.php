@@ -9,6 +9,14 @@ use models\ParticipantModel;
 use models\UserModel;
 
 class ParticipantsQuery {
+  public static function getSubmitted($userId){
+    $db = new DbConnection();
+
+    $sql = "SELECT submitted from participants_info where user_id = :user_id";
+    $participant = $db->select($sql, [':user_id'=>$userId], ParticipantModel::class);
+    return $participant->submitted;
+  }
+
   public static function updateSubmittedStatus($userId):bool{
     $db = new DbConnection();
 
