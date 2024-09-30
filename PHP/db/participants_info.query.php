@@ -49,4 +49,20 @@ class ParticipantsQuery {
 
     return $rankPointsOfUsers;
   }
+
+  public static function updateRankPointAndJudgedCount($updatedRPMap){
+    $db = new DbConnection();
+
+    $sql = "UPDATE participants_info 
+            set rank_points = :rank_points,
+              judged_count = judged_count+1
+            where user_id = :user_id";
+
+    foreach ($updatedRPMap as $userId => $newPoints) {
+      $db->execute($sql, [
+        "user_id" => $userId,
+        "rank_points" => $newPoints
+      ]);
+    }
+  }
 }

@@ -23,7 +23,7 @@ class ImagesQuery {
     $db = new DbConnection();
     // 評価する人より多くのポイントをもつユーザーの作品を2つ取得
     // まだ比較されていない作品を優先
-    $sql = "SELECT img.id, img.file_name 
+    $sql = "SELECT img.user_id, img.file_name 
             from images as img 
             inner join participants_info as p_info 
               on img.user_id = p_info.user_id

@@ -11,5 +11,7 @@ export async function POST(req:Request) {
     }
   })
 
-  return new Response(null, {status:res.status})
+  const resBody = await res.json()
+
+  return new Response(resBody, {status:res.status})
 }
