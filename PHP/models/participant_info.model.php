@@ -2,10 +2,10 @@
 namespace models;
 
 class ParticipantModel{
-  private $user_id;
+  public $user_id;
   public $rank_points;
-  private $submitted;
-  private $judged_count;
+  public $submitted;
+  public $judged_count;
 
   public static function isSubmitted(){
     $submitted = $_SESSION['submitted'] ?? null;

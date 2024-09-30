@@ -15,7 +15,7 @@ class SingleTonPDO {
 }
 
 class DbConnection {
-  private $conn;
+  private PDO $conn;
   public function __construct(
     $host='localhost', $port='8889', $dbname='illust_post', 
     $username='test_user', $password='pwd') 
@@ -50,6 +50,12 @@ class DbConnection {
     }else{
       return $records;
     }
+  }
+
+  public function fetchAllInArray($sql, $valArray, $class){
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute($valArray);
+    return $stmt->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
   }
 
   public static function bindValues($preparedStmt, $valueMap){
