@@ -5,6 +5,8 @@ require_once "../libs/header.php";
 require_once '../db/images.query.php';
 require_once '../db/participants_info.query.php';
 require_once '../models/user.model.php';
+require_once '../models/participant_info.model.php';
+
 use db\ImagesQuery;
 use db\ParticipantsQuery;
 use models\ParticipantModel;
