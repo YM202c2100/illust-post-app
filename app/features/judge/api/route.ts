@@ -14,7 +14,7 @@ export async function POST(req:Request) {
 
   const resBody = await res.json()
 
-  return new Response(resBody, {status:res.status})
+  return new Response(JSON.stringify(resBody), {status:res.status})
 }
 
 async function GET() {
