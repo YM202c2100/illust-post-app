@@ -14,11 +14,6 @@ class ParticipantsQuery {
 
     $sql = "UPDATE participants_info set submitted = true where user_id=:user_id";
     $isSuccess = $db->execute($sql, [':user_id'=>$userId]);
-
-    if($isSuccess){
-      $_SESSION['submitted'] = true;
-    }
-
     return $isSuccess;
   }
 

@@ -7,6 +7,7 @@ require_once '../db/participants_info.query.php';
 require_once '../models/user.model.php';
 use db\ImagesQuery;
 use db\ParticipantsQuery;
+use models\ParticipantModel;
 use models\UserModel;
 
 session_start();
@@ -38,6 +39,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     http_response_code(500);
     echo json_encode(['status'=>'error', 'body'=>'投稿失敗']);
   }
+  ParticipantModel::setSubmittedSession(true);
   
   // move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
   echo json_encode(['status'=>'ok', 'body'=>"投稿成功"]);

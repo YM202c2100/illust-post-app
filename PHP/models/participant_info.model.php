@@ -11,4 +11,8 @@ class ParticipantModel{
     $submitted = $_SESSION['submitted'] ?? null;
     return ($submitted === true);
   }
+
+  public static function setSubmittedSession($boolean){
+    $_SESSION['submitted'] = $boolean;
+  }
 }
