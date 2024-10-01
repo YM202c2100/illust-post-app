@@ -36,6 +36,7 @@ export default async function Ranking(){
         <div className="grid grid-cols-2">
           <img src={`/postedImages/${data.body.myImageSrc}`}/>
           <div>
+            <div>RP:{data.body.myRankPoints}</div>
             <div>順位:{data.body.rankPosition}</div>
             <div>上位:{Math.round(data.body.percentail)}%</div>
           </div>
