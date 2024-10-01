@@ -18,7 +18,7 @@ class UsersQuery{
         ':user_name' => $user->user_name
       ];
 
-      return $db->bindExecute($sql, $valueMap);
+      return $db->execute($sql, $valueMap);
 
     } catch (\Throwable $th) {
       throw $th->getMessage();
@@ -29,7 +29,7 @@ class UsersQuery{
     $db = new DbConnection();
     
     $sql = "SELECT * from users where id=:id";
-    $user = $db->select($sql, [':id'=>$id], UserModel::class);
+    $user = $db->fetch($sql, [':id'=>$id], UserModel::class, fetchOne:true);
     
     return $user;
   }

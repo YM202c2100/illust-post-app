@@ -15,15 +15,15 @@ class CompetitorsQuery {
     $db = new DbConnection();
 
     $sql = "SELECT submitted from competitors where user_id = :user_id";
-    $competitor = $db->select($sql, [':user_id'=>$userId], CompetitorModel::class);
-    return $competitor->submitted;
+    $isSubmitted = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
+    return $isSubmitted;
   }
 
   public static function updateSubmittedStatus($userId):bool{
     $db = new DbConnection();
 
     $sql = "UPDATE competitors set submitted = true where user_id=:user_id";
-    $isSuccess = $db->bindExecute($sql, [':user_id'=>$userId]);
+    $isSuccess = $db->execute($sql, [':user_id'=>$userId]);
     return $isSuccess;
   }
 
@@ -34,8 +34,8 @@ class CompetitorsQuery {
             from illust_post.competitors as comptr 
             where comptr.user_id = :user_id";
     
-    $rankPointStore = $db->select($sql, [':user_id'=>$user->id], CompetitorModel::class);
-    return $rankPointStore->rank_points;
+    $rankPoints = $db->fetch($sql, [':user_id'=>$user->id], fetchOne:true);
+    return $rankPoints;
   }
 
   public static function getRankPointsOfUsers($userIdList){
@@ -45,12 +45,7 @@ class CompetitorsQuery {
     $sql = "SELECT user_id, rank_points from competitors 
             where user_id in ($placeHolder)";
     
-    $competitors = $db->fetchAllInArray($sql, $userIdList, CompetitorModel::class);
-
-    $rankPointsOfUsers = [];
-    foreach ($competitors as $competitor) {
-      $rankPointsOfUsers[$competitor->user_id] = $competitor->rank_points;
-    }
+    $rankPointsOfUsers = $db->fetch($sql, $userIdList, questionPlaceHolder:true, fetchKeyPair:true);
 
     return $rankPointsOfUsers;
   }
@@ -64,7 +59,7 @@ class CompetitorsQuery {
             where user_id = :user_id";
 
     foreach ($updatedRPMap as $userId => $newPoints) {
-      $db->bindExecute($sql, [
+      $db->execute($sql, [
         "user_id" => $userId,
         "rank_points" => $newPoints
       ]);
@@ -80,15 +75,15 @@ class CompetitorsQuery {
               from competitors 
               where user_id = :user_id
             )";
-    $result = $db->select($sql, [':user_id'=>$userId], RankingModel::class);
-    return $result->rankPosition;
+    $rankPosition = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
+    return $rankPosition;
   }
 
   public static function getTotalNumCompetitors(){
     $db = new DbConnection();
     $sql = "SELECT count(*) as totalNumCompetitors from competitors";
 
-    $result = $db->select($sql, [], RankingModel::class);
-    return $result->totalNumCompetitors;
+    $totalNumCompetitors = $db->fetch($sql, fetchOne:true);
+    return $totalNumCompetitors;
   }
 }

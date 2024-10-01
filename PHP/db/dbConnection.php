@@ -24,38 +24,22 @@ class DbConnection {
     $this->conn = SingleTonPDO::getInstance($dsn, $username, $password);
   }
 
-  public function bindExecute($sql, $valueMap, $returnObject=false){
-    $preparedStmt = $this->conn->prepare($sql);
-    if(isset($valueMap)){
-      DbConnection::bindValues($preparedStmt, $valueMap);
+  // 単品では値を取得しないDB操作で使用
+  public function execute($sql, $values=[], $questionPlaceHolder=false, $returnBoolean=true){
+    $pstmt = $this->conn->prepare($sql);
+
+    if($questionPlaceHolder){ // 疑問符プレースホルダーの場合
+      $isSuccess = $pstmt->execute($values);
+    }else{ // 名前付きプレースホルダーの場合
+      DbConnection::bindValues($pstmt, $values);
+      $isSuccess = $pstmt->execute();
     }
-    $isSuccess = $preparedStmt->execute();
-    
-    if($returnObject){
-      return $preparedStmt;
-    }else{
+
+    if($returnBoolean){
       return $isSuccess;
-    }
-  }
-
-  // 一つだけ取得した場合->配列内の一つ目の'要素'を返す
-  // 複数取得した場合->取得した全てのレコードの'配列'を返す
-  // なにも取得できなかった場合->空の'配列'を返す
-  public function select($sql, $valueMap, $class){
-    $executedStmt = $this->bindExecute($sql, $valueMap, true);
-    $records = $executedStmt->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
-    
-    if(count($records)===1){
-      return $records[0];
     }else{
-      return $records;
+      return $pstmt;
     }
-  }
-
-  public function fetchAllInArray($sql, $valArray, $class){
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute($valArray);
-    return $stmt->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
   }
 
   public static function bindValues($preparedStmt, $valueMap){
@@ -64,4 +48,22 @@ class DbConnection {
     }
   }
 
+  public function fetch($sql, $values=[], $outputModel=null, $questionPlaceHolder=false, $fetchKeyPair=false, $fetchOne=false){
+    $excutedStmt = $this->execute($sql, $values, $questionPlaceHolder, returnBoolean:false);
+    
+    //　出力形式を指定
+    if($outputModel){
+      $records = $excutedStmt->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $outputModel);
+    }else if($fetchKeyPair){
+      $records = $excutedStmt->fetchAll(PDO::FETCH_KEY_PAIR);
+    }else{
+      $records = $excutedStmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    if($fetchOne){
+      return $records[0];
+    }else{
+      return $records;
+    }
+  }
 }
