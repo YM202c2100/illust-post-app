@@ -28,12 +28,17 @@ export default async function Ranking(){
       //上位3作品
       <div>
         <div>ranking</div>
-        <div>順位:{data.body.rankPosition}</div>
-        <div>上位:{Math.round(data.body.percentail)}%</div>
         <div className="grid grid-cols-3">
           <Top3Image image={top3[0]}/>
           <Top3Image image={top3[1]}/>
           <Top3Image image={top3[2]}/>
+        </div>
+        <div className="grid grid-cols-2">
+          <img src={`/postedImages/${data.body.myImageSrc}`}/>
+          <div>
+            <div>順位:{data.body.rankPosition}</div>
+            <div>上位:{Math.round(data.body.percentail)}%</div>
+          </div>
         </div>
       </div>
     )

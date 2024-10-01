@@ -47,4 +47,12 @@ class ImagesQuery {
             limit 3";
     return $db->fetch($sql, outputModel:ImageModel::class);
   }
+
+  public static function fetchNameByUserId($userId):ImageModel{
+    $db = new DbConnection();
+    $sql = "SELECT file_name
+              from images
+            where user_id = :user_id";
+    return $db->fetch($sql, [':user_id'=>$userId], ImageModel::class, fetchOne:true);
+  }
 }

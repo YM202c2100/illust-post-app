@@ -31,6 +31,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
   $ranking->totalNumCompetitors = CompetitorsQuery::getTotalNumCompetitors();
   $ranking->rankPosition = CompetitorsQuery::getRankPosition($user->id);
   $ranking->top3Images = ImagesQuery::fetchImagesTop3();
+  $ranking->myImageSrc = ImagesQuery::fetchNameByUserId($user->id)->file_name;
 
   $ranking->calcPlacementPercentail();
 
