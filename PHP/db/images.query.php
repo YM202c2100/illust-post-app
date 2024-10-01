@@ -38,10 +38,10 @@ class ImagesQuery {
   public static function fetchImagesTop3(){
     $db = new DbConnection();
     $sql = "SELECT img.file_name, u.user_name 
-            from illust_post.images as img
-              inner join illust_post.competitors as comptr
+            from images as img
+              inner join competitors as comptr
               	on img.user_id = comptr.user_id
-              inner join illust_post.users u
+              inner join users u
               	on img.user_id = u.id
             order by comptr.rank_points desc
             limit 3";
