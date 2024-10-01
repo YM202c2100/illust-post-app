@@ -3,26 +3,26 @@ namespace db;
 
 require_once "../db/dbConnection.php";
 require_once "../db/libs/helper.php";
-require_once "../db/participants_info.query.php";
+require_once "../db/competitors.query.php";
 require_once "../models/user.model.php";
 require_once "../models/ranking.model.php";
-use models\ParticipantModel;
+use models\CompetitorModel;
 use models\RankingModel;
 use models\UserModel;
 
-class ParticipantsQuery {
+class CompetitorsQuery {
   public static function getSubmitted($userId){
     $db = new DbConnection();
 
-    $sql = "SELECT submitted from participants_info where user_id = :user_id";
-    $participant = $db->select($sql, [':user_id'=>$userId], ParticipantModel::class);
-    return $participant->submitted;
+    $sql = "SELECT submitted from competitors where user_id = :user_id";
+    $competitor = $db->select($sql, [':user_id'=>$userId], CompetitorModel::class);
+    return $competitor->submitted;
   }
 
   public static function updateSubmittedStatus($userId):bool{
     $db = new DbConnection();
 
-    $sql = "UPDATE participants_info set submitted = true where user_id=:user_id";
+    $sql = "UPDATE competitors set submitted = true where user_id=:user_id";
     $isSuccess = $db->execute($sql, [':user_id'=>$userId]);
     return $isSuccess;
   }
@@ -30,11 +30,11 @@ class ParticipantsQuery {
   public static function getRankPointsOf(UserModel $user){
     $db = new DbConnection();
 
-    $sql = "SELECT p_info.rank_points 
-            from illust_post.participants_info as p_info 
-            where p_info.user_id = :user_id";
+    $sql = "SELECT comptr.rank_points 
+            from illust_post.competitors as comptr 
+            where comptr.user_id = :user_id";
     
-    $rankPointStore = $db->select($sql, [':user_id'=>$user->id], ParticipantModel::class);
+    $rankPointStore = $db->select($sql, [':user_id'=>$user->id], CompetitorModel::class);
     return $rankPointStore->rank_points;
   }
 
@@ -42,14 +42,14 @@ class ParticipantsQuery {
     $db = new DbConnection();
 
     $placeHolder = generatePlaceholderByLength(count($userIdList));
-    $sql = "SELECT user_id, rank_points from participants_info 
+    $sql = "SELECT user_id, rank_points from competitors 
             where user_id in ($placeHolder)";
     
-    $participants = $db->fetchAllInArray($sql, $userIdList, ParticipantModel::class);
+    $competitors = $db->fetchAllInArray($sql, $userIdList, CompetitorModel::class);
 
     $rankPointsOfUsers = [];
-    foreach ($participants as $participant) {
-      $rankPointsOfUsers[$participant->user_id] = $participant->rank_points;
+    foreach ($competitors as $competitor) {
+      $rankPointsOfUsers[$competitor->user_id] = $competitor->rank_points;
     }
 
     return $rankPointsOfUsers;
@@ -58,7 +58,7 @@ class ParticipantsQuery {
   public static function updateRankPointAndJudgedCount($updatedRPMap){
     $db = new DbConnection();
 
-    $sql = "UPDATE participants_info 
+    $sql = "UPDATE competitors 
             set rank_points = :rank_points,
               judged_count = judged_count+1
             where user_id = :user_id";
@@ -74,21 +74,21 @@ class ParticipantsQuery {
   public static function getRankPosition($userId){
     $db = new DbConnection();
     $sql = "SELECT count(*)+1 as rankPosition
-            from participants_info
+            from competitors
             where rank_points > (
               SELECT rank_points 
-              from participants_info 
+              from competitors 
               where user_id = :user_id
             )";
     $result = $db->select($sql, [':user_id'=>$userId], RankingModel::class);
     return $result->rankPosition;
   }
 
-  public static function getTotalNumParticipants(){
+  public static function getTotalNumCompetitors(){
     $db = new DbConnection();
-    $sql = "SELECT count(*) as totalNumParticipants from participants_info";
+    $sql = "SELECT count(*) as totalNumCompetitors from competitors";
 
     $result = $db->select($sql, [], RankingModel::class);
-    return $result->totalNumParticipants;
+    return $result->totalNumCompetitors;
   }
 }

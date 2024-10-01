@@ -4,13 +4,13 @@ namespace index\judge;
 require_once "../libs/header.php";
 require_once "../libs/helper.php";
 require_once "../models/user.model.php";
-require_once "../models/participant_info.model.php";
-require_once "../db/participants_info.query.php";
+require_once "../models/competitor.model.php";
+require_once "../db/competitors.query.php";
 require_once "../db/images.query.php";
 
 use db\ImagesQuery;
-use db\ParticipantsQuery;
-use models\ParticipantModel;
+use db\CompetitorsQuery;
+use models\CompetitorModel;
 use models\UserModel;
 
 if($_SERVER['REQUEST_METHOD']==="GET"){
@@ -24,13 +24,13 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
     exit();
   }
   
-  if( !ParticipantModel::isSubmitted() ){
+  if( !CompetitorModel::isSubmitted() ){
     echo json_encode(['status'=>'error', 'body'=>'自分の作品を提出してください']);
     exit();
   }
   
   // ユーザーが作品を提出済みなら、二つの画像を返す
-  $rankPointsOfEvalator = ParticipantsQuery::getRankPointsOf($user);
+  $rankPointsOfEvalator = CompetitorsQuery::getRankPointsOf($user);
   $images = ImagesQuery::fetchImagesToJudge($rankPointsOfEvalator);
   if( !is_array($images) || (count($images) !== 2) ){
     echo json_encode(['status'=>'error', 'body'=>'レコード不足']);
@@ -51,14 +51,14 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
   }
 
   $updatedRankPoints = getUpdatedRankPoints($winnerId, $loserId);
-  ParticipantsQuery::updateRankPointAndJudgedCount($updatedRankPoints);
+  CompetitorsQuery::updateRankPointAndJudgedCount($updatedRankPoints);
 
   echo json_encode(['status'=>'ok', 'body'=>'更新されました']);
 }
 
 
 function getUpdatedRankPoints($winnerId, $loserId){
-  $rankPoints = ParticipantsQuery::getRankPointsOfUsers([$winnerId, $loserId]);
+  $rankPoints = CompetitorsQuery::getRankPointsOfUsers([$winnerId, $loserId]);
   return calcRankPointFluctuation($rankPoints, $winnerId, $loserId);
 }
 

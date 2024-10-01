@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-class ParticipantModel{
+class CompetitorModel{
   public $user_id;
   public $rank_points;
   public $submitted;

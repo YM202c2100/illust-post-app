@@ -3,10 +3,10 @@ namespace models;
 
 class RankingModel {
   public $rankPosition;
-  public $totalNumParticipants;
+  public $totalNumCompetitors;
   public $percentail;
 
   public function calcPlacementPercentail(){
-    $this->percentail = $this->rankPosition / $this->totalNumParticipants * 100;
+    $this->percentail = $this->rankPosition / $this->totalNumCompetitors * 100;
   }
 }

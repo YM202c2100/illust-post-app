@@ -4,10 +4,10 @@ namespace index\ranking;
 require_once "../libs/header.php";
 require_once "../models/user.model.php";
 require_once "../models/ranking.model.php";
-require_once "../models/participant_info.model.php";
-require_once "../db/participants_info.query.php";
-use db\ParticipantsQuery;
-use models\ParticipantModel;
+require_once "../models/competitor.model.php";
+require_once "../db/competitors.query.php";
+use db\CompetitorsQuery;
+use models\CompetitorModel;
 use models\RankingModel;
 use models\UserModel;
 
@@ -21,13 +21,13 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     exit();
   }
 
-  if( !ParticipantModel::isSubmitted() ){
+  if( !CompetitorModel::isSubmitted() ){
     echo json_encode(['status'=>'error', 'body'=>'作品を投稿してください']);
     exit(); 
   }
   $ranking = new RankingModel();
-  $ranking->totalNumParticipants = ParticipantsQuery::getTotalNumParticipants();
-  $ranking->rankPosition = ParticipantsQuery::getRankPosition($user->id);
+  $ranking->totalNumCompetitors = CompetitorsQuery::getTotalNumCompetitors();
+  $ranking->rankPosition = CompetitorsQuery::getRankPosition($user->id);
 
   $ranking->calcPlacementPercentail();
 

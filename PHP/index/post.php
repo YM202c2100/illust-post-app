@@ -3,13 +3,13 @@ namespace index\post;
 
 require_once "../libs/header.php";
 require_once '../db/images.query.php';
-require_once '../db/participants_info.query.php';
+require_once '../db/competitors.query.php';
 require_once '../models/user.model.php';
-require_once '../models/participant_info.model.php';
+require_once '../models/competitor.model.php';
 
 use db\ImagesQuery;
-use db\ParticipantsQuery;
-use models\ParticipantModel;
+use db\CompetitorsQuery;
+use models\CompetitorModel;
 use models\UserModel;
 
 session_start();
@@ -36,12 +36,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     echo json_encode(['status'=>'error', 'body'=>'投稿失敗']);
   }
 
-  $isSuccess = ParticipantsQuery::updateSubmittedStatus($user->id);
+  $isSuccess = CompetitorsQuery::updateSubmittedStatus($user->id);
   if(!$isSuccess){
     http_response_code(500);
     echo json_encode(['status'=>'error', 'body'=>'投稿失敗']);
   }
-  ParticipantModel::setSubmittedSession(true);
+  CompetitorModel::setSubmittedSession(true);
   
   // move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
   echo json_encode(['status'=>'ok', 'body'=>"投稿成功"]);

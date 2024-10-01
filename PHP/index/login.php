@@ -4,13 +4,13 @@ namespace index\login;
 require_once "../libs/header.php";
 require_once "../libs/validate.php";
 require_once "../db/users.query.php";
-require_once "../db/participants_info.query.php";
+require_once "../db/competitors.query.php";
 require_once "../models/user.model.php";
-require_once "../models/participant_info.model.php";
+require_once "../models/competitor.model.php";
 
-use db\ParticipantsQuery;
+use db\CompetitorsQuery;
 use db\UsersQuery;
-use models\ParticipantModel;
+use models\CompetitorModel;
 use models\UserModel;
 
 
@@ -39,8 +39,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     if($user->pwd === $pwd){
       UserModel::setSession($user);
 
-      $isSubmitted = ParticipantsQuery::getSubmitted($user->id);
-      ParticipantModel::setSubmittedSession($isSubmitted);
+      $isSubmitted = CompetitorsQuery::getSubmitted($user->id);
+      CompetitorModel::setSubmittedSession($isSubmitted);
 
       echo json_encode(['status'=>'ok', 'body'=>"{$user->user_name}でログインしました"]);
     }else{
