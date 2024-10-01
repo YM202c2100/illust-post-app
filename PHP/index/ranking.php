@@ -6,7 +6,9 @@ require_once "../models/user.model.php";
 require_once "../models/ranking.model.php";
 require_once "../models/competitor.model.php";
 require_once "../db/competitors.query.php";
+require_once "../db/images.query.php";
 use db\CompetitorsQuery;
+use db\ImagesQuery;
 use models\CompetitorModel;
 use models\RankingModel;
 use models\UserModel;
@@ -28,6 +30,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
   $ranking = new RankingModel();
   $ranking->totalNumCompetitors = CompetitorsQuery::getTotalNumCompetitors();
   $ranking->rankPosition = CompetitorsQuery::getRankPosition($user->id);
+  $ranking->top3Images = ImagesQuery::fetchImagesTop3();
 
   $ranking->calcPlacementPercentail();
 

@@ -34,4 +34,17 @@ class ImagesQuery {
 
     return $db->fetch($sql, [':rankPointsOfEvalator'=>$rankPointsOfEvalator], ImageModel::class);
   }
+
+  public static function fetchImagesTop3(){
+    $db = new DbConnection();
+    $sql = "SELECT img.file_name, u.user_name 
+            from illust_post.images as img
+              inner join illust_post.competitors as comptr
+              	on img.user_id = comptr.user_id
+              inner join illust_post.users u
+              	on img.user_id = u.id
+            order by comptr.rank_points desc
+            limit 3";
+    return $db->fetch($sql, outputModel:ImageModel::class);
+  }
 }
