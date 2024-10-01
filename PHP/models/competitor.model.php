@@ -9,7 +9,7 @@ class CompetitorModel{
 
   public static function isSubmitted(){
     $isSubmitted = $_SESSION['submitted'] ?? null;
-    return ($isSubmitted === 1);
+    return ($isSubmitted == true);
   }
 
   public static function setSubmittedSession($boolean){
