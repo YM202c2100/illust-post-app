@@ -23,7 +23,7 @@ class CompetitorsQuery {
     $db = new DbConnection();
 
     $sql = "UPDATE competitors set submitted = true where user_id=:user_id";
-    $isSuccess = $db->execute($sql, [':user_id'=>$userId]);
+    $isSuccess = $db->bindExecute($sql, [':user_id'=>$userId]);
     return $isSuccess;
   }
 
@@ -64,7 +64,7 @@ class CompetitorsQuery {
             where user_id = :user_id";
 
     foreach ($updatedRPMap as $userId => $newPoints) {
-      $db->execute($sql, [
+      $db->bindExecute($sql, [
         "user_id" => $userId,
         "rank_points" => $newPoints
       ]);

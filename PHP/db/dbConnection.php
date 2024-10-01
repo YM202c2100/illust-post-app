@@ -24,7 +24,7 @@ class DbConnection {
     $this->conn = SingleTonPDO::getInstance($dsn, $username, $password);
   }
 
-  public function execute($sql, $valueMap, $returnObject=false){
+  public function bindExecute($sql, $valueMap, $returnObject=false){
     $preparedStmt = $this->conn->prepare($sql);
     if(isset($valueMap)){
       DbConnection::bindValues($preparedStmt, $valueMap);
@@ -42,7 +42,7 @@ class DbConnection {
   // 複数取得した場合->取得した全てのレコードの'配列'を返す
   // なにも取得できなかった場合->空の'配列'を返す
   public function select($sql, $valueMap, $class){
-    $executedStmt = $this->execute($sql, $valueMap, true);
+    $executedStmt = $this->bindExecute($sql, $valueMap, true);
     $records = $executedStmt->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class);
     
     if(count($records)===1){

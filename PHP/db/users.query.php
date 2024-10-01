@@ -18,7 +18,7 @@ class UsersQuery{
         ':user_name' => $user->user_name
       ];
 
-      return $db->execute($sql, $valueMap);
+      return $db->bindExecute($sql, $valueMap);
 
     } catch (\Throwable $th) {
       throw $th->getMessage();
