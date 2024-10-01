@@ -7,6 +7,7 @@ export default function Home(){
       <TempLink pageName="register"/>
       <TempLink pageName="login"/>
       <TempLink pageName="judge"/>
+      <TempLink pageName="ranking"/>
     </div>
   )
 }

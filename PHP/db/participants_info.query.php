@@ -5,7 +5,9 @@ require_once "../db/dbConnection.php";
 require_once "../db/libs/helper.php";
 require_once "../db/participants_info.query.php";
 require_once "../models/user.model.php";
+require_once "../models/ranking.model.php";
 use models\ParticipantModel;
+use models\RankingModel;
 use models\UserModel;
 
 class ParticipantsQuery {
@@ -67,5 +69,26 @@ class ParticipantsQuery {
         "rank_points" => $newPoints
       ]);
     }
+  }
+
+  public static function getRankPosition($userId){
+    $db = new DbConnection();
+    $sql = "SELECT count(*)+1 as rankPosition
+            from participants_info
+            where rank_points > (
+              SELECT rank_points 
+              from participants_info 
+              where user_id = :user_id
+            )";
+    $result = $db->select($sql, [':user_id'=>$userId], RankingModel::class);
+    return $result->rankPosition;
+  }
+
+  public static function getTotalNumParticipants(){
+    $db = new DbConnection();
+    $sql = "SELECT count(*) as totalNumParticipants from participants_info";
+
+    $result = $db->select($sql, [], RankingModel::class);
+    return $result->totalNumParticipants;
   }
 }
