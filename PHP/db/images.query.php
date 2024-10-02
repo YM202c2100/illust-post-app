@@ -5,6 +5,7 @@ require_once "../db/dbConnection.php";
 require_once "../models/image.model.php";
 
 use modles\ImageModel;
+use modles\ImageWithRP;
 
 class ImagesQuery {
   public static function insert($fileName, $userId):bool{
@@ -54,5 +55,18 @@ class ImagesQuery {
               from images
             where user_id = :user_id";
     return $db->fetch($sql, [':user_id'=>$userId], ImageModel::class, fetchOne:true);
+  }
+
+  public static function fetchHigherRankThan($rankPoints){
+    $db = new DbConnection();
+    $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
+            from users as u
+              inner join images as img
+                on u.id = img.user_id
+              inner join competitors as comptr
+                on u.id = comptr.user_id
+            where comptr.rank_points > :rank_points + 50
+            limit 5";
+    return $db->fetch($sql, ['rank_points'=>$rankPoints], ImageWithRP::class);
   }
 }

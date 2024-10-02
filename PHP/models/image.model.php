@@ -7,3 +7,7 @@ class ImageModel {
   public $user_id;
   public $user_name;
 }
+
+class ImageWithRP extends ImageModel{
+  public $rank_points;
+}

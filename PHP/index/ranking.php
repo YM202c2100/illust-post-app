@@ -33,6 +33,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
   $ranking->top3Images = ImagesQuery::fetchImagesTop3();
   $ranking->myImageSrc = ImagesQuery::fetchNameByUserId($user->id)->file_name;
   $ranking->myRankPoints = CompetitorsQuery::getRankPointsOf($user);
+  $ranking->higherRankImages = ImagesQuery::fetchHigherRankThan($ranking->myRankPoints);
 
   $ranking->calcPlacementPercentail();
 
