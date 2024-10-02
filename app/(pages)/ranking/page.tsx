@@ -20,10 +20,8 @@ export default async function Ranking(){
       <div>{data.body}</div>
     )
   }else{
-    console.log(data);
     const top3 = data.body.top3Images
     const higher = data.body.higherRankImages
-    console.log(higher);
     
     return(
       //上位何%か ランク 
