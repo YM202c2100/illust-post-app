@@ -1,8 +1,8 @@
-import { judgeApiGetRequest } from "@/app/features/judge/api/route"
+import { GET } from "@/app/api/getRequest";
 import { ImagesToJudge, ImageToJudgeProps } from "@/app/features/judge/components/imagesToJudge"
 
 export default async function Judge(){
-  const res = await judgeApiGetRequest()
+  const res = await GET("judge")
   if(!res.ok){
     return <div>通信失敗</div>;
   }
