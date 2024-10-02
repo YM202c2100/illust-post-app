@@ -38,7 +38,7 @@ class CompetitorsQuery {
     return $rankPoints;
   }
 
-  public static function getRankPointsOfUsers($userIdList){
+  public static function getAssocRankPointsOfUsers($userIdList){
     $db = new DbConnection();
 
     $placeHolder = generatePlaceholderByLength(count($userIdList));
