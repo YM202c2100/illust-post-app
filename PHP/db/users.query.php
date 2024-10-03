@@ -1,7 +1,7 @@
 <?php
 namespace db;
 
-require_once "../db/dbConnection.php";
+require_once "../db/libs/dbConnection.php";
 require_once "../models/user.model.php";
 
 use models\UserModel;
