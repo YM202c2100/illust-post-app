@@ -14,9 +14,7 @@ use models\CompetitorModel;
 use models\UserModel;
 
 if($_SERVER['REQUEST_METHOD']==="GET"){
-  if(isset($_COOKIE["PHPSESSID"])){
-    session_start();
-  }
+  \libs\require_session();
   
   $user = UserModel::getFromSession();
   if(empty($user)){

@@ -2,6 +2,7 @@
 namespace index\ranking;
 
 require_once "../libs/header.php";
+require_once "../libs/helper.php";
 require_once "../models/user.model.php";
 require_once "../models/ranking.model.php";
 require_once "../models/competitor.model.php";
@@ -14,9 +15,7 @@ use models\RankingModel;
 use models\UserModel;
 
 if($_SERVER['REQUEST_METHOD'] === "GET"){
-  if(isset($_COOKIE["PHPSESSID"])){
-    session_start();
-  }
+  \libs\require_session();
   $user = UserModel::getFromSession();
   if(empty($user)){
     echo json_encode(['status'=>'error', 'body'=>'ログインしてください']);
