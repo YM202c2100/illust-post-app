@@ -3,7 +3,7 @@
 // そうでないなら、空の配列を返す
 namespace index\getUser;
 
-require_once "../libs/header.php";
+require_once __DIR__."/../libs/header.php";
 
 if(empty($_COOKIE['PHPSESSID'])){
   echo json_encode([]);

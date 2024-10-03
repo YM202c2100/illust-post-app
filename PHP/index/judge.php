@@ -1,12 +1,12 @@
 <?php
 namespace index\judge;
 
-require_once "../libs/header.php";
-require_once "../libs/helper.php";
-require_once "../models/user.model.php";
-require_once "../models/competitor.model.php";
-require_once "../db/competitors.query.php";
-require_once "../db/images.query.php";
+require_once __DIR__."/../libs/header.php";
+require_once __DIR__."/../libs/helper.php";
+require_once __DIR__."/../models/user.model.php";
+require_once __DIR__."/../models/competitor.model.php";
+require_once __DIR__."/../db/competitors.query.php";
+require_once __DIR__."/../db/images.query.php";
 
 use db\ImagesQuery;
 use db\CompetitorsQuery;

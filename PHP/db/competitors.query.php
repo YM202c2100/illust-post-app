@@ -1,11 +1,11 @@
 <?php
 namespace db;
 
-require_once "../db/libs/dbConnection.php";
-require_once "../db/libs/helper.php";
-require_once "../db/competitors.query.php";
-require_once "../models/user.model.php";
-require_once "../models/ranking.model.php";
+require_once __DIR__."/libs/dbConnection.php";
+require_once __DIR__."/libs/helper.php";
+require_once __DIR__."/competitors.query.php";
+require_once __DIR__."/../models/user.model.php";
+require_once __DIR__."/../models/ranking.model.php";
 use models\UserModel;
 
 class CompetitorsQuery {

@@ -1,9 +1,9 @@
 <?php
 namespace index\register;
 
-require_once "../libs/header.php";
-require_once "../models/user.model.php";
-require_once "../db/users.query.php";
+require_once __DIR__."/../libs/header.php";
+require_once __DIR__."/../models/user.model.php";
+require_once __DIR__."/../db/users.query.php";
 use db\UsersQuery;
 use models\UserModel;
 

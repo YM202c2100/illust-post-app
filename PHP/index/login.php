@@ -1,12 +1,12 @@
 <?php
 namespace index\login;
 
-require_once "../libs/header.php";
-require_once "../libs/validate.php";
-require_once "../db/users.query.php";
-require_once "../db/competitors.query.php";
-require_once "../models/user.model.php";
-require_once "../models/competitor.model.php";
+require_once __DIR__."/../libs/header.php";
+require_once __DIR__."/../libs/validate.php";
+require_once __DIR__."/../db/users.query.php";
+require_once __DIR__."/../db/competitors.query.php";
+require_once __DIR__."/../models/user.model.php";
+require_once __DIR__."/../models/competitor.model.php";
 
 use db\CompetitorsQuery;
 use db\UsersQuery;
