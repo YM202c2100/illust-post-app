@@ -61,7 +61,7 @@ class DbConnection {
     }
 
     if(empty($records)){
-      return $records;
+      return null;
     }
 
     if($fetchOne){
