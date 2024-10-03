@@ -2,7 +2,7 @@
 namespace db;
 
 require_once __DIR__."/libs/dbConnection.php";
-require_once __DIR__."/../models/image.model.php";
+require_once __DIR__."/../models/storingModel/image.model.php";
 
 use modles\ImageModel;
 use modles\ImageWithRP;

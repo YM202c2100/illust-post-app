@@ -2,7 +2,7 @@
 namespace db;
 
 require_once __DIR__."/libs/dbConnection.php";
-require_once __DIR__."/../models/user.model.php";
+require_once __DIR__."/../models/storingModel/user.model.php";
 
 use models\UserModel;
 

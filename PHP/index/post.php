@@ -4,8 +4,8 @@ namespace index\post;
 require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../db/images.query.php";
 require_once __DIR__."/../db/competitors.query.php";
-require_once __DIR__."/../models/user.model.php";
-require_once __DIR__."/../models/competitor.model.php";
+require_once __DIR__."/../models/storingModel/user.model.php";
+require_once __DIR__."/../models/storingModel/competitor.model.php";
 
 use db\ImagesQuery;
 use db\CompetitorsQuery;
