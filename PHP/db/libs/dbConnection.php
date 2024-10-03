@@ -60,6 +60,10 @@ class DbConnection {
       $records = $excutedStmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
+    if(empty($records)){
+      return $records;
+    }
+
     if($fetchOne){
       return $records[0];
     }else{
