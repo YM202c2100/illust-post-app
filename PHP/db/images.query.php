@@ -49,12 +49,12 @@ class ImagesQuery {
     return $db->fetch($sql, outputModel:ImageModel::class);
   }
 
-  public static function fetchNameByUserId($userId):ImageModel{
+  public static function fetchNameByUserId($userId):string{
     $db = new DbConnection();
     $sql = "SELECT file_name
               from images
             where user_id = :user_id";
-    return $db->fetch($sql, [':user_id'=>$userId], ImageModel::class, fetchOne:true);
+    return $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
   }
 
   public static function fetchHigherRankThan($rankPoints){
