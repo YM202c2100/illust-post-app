@@ -4,8 +4,8 @@ namespace db;
 require_once __DIR__."/libs/dbConnection.php";
 require_once __DIR__."/../models/storingModel/image.model.php";
 
-use modles\ImageModel;
-use modles\ImageWithRP;
+use models\ImageModel;
+use models\ImageWithRP;
 
 class ImagesQuery {
   public static function insert($fileName, $userId):bool{

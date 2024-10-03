@@ -1,5 +1,5 @@
 <?php
-namespace modles;
+namespace models;
 
 class ImageModel {
   public $id; 
