@@ -49,7 +49,7 @@ class ImagesQuery {
     return $db->fetch($sql, outputModel:ImageModel::class);
   }
 
-  public static function fetchNameByUserId($userId):string{
+  public static function fetchNameByUserId($userId){
     $db = new DbConnection();
     $sql = "SELECT file_name
               from images
