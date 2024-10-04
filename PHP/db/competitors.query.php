@@ -17,14 +17,6 @@ class CompetitorsQuery {
     return $isSubmitted;
   }
 
-  public static function updateSubmittedStatus($userId):bool{
-    $db = new DbConnection();
-
-    $sql = "UPDATE competitors set submitted = true where user_id=:user_id";
-    $isSuccess = $db->execute($sql, [':user_id'=>$userId]);
-    return $isSuccess;
-  }
-
   public static function getRankPointsOf(UserModel $user){
     $db = new DbConnection();
 
