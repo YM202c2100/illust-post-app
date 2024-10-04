@@ -1,17 +1,17 @@
 export type HomeResData = {
   isLogin: boolean,
   submittedFileName: string|null,
-  contest: ContestInfo
+  contest: ContestData
 }
 
-type ContestInfo = {
+export type ContestData = {
   round_num: number
   subject: string
   applicationPeriod: ResPeriod,
   judgePeriod: ResPeriod
 }
 
-type ResPeriod = {
+export type ResPeriod = {
   start_at: string,
   end_at: string
 }

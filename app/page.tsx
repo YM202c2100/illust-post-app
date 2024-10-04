@@ -3,6 +3,7 @@ import Image from "next/image";
 import { GET } from "./api/getRequest";
 import { convertToValidSrc } from "./libs/helper";
 import { HomeResData } from "./models/home.model";
+import { ContestInfo } from "./features/home/components/ContestInfo";
 
 export default async function Home(){
   const res = await GET("home")
@@ -28,6 +29,7 @@ export default async function Home(){
         }
       </div>
 
+      <ContestInfo contest={data.contest}/>
       <div className="flex flex-col space-y-2 items-start">
         <TempLink pageName="post"/>
         <TempLink pageName="register"/>
