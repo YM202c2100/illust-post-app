@@ -13,5 +13,5 @@ type ContestInfo = {
 
 type ResPeriod = {
   start_at: string,
-  ent_at: string
+  end_at: string
 }
