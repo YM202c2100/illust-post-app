@@ -8,10 +8,14 @@ use models\ImageModel;
 use models\ImageWithRP;
 
 class ImagesQuery {
-  public static function insert($fileName, $userId):bool{
+  public static function uploadImage($fileName, $userId):bool{
     $db = new DbConnection();
 
-    $sql = 'INSERT into images (file_name, user_id) values (:file_name, :user_id)';
+    $sql = 'INSERT into images (file_name, user_id) 
+              values (:file_name, :user_id) 
+            on duplicate key update 
+              file_name = values(file_name)';
+
     $isSuccess = $db->execute($sql, [
       ':file_name'=>$fileName,
       ':user_id'=>$userId

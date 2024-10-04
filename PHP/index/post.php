@@ -27,8 +27,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     exit();
   }
 
-  $isSuccess = ImagesQuery::insert($image['name'], $user->id);
-
+    $isSuccess = ImagesQuery::uploadImage($image['name'], $user->id);
   if(!$isSuccess){
     http_response_code(500);
     echo json_encode(['status'=>'error', 'body'=>'投稿失敗']);
