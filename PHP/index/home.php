@@ -26,16 +26,8 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     }
     $homeModel->submittedFileName = ImagesQuery::fetchNameByUserId($user->id);
 
-    $contest = ContestsQuery::fetchLatestContestInfo();
-    $apPeriod  = HomeModel::createPeriod(
-                  $contest->application_start_date, 
-                  $contest->application_end_date
-                );
-    $judPeriod = HomeModel::createPeriod(
-                  $contest->judge_start_date,
-                  $contest->judge_end_date
-                );
-    $homeModel->createContestResponse($contest->round_num, $contest->subject, $apPeriod, $judPeriod);
+    $contestData = ContestsQuery::fetchLatestContestInfo();
+    $homeModel->contest = HomeModel::createContestResponse($contestData);
     $homeModel->returnJson();
 
   } catch (\Throwable $th) {

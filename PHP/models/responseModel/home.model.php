@@ -12,10 +12,19 @@ class HomeModel extends JsonSerializable {
     $this->isLogin = $isLogin;
   }
 
-  public function createContestResponse($round_num, $subject, $applicationPeriod, $judgePeriod){
-    $this->contest = [
-      'round_num'=>$round_num,
-      'subject'=>$subject,
+  public static function createContestResponse(ContestModel $contest){
+    $applicationPeriod = static::createPeriod(
+                            $contest->application_start_date, 
+                            $contest->application_end_date
+                          );
+    $judgePeriod = static::createPeriod(
+                      $contest->judge_start_date,
+                      $contest->judge_end_date
+                    );
+
+    return [
+      'round_num'=>$contest->round_num,
+      'subject'=>$contest->subject,
       'applicationPeriod'=>$applicationPeriod,
       'judgePeriod' => $judgePeriod
     ];
