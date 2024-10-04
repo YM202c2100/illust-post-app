@@ -6,7 +6,9 @@ require_once __DIR__."/../libs/helper.php";
 require_once __DIR__."/../models/storingModel/user.model.php";
 require_once __DIR__."/../models/responseModel/home.model.php";
 require_once __DIR__."/../db/images.query.php";
+require_once __DIR__."/../db/contests.query.php";
 
+use db\ContestsQuery;
 use db\ImagesQuery;
 use models\HomeModel;
 use models\UserModel;
@@ -23,7 +25,17 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
       exit();
     }
     $homeModel->submittedFileName = ImagesQuery::fetchNameByUserId($user->id);
-    
+
+    $contest = ContestsQuery::fetchLatestContestInfo();
+    $apPeriod  = HomeModel::createPeriod(
+                  $contest->application_start_date, 
+                  $contest->application_end_date
+                );
+    $judPeriod = HomeModel::createPeriod(
+                  $contest->judge_start_date,
+                  $contest->judge_end_date
+                );
+    $homeModel->createContestResponse($contest->round_num, $contest->subject, $apPeriod, $judPeriod);
     $homeModel->returnJson();
 
   } catch (\Throwable $th) {
