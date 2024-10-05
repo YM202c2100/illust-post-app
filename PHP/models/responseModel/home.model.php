@@ -3,14 +3,9 @@ namespace models;
 
 require_once __DIR__."/abstract.model.php";
 
-class HomeModel extends JsonSerializable {
-  public $isLogin;
+class HomeModel extends IsLogin {
   public $submittedFileName;
   public $contest;
-
-  public function __construct($isLogin=true) {
-    $this->isLogin = $isLogin;
-  }
 
   public static function createContestResponse(ContestModel $contest){
     $applicationPeriod = static::createPeriod(
