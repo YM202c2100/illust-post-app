@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { GET } from "./api/getRequest";
 import { convertToValidSrc } from "./libs/helper";
-import { HomeResData } from "./models/home.model";
+import { HomeDataGET } from "./models/home.model";
 import { ContestInfo } from "./features/home/components/ContestInfo";
 
 export default async function Home(){
@@ -11,7 +11,7 @@ export default async function Home(){
     return <div>エラーが発生しました。時間をおいて再度お試しください。</div>
   }
 
-  const data:HomeResData = await res.json()
+  const data:HomeDataGET = await res.json()
   
   if(!data.isLogin){
     return <div>ログインしてください</div>

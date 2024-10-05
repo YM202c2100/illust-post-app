@@ -1,4 +1,4 @@
-export type HomeResData = {
+export type HomeDataGET = {
   isLogin: boolean,
   submittedFileName: string|null,
   contest: ContestData
@@ -7,11 +7,11 @@ export type HomeResData = {
 export type ContestData = {
   round_num: number
   subject: string
-  applicationPeriod: ResPeriod,
-  judgePeriod: ResPeriod
+  applicationPeriod: PeriodData,
+  judgePeriod: PeriodData
 }
 
-export type ResPeriod = {
+export type PeriodData = {
   start_at: string,
   end_at: string
 }
