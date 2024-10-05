@@ -16,7 +16,7 @@ export async function submitHandler(e:FormEvent<HTMLFormElement>, setPending:Dis
     const resJson = await res.json();
     console.log(resJson);
    
-    setPending(false)
+    window.location.href = "/"
   }
 
 }
