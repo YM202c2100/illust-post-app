@@ -2,13 +2,14 @@
 
 import { ChangeEvent, FormEvent, useState } from "react";
 import { PreviewImage } from "./PreviewImage";
+import { submitHandler } from "../api/handler";
 
 export default function ImageForm() {
   const [previewFile, setPreview] = useState<File>()
   const [pending, setPending] = useState<boolean>(false);
 
   return (
-    <form onSubmit={submitHandler} method="post">
+    <form onSubmit={(e)=>{submitHandler(e, setPending)}} method="post">
       {previewFile ?<PreviewImage previewFile={previewFile}/>
                    :<div>preview</div>
       }
@@ -35,27 +36,6 @@ export default function ImageForm() {
       </div>
     </form>
   )
-
-  async function submitHandler(e:FormEvent<HTMLFormElement>){
-    e.preventDefault()
-
-    setPending(true)
-
-    const formData = new FormData(e.currentTarget)
-    const res = await fetch("features/post/api", {
-      method:"post",
-      body:formData,
-      credentials:"include"
-    })
-
-    if(res.ok){
-      const resJson = await res.json();
-      console.log(resJson);
-     
-      setPending(false)
-    }
-
-  }
 
   function togglePreview(e: ChangeEvent<HTMLInputElement>){
     if(!e.target.files) return;
