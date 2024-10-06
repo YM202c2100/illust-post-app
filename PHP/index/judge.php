@@ -5,37 +5,40 @@ require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../libs/helper.php";
 require_once __DIR__."/../models/storingModel/user.model.php";
 require_once __DIR__."/../models/storingModel/competitor.model.php";
+require_once __DIR__."/../models/responseModel/judge.model.php";
 require_once __DIR__."/../db/competitors.query.php";
 require_once __DIR__."/../db/images.query.php";
 
 use db\ImagesQuery;
 use db\CompetitorsQuery;
 use models\CompetitorModel;
+use models\JudgeModel;
 use models\UserModel;
 
 if($_SERVER['REQUEST_METHOD']==="GET"){
-  \libs\require_session();
+  $judgeResponse = new JudgeModel();
   
+  \libs\require_session();
+
   $user = UserModel::getFromSession();
   if(empty($user)){
-    echo json_encode(['status'=>'error', 'body'=>'ログインしてください']);
-    exit();
+    $judgeResponse->isLogin = false;
+    $judgeResponse->returnJson();
   }
   
   if( !CompetitorModel::isSubmitted() ){
-    echo json_encode(['status'=>'error', 'body'=>'自分の作品を提出してください']);
-    exit();
+    $judgeResponse->isSubmitted = false;
+    $judgeResponse->returnJson();
   }
   
   // ユーザーが作品を提出済みなら、二つの画像を返す
   $rankPointsOfEvalator = CompetitorsQuery::getRankPointsOf($user);
-  $images = ImagesQuery::fetchImagesToJudge($rankPointsOfEvalator);
-  if( !is_array($images) || (count($images) !== 2) ){
-    echo json_encode(['status'=>'error', 'body'=>'レコード不足']);
-    exit();
-  }
-
-  echo json_encode(['status'=>'ok', 'body'=>$images]);
+  $judgeResponse->imagesToJudge = ImagesQuery::fetchImagesToJudge($rankPointsOfEvalator);
+  // if( !is_array($images) || (count($images) !== 2) ){
+  //   echo json_encode(['status'=>'error', 'body'=>'レコード不足']);
+  //   exit();
+  // }
+  $judgeResponse->returnJson();
 }
 
 else if($_SERVER['REQUEST_METHOD'] === 'POST'){

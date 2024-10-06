@@ -1,5 +1,7 @@
 import { GET } from "@/app/api/getRequest";
-import { ImagesToJudge, ImageToJudgeProps } from "@/app/features/judge/components/imagesToJudge"
+import { ImagesToJudge } from "@/app/features/judge/components/imagesToJudge"
+import { JudgeDataGET } from "@/app/models/judge.model";
+import { redirect } from "next/navigation";
 
 export default async function Judge(){
   const res = await GET("judge")
@@ -7,16 +9,17 @@ export default async function Judge(){
     return <div>通信失敗</div>;
   }
 
-  const data = await res.json()
-  const images:ImageToJudgeProps[] = data.body
-  
-  if(data.status === "ok"){
-    return(
-      <ImagesToJudge images={images} />
-    )
-  }else{
-    return(
-      <div>{data.body}</div>
-    )
+  const data:JudgeDataGET =  await res.json()
+
+  if(!data.isLogin){
+    redirect("login")
   }
+
+  if(!data.isSubmitted){
+    return <div>作品を提出してください</div>
+  }
+
+  return(
+    <ImagesToJudge images={data.imagesToJudge} />
+  )
 }

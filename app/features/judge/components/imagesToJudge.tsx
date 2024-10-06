@@ -1,12 +1,9 @@
 "use client"
 
-export type ImageToJudgeProps = {
-  user_id:number,
-  file_name:string
-}
+import { ImageToJudge } from "@/app/models/judge.model"
 
 // 引数のimages配列の要素数は2
-export const ImagesToJudge:React.FC<{images:ImageToJudgeProps[]}> = ({images})=>{
+export const ImagesToJudge:React.FC<{images:ImageToJudge[]}> = ({images})=>{
   return(
     <div className="flex justify-around">
       {images.map((image,idx) => (
