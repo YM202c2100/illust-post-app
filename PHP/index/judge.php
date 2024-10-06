@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
   
   // ユーザーが作品を提出済みなら、二つの画像を返す
   $rankPointsOfEvalator = CompetitorsQuery::getRankPointsOf($user);
-  $judgeResponse->imagesToJudge = ImagesQuery::fetchImagesToJudge($rankPointsOfEvalator);
+  $judgeResponse->imagesToJudge = ImagesQuery::fetchImagesToJudge($user->id, $rankPointsOfEvalator);
   // if( !is_array($images) || (count($images) !== 2) ){
   //   echo json_encode(['status'=>'error', 'body'=>'レコード不足']);
   //   exit();
