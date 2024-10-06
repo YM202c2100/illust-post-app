@@ -75,8 +75,8 @@ class ImagesQuery {
                 on u.id = img.user_id
               inner join competitors as comptr
                 on u.id = comptr.user_id
-            where comptr.rank_points > :rank_points + 50
-            limit 5";
+            where comptr.rank_points > :rank_points + 150
+            limit 3";
     return $db->fetch($sql, ['rank_points'=>$rankPoints], PDO::FETCH_CLASS, ImageWithRP::class);
   }
 }
