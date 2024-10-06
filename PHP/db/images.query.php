@@ -25,18 +25,22 @@ class ImagesQuery {
     return $isSuccess;
   }
 
-  public static function fetchImagesToJudge($user_id, $rankPointsOfEvalator){
+  public static function fetchImagesToJudge($user_id, $rankPointsOfEvalator, $fetchHigher=true){
     $db = new DbConnection();
     // 評価する人より多くのポイントをもつユーザーの作品を2つ取得
     // まだ比較されていない作品を優先
+
+    $compOperator = $fetchHigher ? ">=":"<=";
+    $order = $fetchHigher ? "asc":"desc";
+
     $sql = "SELECT img.user_id, img.file_name 
             from images as img 
             inner join competitors as comptr 
               on img.user_id = comptr.user_id
-            where comptr.rank_points >= :rankPointsOfEvalator
+            where comptr.rank_points {$compOperator} :rankPointsOfEvalator
               and comptr.user_id != :user_id
             order by comptr.judged_count asc,
-              comptr.rank_points asc 
+              comptr.rank_points {$order}
             limit 2";
 
     return $db->fetch($sql, [':rankPointsOfEvalator'=>$rankPointsOfEvalator, ':user_id'=>$user_id], PDO::FETCH_ASSOC);
