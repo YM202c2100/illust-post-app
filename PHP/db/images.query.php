@@ -38,7 +38,7 @@ class ImagesQuery {
               comptr.rank_points asc 
             limit 2";
 
-    return $db->fetch($sql, [':rankPointsOfEvalator'=>$rankPointsOfEvalator], PDO::FETCH_CLASS, ImageModel::class);
+    return $db->fetch($sql, [':rankPointsOfEvalator'=>$rankPointsOfEvalator], PDO::FETCH_ASSOC);
   }
 
   public static function fetchImagesTop3(){
