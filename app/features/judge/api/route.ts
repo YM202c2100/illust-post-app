@@ -1,14 +1,17 @@
 import { PHP_ROOT_PATH } from "@/app/api/config"
+import { getHeaderWithSessId } from "@/app/api/cookieHeader"
 
 export async function POST(req:Request) {
   const bodyObject = await req.json()
 
+  const reqHeaders = getHeaderWithSessId()
+  reqHeaders.append("Content-Type", "application/json")
+
   const res = await fetch(PHP_ROOT_PATH+"judge.php",{
     method:"post",
     body:JSON.stringify(bodyObject),
-    headers:{
-      "Content-Type":"application/json"
-    }
+    credentials:"include",
+    headers: reqHeaders
   })
 
   const resBody = await res.json()

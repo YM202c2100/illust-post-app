@@ -30,6 +30,8 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
     $judgeResponse->isSubmitted = false;
     $judgeResponse->returnJson();
   }
+
+  $judgeResponse->limitCanJudge = CompetitorsQuery::getLimitCanJudge($user->id);
   
   // ユーザーが作品を提出済みなら、6つの画像を返す
   $rankPointsOfEvalator = CompetitorsQuery::getRankPointsOf($user);
@@ -37,23 +39,36 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
   if( !is_array($fetchedImages) || (count($fetchedImages) !== 6) ){
     $fetchedImages = ImagesQuery::fetchImagesToJudge($user->id, $rankPointsOfEvalator, fetchHigher:false);
   }
+
   $judgeResponse->imagesToJudge = $fetchedImages;
 
   $judgeResponse->returnJson();
 }
 
 else if($_SERVER['REQUEST_METHOD'] === 'POST'){
+  \libs\require_session();
+  $user = UserModel::getFromSession();
+  if(empty($user)){
+    http_response_code(500);
+    exit();
+  }
+
   $reqData = \libs\getReqJsonBody();
   $winnerId = $reqData['winnerId'];
   $loserId = $reqData['loserId'];
 
   if(empty($winnerId)||empty($loserId)){
-    echo json_encode(['status'=>'error', 'body'=>'データが正しく取得できませんでした']);
+    http_response_code(500);
     exit();
   }
 
   $updatedRankPoints = getUpdatedRankPoints($winnerId, $loserId);
   CompetitorsQuery::updateRankPointAndJudgedCount($updatedRankPoints);
+  $isSuccess = CompetitorsQuery::decrementLimitCanJudge($user->id);
+  if(!$isSuccess){
+    http_response_code(500);
+    exit();
+  }
 
   echo json_encode(['status'=>'ok', 'body'=>'更新されました']);
 }

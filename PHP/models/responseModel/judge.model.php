@@ -6,5 +6,6 @@ use models\IsLogin;
 
 class JudgeModel extends IsLogin{
   public $isSubmitted=true;
+  public $limitCanJudge;
   public $imagesToJudge; //file_nameとuser_idをキーに持つ連想配列の配列
 }

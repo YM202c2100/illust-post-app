@@ -1,6 +1,7 @@
 export type JudgeDataGET = {
   isLogin: boolean,
   isSubmitted: boolean,
+  limitCanJudge: number,
   imagesToJudge: ImageToJudge[]
 }
 

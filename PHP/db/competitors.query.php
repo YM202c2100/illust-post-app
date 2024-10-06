@@ -77,4 +77,22 @@ class CompetitorsQuery {
     $totalNumCompetitors = $db->fetch($sql, fetchOne:true);
     return $totalNumCompetitors;
   }
+
+  public static function getLimitCanJudge($userId){
+    $db = new DbConnection();
+    $sql = "SELECT limit_can_judge 
+              from competitors 
+            where user_id = :user_id";
+    
+    return $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
+  }
+
+  public static function decrementLimitCanJudge($userId){
+    $db = new DbConnection();
+    $sql = "UPDATE competitors set 
+              limit_can_judge = limit_can_judge-1 
+            where user_id = :user_id";
+
+    return $db->execute($sql, [':user_id'=>$userId]);
+  }
 }

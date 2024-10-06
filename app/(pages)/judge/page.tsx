@@ -1,5 +1,5 @@
 import { GET } from "@/app/api/getRequest";
-import { ImagesToJudge } from "@/app/features/judge/components/imagesToJudge"
+import { ImagesToJudge, ImagesToJudgeProps } from "@/app/features/judge/components/imagesToJudge"
 import { JudgeDataGET } from "@/app/models/judge.model";
 import { redirect } from "next/navigation";
 
@@ -10,7 +10,7 @@ export default async function Judge(){
   }
 
   const data:JudgeDataGET =  await res.json()
-
+  
   if(!data.isLogin){
     redirect("login")
   }
@@ -20,6 +20,6 @@ export default async function Judge(){
   }
 
   return(
-    <ImagesToJudge images={data.imagesToJudge} />
+    <ImagesToJudge props={{allImages: data.imagesToJudge, limitCanJudge: data.limitCanJudge}} />
   )
 }
