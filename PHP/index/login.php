@@ -39,8 +39,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     if($user->pwd === $pwd){
       UserModel::setSession($user);
 
-      $isSubmitted = CompetitorsQuery::getSubmitted($user->id);
-      CompetitorModel::setSubmittedSession($isSubmitted);
+      $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id);
+      CompetitorModel::setIsSubmittedSession($isSubmitted);
 
       echo json_encode(['status'=>'ok', 'body'=>"{$user->user_name}でログインしました"]);
     }else{

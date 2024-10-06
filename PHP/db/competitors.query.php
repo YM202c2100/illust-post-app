@@ -10,10 +10,10 @@ use models\UserModel;
 use PDO;
 
 class CompetitorsQuery {
-  public static function getSubmitted($userId){
+  public static function getIsSubmitted($userId){
     $db = new DbConnection();
 
-    $sql = "SELECT submitted from competitors where user_id = :user_id";
+    $sql = "SELECT is_submitted from competitors where user_id = :user_id";
     $isSubmitted = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
     return $isSubmitted;
   }

@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     echo json_encode(['status'=>'error', 'body'=>'投稿失敗']);
   }
 
-  CompetitorModel::setSubmittedSession(true);
+  CompetitorModel::setIsSubmittedSession(true);
   
   // move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
   echo json_encode(['status'=>'ok', 'body'=>"投稿成功"]);
