@@ -27,7 +27,7 @@ class ImagesQuery {
 
   public static function fetchImagesToJudge($user_id, $rankPointsOfEvalator, $fetchHigher=true){
     $db = new DbConnection();
-    // 評価する人より多くのポイントをもつユーザーの作品を2つ取得
+    // 評価する人より多くのポイントをもつユーザーの作品を6つ取得
     // まだ比較されていない作品を優先
 
     $compOperator = $fetchHigher ? ">=":"<=";
@@ -41,7 +41,7 @@ class ImagesQuery {
               and comptr.user_id != :user_id
             order by comptr.judged_count asc,
               comptr.rank_points {$order}
-            limit 2";
+            limit 6";
 
     return $db->fetch($sql, [':rankPointsOfEvalator'=>$rankPointsOfEvalator, ':user_id'=>$user_id], PDO::FETCH_ASSOC);
   }

@@ -31,10 +31,10 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
     $judgeResponse->returnJson();
   }
   
-  // ユーザーが作品を提出済みなら、二つの画像を返す
+  // ユーザーが作品を提出済みなら、6つの画像を返す
   $rankPointsOfEvalator = CompetitorsQuery::getRankPointsOf($user);
   $fetchedImages = ImagesQuery::fetchImagesToJudge($user->id, $rankPointsOfEvalator);
-  if( !is_array($fetchedImages) || (count($fetchedImages) !== 2) ){
+  if( !is_array($fetchedImages) || (count($fetchedImages) !== 6) ){
     $fetchedImages = ImagesQuery::fetchImagesToJudge($user->id, $rankPointsOfEvalator, fetchHigher:false);
   }
   $judgeResponse->imagesToJudge = $fetchedImages;
