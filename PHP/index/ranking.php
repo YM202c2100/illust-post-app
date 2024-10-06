@@ -4,7 +4,7 @@ namespace index\ranking;
 require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../libs/helper.php";
 require_once __DIR__."/../models/storingModel/user.model.php";
-require_once __DIR__."/../models/storingModel/ranking.model.php";
+require_once __DIR__."/../models/responseModel/ranking.model.php";
 require_once __DIR__."/../models/storingModel/competitor.model.php";
 require_once __DIR__."/../db/competitors.query.php";
 require_once __DIR__."/../db/images.query.php";

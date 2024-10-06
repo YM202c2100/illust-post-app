@@ -5,7 +5,7 @@ require_once __DIR__."/libs/dbConnection.php";
 require_once __DIR__."/libs/helper.php";
 require_once __DIR__."/competitors.query.php";
 require_once __DIR__."/../models/storingModel/user.model.php";
-require_once __DIR__."/../models/storingModel/ranking.model.php";
+require_once __DIR__."/../models/responseModel/ranking.model.php";
 use models\UserModel;
 use PDO;
 
