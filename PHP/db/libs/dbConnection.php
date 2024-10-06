@@ -48,16 +48,14 @@ class DbConnection {
     }
   }
 
-  public function fetch($sql, $values=[], $outputModel=null, $questionPlaceHolder=false, $fetchKeyPair=false, $fetchOne=false){
+  public function fetch($sql, $values=[], $fetchMode=PDO::FETCH_COLUMN, $outputModel=null, $questionPlaceHolder=false, $fetchOne=false){
     $excutedStmt = $this->execute($sql, $values, $questionPlaceHolder, returnBoolean:false);
     
     //　出力形式を指定
-    if($outputModel){
+    if($fetchMode===PDO::FETCH_CLASS){
       $records = $excutedStmt->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, $outputModel);
-    }else if($fetchKeyPair){
-      $records = $excutedStmt->fetchAll(PDO::FETCH_KEY_PAIR);
     }else{
-      $records = $excutedStmt->fetchAll(PDO::FETCH_COLUMN);
+      $records = $excutedStmt->fetchAll($fetchMode);
     }
 
     if(empty($records)){

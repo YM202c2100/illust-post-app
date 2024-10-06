@@ -6,6 +6,7 @@ require_once __DIR__."/../models/storingModel/image.model.php";
 
 use models\ImageModel;
 use models\ImageWithRP;
+use PDO;
 
 class ImagesQuery {
   public static function uploadImage($fileName, $userId):bool{
@@ -37,7 +38,7 @@ class ImagesQuery {
               comptr.rank_points asc 
             limit 2";
 
-    return $db->fetch($sql, [':rankPointsOfEvalator'=>$rankPointsOfEvalator], ImageModel::class);
+    return $db->fetch($sql, [':rankPointsOfEvalator'=>$rankPointsOfEvalator], PDO::FETCH_CLASS, ImageModel::class);
   }
 
   public static function fetchImagesTop3(){
@@ -50,7 +51,7 @@ class ImagesQuery {
               	on img.user_id = u.id
             order by comptr.rank_points desc
             limit 3";
-    return $db->fetch($sql, outputModel:ImageModel::class);
+    return $db->fetch($sql, fetchMode:PDO::FETCH_CLASS, outputModel:ImageModel::class);
   }
 
   public static function fetchNameByUserId($userId){
@@ -71,6 +72,6 @@ class ImagesQuery {
                 on u.id = comptr.user_id
             where comptr.rank_points > :rank_points + 50
             limit 5";
-    return $db->fetch($sql, ['rank_points'=>$rankPoints], ImageWithRP::class);
+    return $db->fetch($sql, ['rank_points'=>$rankPoints], PDO::FETCH_CLASS, ImageWithRP::class);
   }
 }

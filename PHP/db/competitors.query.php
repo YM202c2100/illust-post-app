@@ -7,6 +7,7 @@ require_once __DIR__."/competitors.query.php";
 require_once __DIR__."/../models/storingModel/user.model.php";
 require_once __DIR__."/../models/storingModel/ranking.model.php";
 use models\UserModel;
+use PDO;
 
 class CompetitorsQuery {
   public static function getSubmitted($userId){
@@ -35,7 +36,7 @@ class CompetitorsQuery {
     $sql = "SELECT user_id, rank_points from competitors 
             where user_id in ($placeHolder)";
     
-    $rankPointsOfUsers = $db->fetch($sql, $userIdList, questionPlaceHolder:true, fetchKeyPair:true);
+    $rankPointsOfUsers = $db->fetch($sql, $userIdList, PDO::FETCH_KEY_PAIR, questionPlaceHolder:true);
 
     return $rankPointsOfUsers;
   }

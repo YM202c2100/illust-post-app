@@ -5,6 +5,7 @@ require_once __DIR__."/libs/dbConnection.php";
 require_once __DIR__."/../models/storingModel/user.model.php";
 
 use models\UserModel;
+use PDO;
 
 class UsersQuery{
   public static function registUser(UserModel $user):bool{
@@ -29,7 +30,7 @@ class UsersQuery{
     $db = new DbConnection();
     
     $sql = "SELECT * from users where id=:id";
-    $user = $db->fetch($sql, [':id'=>$id], UserModel::class, fetchOne:true);
+    $user = $db->fetch($sql, [':id'=>$id], PDO::FETCH_CLASS, UserModel::class, fetchOne:true);
     
     return $user;
   }
