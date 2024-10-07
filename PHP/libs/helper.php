@@ -6,9 +6,3 @@ function getReqJsonBody():array{
 
   return json_decode($reqBody, true);
 }
-
-function require_session(){
-  if(isset($_COOKIE["PHPSESSID"])){
-    session_start();
-  }
-}
