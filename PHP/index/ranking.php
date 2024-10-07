@@ -3,7 +3,6 @@ namespace index\ranking;
 
 require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../libs/session.php";
-require_once __DIR__."/../models/storingModel/user.model.php";
 require_once __DIR__."/../models/responseModel/ranking.model.php";
 require_once __DIR__."/../db/competitors.query.php";
 require_once __DIR__."/../db/images.query.php";
@@ -11,13 +10,12 @@ use db\CompetitorsQuery;
 use db\ImagesQuery;
 use libs\Session;
 use models\RankingModel;
-use models\UserModel;
 
 if($_SERVER['REQUEST_METHOD'] === "GET"){
   $ranking = new RankingModel();
 
   \libs\require_session();
-  $user = UserModel::getFromSession();
+  $user = Session::getUser();
   if(empty($user)){
     $ranking->isLogin = false;
     $ranking->returnJson();

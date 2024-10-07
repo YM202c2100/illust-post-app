@@ -15,14 +15,6 @@ class UserModel {
     $this->user_name = $userName;
   }
 
-  public static function setSession(UserModel $user){
-    $_SESSION['user'] = $user;
-  }
-
-  public static function getFromSession(){
-    return $_SESSION['user'] ?? null;
-  }
-
   public static function getValidationErrors($paramMap){
     $validate = new Validate();
 

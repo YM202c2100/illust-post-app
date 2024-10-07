@@ -2,9 +2,11 @@
 namespace index\register;
 
 require_once __DIR__."/../libs/header.php";
+require_once __DIR__."/../libs/session.php";
 require_once __DIR__."/../models/storingModel/user.model.php";
 require_once __DIR__."/../db/users.query.php";
 use db\UsersQuery;
+use libs\Session;
 use models\UserModel;
 
 session_start();
@@ -32,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 
   // dbにユーザー情報を格納
   if(UsersQuery::registUser($user)){
-    UserModel::setSession($user);
+    Session::setUser($user);
     echo json_encode(['status'=>'ok', 'body'=>$user]);
   }
 }

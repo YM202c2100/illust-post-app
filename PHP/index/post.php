@@ -4,20 +4,18 @@ namespace index\post;
 require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../libs/session.php";
 require_once __DIR__."/../db/images.query.php";
-require_once __DIR__."/../models/storingModel/user.model.php";
 require_once __DIR__."/../models/responseModel/post.model.php";
 
 use db\ImagesQuery;
 use libs\Session;
 use models\PostModel;
-use models\UserModel;
 
 if($_SERVER['REQUEST_METHOD'] === 'GET'){
   \libs\require_session();
   
   $postModel = new PostModel();
 
-  $user = UserModel::getFromSession();
+  $user = Session::getUser();
   if(empty($user)){
     $postModel->isLogin = false;
     $postModel->returnJson();
@@ -38,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
   \libs\require_session();
 
-  $user = UserModel::getFromSession();
+  $user = Session::getUser();
   if(empty($user)){
     echo json_encode(['status'=>'error', 'body'=>'投稿失敗-ログインしてください']);
     exit();

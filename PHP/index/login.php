@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     }
     
     if($user->pwd === $pwd){
-      UserModel::setSession($user);
+      Session::setUser($user);
 
       $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id);
       Session::setIsSubmitted($isSubmitted);

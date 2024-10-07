@@ -4,7 +4,6 @@ namespace index\judge;
 require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../libs/helper.php";
 require_once __DIR__."/../libs/session.php";
-require_once __DIR__."/../models/storingModel/user.model.php";
 require_once __DIR__."/../models/responseModel/judge.model.php";
 require_once __DIR__."/../db/competitors.query.php";
 require_once __DIR__."/../db/images.query.php";
@@ -13,14 +12,13 @@ use db\ImagesQuery;
 use db\CompetitorsQuery;
 use libs\Session;
 use models\JudgeModel;
-use models\UserModel;
 
 if($_SERVER['REQUEST_METHOD']==="GET"){
   $judgeResponse = new JudgeModel();
   
   \libs\require_session();
 
-  $user = UserModel::getFromSession();
+  $user = Session::getUser();
   if(empty($user)){
     $judgeResponse->isLogin = false;
     $judgeResponse->returnJson();
@@ -54,7 +52,7 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
 
 else if($_SERVER['REQUEST_METHOD'] === 'POST'){
   \libs\require_session();
-  $user = UserModel::getFromSession();
+  $user = Session::getUser();
   if(empty($user)){
     http_response_code(500);
     exit();
