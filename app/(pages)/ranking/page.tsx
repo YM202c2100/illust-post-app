@@ -17,7 +17,6 @@ export default async function Ranking(){
   }
 
   const data:RankingDataGET = await res.json()
-  console.log(data);
   
   if(!data.isLogin){
     redirect("login")
