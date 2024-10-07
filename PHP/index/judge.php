@@ -5,14 +5,13 @@ require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../libs/helper.php";
 require_once __DIR__."/../libs/session.php";
 require_once __DIR__."/../models/storingModel/user.model.php";
-require_once __DIR__."/../models/storingModel/competitor.model.php";
 require_once __DIR__."/../models/responseModel/judge.model.php";
 require_once __DIR__."/../db/competitors.query.php";
 require_once __DIR__."/../db/images.query.php";
 
 use db\ImagesQuery;
 use db\CompetitorsQuery;
-use models\CompetitorModel;
+use libs\Session;
 use models\JudgeModel;
 use models\UserModel;
 
@@ -27,7 +26,7 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
     $judgeResponse->returnJson();
   }
   
-  if( !CompetitorModel::isSubmitted() ){
+  if( !Session::isSubmitted() ){
     $judgeResponse->isSubmitted = false;
     $judgeResponse->returnJson();
   }
