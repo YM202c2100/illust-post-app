@@ -12,3 +12,9 @@ class RankingModel extends IsLogin{
   public $myRankPoints;
   public $higherRankImages;
 }
+
+class ImageWithRP {
+  public $file_name;
+  public $user_name;
+  public $rank_points;
+}

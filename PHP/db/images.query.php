@@ -2,7 +2,7 @@
 namespace db;
 
 require_once __DIR__."/libs/dbConnection.php";
-require_once __DIR__."/../models/storingModel/image.model.php";
+require_once __DIR__."/../models/responseModel/ranking.model.php";
 
 use models\ImageWithRP;
 use PDO;
