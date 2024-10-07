@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
   
   // ユーザーが作品を提出済みなら、6つの画像を返す
   $rankPointsOfEvalator = CompetitorsQuery::getRankPointsOf($user);
-  $fetchedImages = JudgeModel::getImagesToJudgeFromSession();
+  $fetchedImages = Session::getImagesToJudge();
   if(isset($fetchedImages)){
     $judgeResponse->imagesToJudge = $fetchedImages;
     $judgeResponse->returnJson();
@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
   }
 
   $judgeResponse->imagesToJudge = $fetchedImages;
-  JudgeModel::setImagesToJudgeSession($fetchedImages);
+  Session::setImagesToJudge($fetchedImages);
 
   $judgeResponse->returnJson();
 }
