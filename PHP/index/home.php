@@ -26,7 +26,8 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     $homeModel->submittedFileName = ImagesQuery::fetchNameByUserId($user->id);
 
     $contestData = ContestsQuery::fetchLatestContestInfo();
-    $homeModel->contest = HomeModel::createContestResponse($contestData);
+    $homeModel->contest = $contestData->createContestResponse();
+    
     $homeModel->returnJson();
 
   } catch (\Throwable $th) {

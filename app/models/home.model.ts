@@ -5,13 +5,13 @@ export type HomeDataGET = {
 }
 
 export type ContestData = {
-  round_num: number
+  roundNum: number
   subject: string
   applicationPeriod: PeriodData,
   judgePeriod: PeriodData
 }
 
 export type PeriodData = {
-  start_at: string,
-  end_at: string
+  startAt: string,
+  endAt: string
 }
