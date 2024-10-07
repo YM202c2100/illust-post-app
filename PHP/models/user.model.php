@@ -1,7 +1,7 @@
 <?php
 namespace models;
 
-require_once __DIR__."/../../libs/validate.php";
+require_once __DIR__."/../libs/validate.php";
 use libs\Validate;
 
 class UserModel {

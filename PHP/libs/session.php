@@ -1,7 +1,7 @@
 <?php
 namespace libs;
 
-require_once __DIR__."/../models/storingModel/user.model.php";
+require_once __DIR__."/../models/user.model.php";
 use models\UserModel;
 
 function require_session(){
@@ -33,7 +33,7 @@ class Session{
     return $_SESSION[Session::USER] ?? null;
   }
 
-  
+
   public static function setImagesToJudge($images){
     $_SESSION[Session::IMAGES_JUDGE] = $images;
   }

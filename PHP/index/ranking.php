@@ -3,7 +3,7 @@ namespace index\ranking;
 
 require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../libs/session.php";
-require_once __DIR__."/../models/responseModel/ranking.model.php";
+require_once __DIR__."/../models/ranking.model.php";
 require_once __DIR__."/../db/competitors.query.php";
 require_once __DIR__."/../db/images.query.php";
 use db\CompetitorsQuery;

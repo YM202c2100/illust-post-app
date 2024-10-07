@@ -4,7 +4,7 @@ namespace index\post;
 require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../libs/session.php";
 require_once __DIR__."/../db/images.query.php";
-require_once __DIR__."/../models/responseModel/post.model.php";
+require_once __DIR__."/../models/post.model.php";
 
 use db\ImagesQuery;
 use libs\Session;

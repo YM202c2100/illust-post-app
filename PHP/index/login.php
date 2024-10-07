@@ -6,7 +6,7 @@ require_once __DIR__."/../libs/session.php";
 require_once __DIR__."/../libs/validate.php";
 require_once __DIR__."/../db/users.query.php";
 require_once __DIR__."/../db/competitors.query.php";
-require_once __DIR__."/../models/storingModel/user.model.php";
+require_once __DIR__."/../models/user.model.php";
 
 use db\CompetitorsQuery;
 use db\UsersQuery;
