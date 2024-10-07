@@ -15,26 +15,32 @@ use models\RankingModel;
 use models\UserModel;
 
 if($_SERVER['REQUEST_METHOD'] === "GET"){
+  $ranking = new RankingModel();
+
   \libs\require_session();
   $user = UserModel::getFromSession();
   if(empty($user)){
-    echo json_encode(['status'=>'error', 'body'=>'ログインしてください']);
-    exit();
+    $ranking->isLogin = false;
+    $ranking->returnJson();
   }
 
   if( !CompetitorModel::isSubmitted() ){
-    echo json_encode(['status'=>'error', 'body'=>'作品を投稿してください']);
-    exit(); 
+    $ranking->isSubmitted = false;
+    $ranking->returnJson();
   }
-  $ranking = new RankingModel();
+  
   $ranking->totalNumCompetitors = CompetitorsQuery::getTotalNumCompetitors();
   $ranking->rankPosition = CompetitorsQuery::getRankPosition($user->id);
   $ranking->top3Images = ImagesQuery::fetchImagesTop3();
   $ranking->myImageSrc = ImagesQuery::fetchNameByUserId($user->id);
   $ranking->myRankPoints = CompetitorsQuery::getRankPointsOf($user);
-  $ranking->higherRankImages = ImagesQuery::fetchHigherRankThan($ranking->myRankPoints);
 
-  $ranking->calcPlacementPercentail();
+  $higherRankImages = ImagesQuery::fetchHigherRankThan($ranking->myRankPoints);
+  if(!is_array($higherRankImages) || count($higherRankImages) !== 3){
+    $ranking->higherRankImages = $ranking->top3Images;
+  }else{
+    $ranking->higherRankImages = $higherRankImages;
+  }
 
-  echo json_encode(['status'=>'ok', 'body'=>$ranking]);
+  $ranking->returnJson();
 }

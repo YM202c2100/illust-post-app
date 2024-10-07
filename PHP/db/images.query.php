@@ -4,7 +4,6 @@ namespace db;
 require_once __DIR__."/libs/dbConnection.php";
 require_once __DIR__."/../models/storingModel/image.model.php";
 
-use models\ImageModel;
 use models\ImageWithRP;
 use PDO;
 
@@ -48,7 +47,7 @@ class ImagesQuery {
 
   public static function fetchImagesTop3(){
     $db = new DbConnection();
-    $sql = "SELECT img.file_name, u.user_name 
+    $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
             from images as img
               inner join competitors as comptr
               	on img.user_id = comptr.user_id
@@ -56,7 +55,7 @@ class ImagesQuery {
               	on img.user_id = u.id
             order by comptr.rank_points desc
             limit 3";
-    return $db->fetch($sql, fetchMode:PDO::FETCH_CLASS, outputModel:ImageModel::class);
+    return $db->fetch($sql, fetchMode:PDO::FETCH_CLASS, outputModel:ImageWithRP::class);
   }
 
   public static function fetchNameByUserId($userId){
