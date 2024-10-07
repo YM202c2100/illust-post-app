@@ -1,16 +1,10 @@
-import { cookies } from "next/headers"
 import { LoginButton } from "@/app/features/userAuth/login/components/loginButton"
 import { LogoutButton } from "@/app/features/userAuth/logout/components/logoutButton"
 import Link from "next/link"
-import { PHP_ROOT_PATH } from "@/app/api/config"
-import { getHeaderWithSessId } from "@/app/api/cookieHeader"
+import { GET } from "@/app/api/getRequest"
 
 export const Header = async ()=>{
-  const reqHeaders = getHeaderWithSessId()
-  const res = await fetch(PHP_ROOT_PATH+"getUser.php",{
-    credentials:"include",
-    headers:reqHeaders
-  })
+  const res = await GET("getUser")
   const user = await res.json()
 
   return(
