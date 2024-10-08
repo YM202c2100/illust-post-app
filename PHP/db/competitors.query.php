@@ -11,32 +11,31 @@ class CompetitorsQuery {
   public static function getIsSubmitted($userId){
     $db = new DbConnection();
 
+    $curContestId = ContestsQuery::$currentId;
     $sql = "SELECT count(*) from competitors 
             where user_id = :user_id
-              and contest_id = :contest_id";
+              and contest_id = {$curContestId}";
               
-    $isExisting = $db->fetch($sql, [':user_id'=>$userId, ':contest_id'=>ContestsQuery::$currentId], fetchOne:true);
+    $isExisting = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
     return (bool)$isExisting;
   }
 
   public static function fetchRankPoints($userId, $fetchPrevRP=false){
     $db = new DbConnection();
 
-    $operator = $fetchPrevRP ? '!=':"=";
+    $operator = $fetchPrevRP ? '!=':'=';
+    $curContestId = ContestsQuery::$currentId;
 
     $sql = "SELECT comptr.rank_points
             from competitors comptr
               inner join contests contest
               on comptr.contest_id = contest.id
             where comptr.user_id = :user_id
-              and contest.id {$operator} :contest_id
+              and contest.id {$operator} {$curContestId}
             order by round_num desc
             limit 1";
     
-    $rankPoints = $db->fetch($sql, [
-                    ':user_id'=>$userId, 
-                    ':contest_id'=>ContestsQuery::$currentId
-                  ], fetchOne:true);
+    $rankPoints = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
                   
     return $rankPoints;
   }
