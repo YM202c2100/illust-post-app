@@ -83,7 +83,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 
 function getUpdatedRankPoints($winnerId, $loserId){
-  $rankPoints = CompetitorsQuery::getAssocRankPointsOfUsers([$winnerId, $loserId]);
+  $rankPoints = CompetitorsQuery::fetchRankPointsToJudgeOthers([$winnerId, $loserId]);
   return calcRankPointFluctuation($rankPoints, $winnerId, $loserId);
 }
 
