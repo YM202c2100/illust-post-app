@@ -36,6 +36,7 @@ class ImagesQuery {
             from images as img 
             inner join competitors as comptr 
               on img.user_id = comptr.user_id
+                and img.contest_id = comptr.contest_id
             where comptr.rank_points {$compOperator} :rankPointsOfEvalator
               and comptr.user_id != :user_id
               and comptr.contest_id = ". ContestsQuery::$currentId ."
@@ -73,11 +74,12 @@ class ImagesQuery {
   public static function fetchHigherRankThan($rankPoints){
     $db = new DbConnection();
     $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
-            from users as u
-              inner join images as img
-                on u.id = img.user_id
+            from images as img
+              inner join users as u
+                on img.user_id = u.id
               inner join competitors as comptr
-                on u.id = comptr.user_id
+                on img.user_id = comptr.user_id 
+                  and img.contest_id = comptr.contest_id 
             where comptr.rank_points > :rank_points + 150
               and comptr.contest_id = ". ContestsQuery::$currentId ."
             limit 3";
