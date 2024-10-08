@@ -28,13 +28,13 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     $ranking->returnJson();
   }
 
-  $curContestId = ContestsQuery::fetchCurrentContestId();
-  
+  ContestsQuery::setCurrentContestId();
+
   $ranking->totalNumCompetitors = CompetitorsQuery::getTotalNumCompetitors();
   $ranking->rankPosition = CompetitorsQuery::getRankPosition($user->id);
   $ranking->top3Images = ImagesQuery::fetchImagesTop3();
   $ranking->myImageSrc = ImagesQuery::fetchNameByUserId($user->id);
-  $ranking->myRankPoints = CompetitorsQuery::fetchRankPoints($user->id, $curContestId);
+  $ranking->myRankPoints = CompetitorsQuery::fetchRankPoints($user->id);
 
   $higherRankImages = ImagesQuery::fetchHigherRankThan($ranking->myRankPoints);
   if(!is_array($higherRankImages) || count($higherRankImages) !== 3){

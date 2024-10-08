@@ -8,18 +8,18 @@ require_once __DIR__."/../models/ranking.model.php";
 use PDO;
 
 class CompetitorsQuery {
-  public static function getIsSubmitted($userId, $contestId){
+  public static function getIsSubmitted($userId){
     $db = new DbConnection();
 
     $sql = "SELECT count(*) from competitors 
             where user_id = :user_id
               and contest_id = :contest_id";
               
-    $isExisting = $db->fetch($sql, [':user_id'=>$userId, ':contest_id'=>$contestId], fetchOne:true);
+    $isExisting = $db->fetch($sql, [':user_id'=>$userId, ':contest_id'=>ContestsQuery::$currentId], fetchOne:true);
     return (bool)$isExisting;
   }
 
-  public static function fetchRankPoints($userId, $currentContestId, $fetchPrevRP=false){
+  public static function fetchRankPoints($userId, $fetchPrevRP=false){
     $db = new DbConnection();
 
     $operator = $fetchPrevRP ? '!=':"=";
@@ -35,7 +35,7 @@ class CompetitorsQuery {
     
     $rankPoints = $db->fetch($sql, [
                     ':user_id'=>$userId, 
-                    ':contest_id'=>$currentContestId
+                    ':contest_id'=>ContestsQuery::$currentId
                   ], fetchOne:true);
                   
     return $rankPoints;

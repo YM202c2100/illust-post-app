@@ -34,8 +34,8 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
   $judgeResponse->limitCanJudge = CompetitorsQuery::getLimitCanJudge($user->id);
   
   // ユーザーが作品を提出済みなら、6つの画像を返す
-  $curContestId = ContestsQuery::fetchCurrentContestId();
-  $rankPointsOfEvalator = CompetitorsQuery::fetchRankPoints($user->id, $curContestId);
+  ContestsQuery::setCurrentContestId();
+  $rankPointsOfEvalator = CompetitorsQuery::fetchRankPoints($user->id);
   $fetchedImages = Session::getImagesToJudge();
   if(isset($fetchedImages)){
     $judgeResponse->imagesToJudge = $fetchedImages;

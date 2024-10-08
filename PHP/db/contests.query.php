@@ -7,12 +7,14 @@ use models\ContestRecieveModel;
 use PDO;
 
 class ContestsQuery {
-  public static function fetchCurrentContestId(){
+  static $currentId;
+
+  public static function setCurrentContestId(){
     $db = new DbConnection();
     $sql = "SELECT id from contests
             order by round_num desc
             limit 1";
-    return $db->fetch($sql, fetchOne:true);
+    static::$currentId = $db->fetch($sql, fetchOne:true);
   }
 
   public static function fetchLatestContestInfo():ContestRecieveModel{
