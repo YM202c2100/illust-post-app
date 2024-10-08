@@ -4,18 +4,19 @@ namespace db;
 require_once __DIR__."/libs/dbConnection.php";
 require_once __DIR__."/libs/helper.php";
 require_once __DIR__."/competitors.query.php";
-require_once __DIR__."/../models/user.model.php";
 require_once __DIR__."/../models/ranking.model.php";
-use models\UserModel;
 use PDO;
 
 class CompetitorsQuery {
-  public static function getIsSubmitted($userId){
+  public static function getIsSubmitted($userId, $contestId){
     $db = new DbConnection();
 
-    $sql = "SELECT is_submitted from competitors where user_id = :user_id";
-    $isSubmitted = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
-    return $isSubmitted;
+    $sql = "SELECT count(*) from competitors 
+            where user_id = :user_id
+              and contest_id = :contest_id";
+              
+    $isExisting = $db->fetch($sql, [':user_id'=>$userId, ':contest_id'=>$contestId], fetchOne:true);
+    return (bool)$isExisting;
   }
 
   public static function getRankPointsOf(UserModel $user){

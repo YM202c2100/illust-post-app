@@ -5,10 +5,12 @@ require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../libs/session.php";
 require_once __DIR__."/../libs/validate.php";
 require_once __DIR__."/../db/users.query.php";
+require_once __DIR__."/../db/contests.query.php";
 require_once __DIR__."/../db/competitors.query.php";
 require_once __DIR__."/../models/user.model.php";
 
 use db\CompetitorsQuery;
+use db\ContestsQuery;
 use db\UsersQuery;
 use libs\Session;
 use models\UserModel;
@@ -39,7 +41,8 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     if($user->pwd === $pwd){
       Session::setUser($user);
 
-      $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id);
+      $curContestId = ContestsQuery::fetchCurrentContestId();
+      $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id, $curContestId);
       Session::setIsSubmitted($isSubmitted);
 
       echo json_encode(['status'=>'ok', 'body'=>"{$user->user_name}でログインしました"]);
