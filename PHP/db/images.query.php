@@ -11,14 +11,14 @@ class ImagesQuery {
   public static function uploadImage($fileName, $userId):bool{
     $db = new DbConnection();
 
-    $sql = 'INSERT into images (file_name, user_id) 
-              values (:file_name, :user_id) 
+    $sql = 'INSERT into images (user_id, contest_id, file_name) 
+              values (:user_id,'. ContestsQuery::$currentId .', :file_name) 
             on duplicate key update 
               file_name = values(file_name)';
 
     $isSuccess = $db->execute($sql, [
-      ':file_name'=>$fileName,
-      ':user_id'=>$userId
+      ':user_id'=>$userId,
+      ':file_name'=>$fileName
     ]);
 
     return $isSuccess;
@@ -38,6 +38,7 @@ class ImagesQuery {
               on img.user_id = comptr.user_id
             where comptr.rank_points {$compOperator} :rankPointsOfEvalator
               and comptr.user_id != :user_id
+              and comptr.contest_id = ". ContestsQuery::$currentId ."
             order by comptr.judged_count asc,
               comptr.rank_points {$order}
             limit 6";
@@ -53,6 +54,7 @@ class ImagesQuery {
               	on img.user_id = comptr.user_id
               inner join users u
               	on img.user_id = u.id
+            where comptr.conteset_id = ". ContestsQuery::$currentId ."
             order by comptr.rank_points desc
             limit 3";
     return $db->fetch($sql, fetchMode:PDO::FETCH_CLASS, outputModel:ImageWithRP::class);
@@ -62,7 +64,9 @@ class ImagesQuery {
     $db = new DbConnection();
     $sql = "SELECT file_name
               from images
-            where user_id = :user_id";
+            where user_id = :user_id
+              and contest_id = ". ContestsQuery::$currentId;
+
     return $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
   }
 
@@ -75,6 +79,7 @@ class ImagesQuery {
               inner join competitors as comptr
                 on u.id = comptr.user_id
             where comptr.rank_points > :rank_points + 150
+              and comptr.contest_id = ". ContestsQuery::$currentId ."
             limit 3";
     return $db->fetch($sql, ['rank_points'=>$rankPoints], PDO::FETCH_CLASS, ImageWithRP::class);
   }
