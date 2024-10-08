@@ -17,12 +17,13 @@ class ContestsQuery {
     static::$currentId = $db->fetch($sql, fetchOne:true);
   }
 
-  public static function fetchLatestContestInfo():ContestRecieveModel{
+  public static function fetchContestInfo($contestId=ContestsQuery::$currentId):ContestRecieveModel{
     $db = new DbConnection();
 
     $sql = "SELECT * from contests
             order by round_num desc
+            where contest_id = :contest_id
             limit 1";
-    return $db->fetch($sql, [], PDO::FETCH_CLASS, ContestRecieveModel::class, fetchOne:true);
+    return $db->fetch($sql, [':contest_id'=>$contestId], PDO::FETCH_CLASS, ContestRecieveModel::class, fetchOne:true);
   }
 }

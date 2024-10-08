@@ -31,10 +31,11 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
     $judgeResponse->returnJson();
   }
 
+  ContestsQuery::setCurrentContestId();
+
   $judgeResponse->limitCanJudge = CompetitorsQuery::getLimitCanJudge($user->id);
   
   // ユーザーが作品を提出済みなら、6つの画像を返す
-  ContestsQuery::setCurrentContestId();
   $rankPointsOfEvalator = CompetitorsQuery::fetchRankPoints($user->id);
   $fetchedImages = Session::getImagesToJudge();
   if(isset($fetchedImages)){
@@ -69,6 +70,8 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
     http_response_code(500);
     exit();
   }
+
+  ContestsQuery::setCurrentContestId();
 
   $updatedRankPoints = getUpdatedRankPoints($winnerId, $loserId);
   CompetitorsQuery::updateRankPointAndJudgedCount($updatedRankPoints);

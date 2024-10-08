@@ -23,10 +23,13 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
       $homeModel->returnJson();
       exit();
     }
+
+    ContestsQuery::setCurrentContestId();
+
     $homeModel->submittedFileName = ImagesQuery::fetchNameByUserId($user->id);
 
-    $contestData = ContestsQuery::fetchLatestContestInfo();
-    $homeModel->contest = $contestData->createContestResponse();
+    $currentContestData = ContestsQuery::fetchContestInfo();
+    $homeModel->contest = $currentContestData->createContestResponse();
 
     $homeModel->returnJson();
 
