@@ -19,14 +19,25 @@ class CompetitorsQuery {
     return (bool)$isExisting;
   }
 
-  public static function getRankPointsOf(UserModel $user){
+  public static function fetchRankPoints($userId, $currentContestId, $fetchPrevRP=false){
     $db = new DbConnection();
 
-    $sql = "SELECT comptr.rank_points 
-            from illust_post.competitors as comptr 
-            where comptr.user_id = :user_id";
+    $operator = $fetchPrevRP ? '!=':"=";
+
+    $sql = "SELECT comptr.rank_points
+            from competitors comptr
+              inner join contests contest
+              on comptr.contest_id = contest.id
+            where comptr.user_id = :user_id
+              and contest.id {$operator} :contest_id
+            order by round_num desc
+            limit 1";
     
-    $rankPoints = $db->fetch($sql, [':user_id'=>$user->id], fetchOne:true);
+    $rankPoints = $db->fetch($sql, [
+                    ':user_id'=>$userId, 
+                    ':contest_id'=>$currentContestId
+                  ], fetchOne:true);
+                  
     return $rankPoints;
   }
 

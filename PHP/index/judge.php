@@ -6,10 +6,12 @@ require_once __DIR__."/../libs/helper.php";
 require_once __DIR__."/../libs/session.php";
 require_once __DIR__."/../models/judge.model.php";
 require_once __DIR__."/../db/competitors.query.php";
+require_once __DIR__."/../db/contests.query.php";
 require_once __DIR__."/../db/images.query.php";
 
 use db\ImagesQuery;
 use db\CompetitorsQuery;
+use db\ContestsQuery;
 use libs\Session;
 use models\JudgeModel;
 
@@ -32,7 +34,8 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
   $judgeResponse->limitCanJudge = CompetitorsQuery::getLimitCanJudge($user->id);
   
   // ユーザーが作品を提出済みなら、6つの画像を返す
-  $rankPointsOfEvalator = CompetitorsQuery::getRankPointsOf($user);
+  $curContestId = ContestsQuery::fetchCurrentContestId();
+  $rankPointsOfEvalator = CompetitorsQuery::fetchRankPoints($user->id, $curContestId);
   $fetchedImages = Session::getImagesToJudge();
   if(isset($fetchedImages)){
     $judgeResponse->imagesToJudge = $fetchedImages;
