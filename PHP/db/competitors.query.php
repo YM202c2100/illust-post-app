@@ -11,10 +11,9 @@ class CompetitorsQuery {
   public static function getIsSubmitted($userId){
     $db = new DbConnection();
 
-    $curContestId = ContestsQuery::$currentId;
     $sql = "SELECT count(*) from competitors 
             where user_id = :user_id
-              and contest_id = {$curContestId}";
+              and contest_id = ". ContestsQuery::$currentId;
               
     $isExisting = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
     return (bool)$isExisting;
@@ -24,14 +23,13 @@ class CompetitorsQuery {
     $db = new DbConnection();
 
     $operator = $fetchPrevRP ? '!=':'=';
-    $curContestId = ContestsQuery::$currentId;
 
     $sql = "SELECT comptr.rank_points
             from competitors comptr
               inner join contests contest
               on comptr.contest_id = contest.id
             where comptr.user_id = :user_id
-              and contest.id {$operator} {$curContestId}
+              and contest.id {$operator}" . ContestsQuery::$currentId ."
             order by round_num desc
             limit 1";
     
@@ -44,10 +42,9 @@ class CompetitorsQuery {
     $db = new DbConnection();
 
     $placeHolder = generatePlaceholderByLength(count($userIdList));
-    $curContestId = ContestsQuery::$currentId;
     $sql = "SELECT user_id, rank_points from competitors 
             where user_id in ($placeHolder)
-              and contest_id = {$curContestId}";
+              and contest_id = ". ContestsQuery::$currentId;
     
     $rankPointsOfUsers = $db->fetch($sql, $userIdList, PDO::FETCH_KEY_PAIR, questionPlaceHolder:true);
 
@@ -57,12 +54,11 @@ class CompetitorsQuery {
   public static function updateRankPointAndJudgedCount($updatedRPMap){
     $db = new DbConnection();
 
-    $curContestId = ContestsQuery::$currentId;
     $sql = "UPDATE competitors 
             set rank_points = :rank_points,
               judged_count = judged_count+1
             where user_id = :user_id
-              and contest_id = {$curContestId}";
+              and contest_id = ". ContestsQuery::$currentId;
 
     foreach ($updatedRPMap as $userId => $newPoints) {
       $db->execute($sql, [
@@ -75,10 +71,9 @@ class CompetitorsQuery {
   public static function getRankPosition($userId){
     $db = new DbConnection();
 
-    $curContestId = ContestsQuery::$currentId;
     $sql = "SELECT count(*)+1 as rankPosition
             from competitors
-            where contest_id = {$curContestId}
+            where contest_id = ". ContestsQuery::$currentId ."
               and rank_points > (
                 SELECT rank_points 
                 from competitors 
@@ -91,10 +86,9 @@ class CompetitorsQuery {
   public static function getTotalNumCompetitors(){
     $db = new DbConnection();
 
-    $curContestId = ContestsQuery::$currentId;
     $sql = "SELECT count(*) 
             from competitors
-            where contest_id = {$curContestId}";
+            where contest_id = ". ContestsQuery::$currentId;
 
     $totalNumCompetitors = $db->fetch($sql, fetchOne:true);
     return $totalNumCompetitors;
@@ -103,11 +97,10 @@ class CompetitorsQuery {
   public static function getLimitCanJudge($userId){
     $db = new DbConnection();
 
-    $curContestId = ContestsQuery::$currentId;
     $sql = "SELECT limit_can_judge 
               from competitors 
             where user_id = :user_id
-              and contest_id = {$curContestId}";
+              and contest_id = ". ContestsQuery::$currentId;
     
     return $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
   }
@@ -115,11 +108,10 @@ class CompetitorsQuery {
   public static function decrementLimitCanJudge($userId){
     $db = new DbConnection();
 
-    $curContestId = ContestsQuery::$currentId;
     $sql = "UPDATE competitors set 
               limit_can_judge = limit_can_judge-1 
             where user_id = :user_id
-              and contest_id = {$curContestId}";
+              and contest_id = ". ContestsQuery::$currentId;
 
     return $db->execute($sql, [':user_id'=>$userId]);
   }
