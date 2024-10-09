@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
   $ranking->rankPosition = CompetitorsQuery::getRankPosition($user->id);
   $ranking->top3Images = ImagesQuery::fetchImagesTop3();
   $ranking->myImage = ImagesQuery::fetchPrevSubmission($user->id);
-  $ranking->beforeRP = CompetitorsQuery::fetchRankPointsBeforePrevContest($usre->id);
+  $ranking->beforeRP = CompetitorsQuery::fetchRankPointsBeforePrevContest($user->id);
 
   $higherRankImages = ImagesQuery::fetchHigherRankThan($ranking->myImage->rank_points);
   if(!is_array($higherRankImages) || count($higherRankImages) !== 3){
