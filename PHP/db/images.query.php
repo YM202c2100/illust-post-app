@@ -61,7 +61,7 @@ class ImagesQuery {
 
     $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
             from ". ImagesQuery::$tableForImageWithRP ."
-            where comptr.conteset_id = ". ContestsQuery::$prevContestId ."
+            where comptr.contest_id = ". ContestsQuery::$prevContestId ."
             order by comptr.rank_points desc
             limit 3";
     return $db->fetch($sql, fetchMode:PDO::FETCH_CLASS, outputModel:ImageWithRP::class);
