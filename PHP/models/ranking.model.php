@@ -7,10 +7,10 @@ class RankingModel extends IsLogin{
   public $isSubmitted = true;
   public $rankPosition;
   public $totalNumCompetitors;
-  public $top3Images;
-  public $myImageSrc;
-  public $myRankPoints;
-  public $higherRankImages;
+  public $top3Images; //ImageWithRP[]
+  public $beforeRP;
+  public ImageWithRP $myImage;
+  public $higherRankImages; //ImageWithRP[]
 }
 
 class ImageWithRP {

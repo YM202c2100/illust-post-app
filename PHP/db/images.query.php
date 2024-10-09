@@ -8,6 +8,15 @@ use models\ImageWithRP;
 use PDO;
 
 class ImagesQuery {
+
+  private static $tableForImageWithRP = "
+    images as img
+      inner join users as u
+        on img.user_id = u.id
+      inner join competitors as comptr
+        on img.user_id = comptr.user_id 
+          and img.contest_id = comptr.contest_id";
+
   public static function uploadImage($fileName, $userId):bool{
     $db = new DbConnection();
 
@@ -49,13 +58,10 @@ class ImagesQuery {
 
   public static function fetchImagesTop3(){
     $db = new DbConnection();
+
     $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
-            from images as img
-              inner join competitors as comptr
-              	on img.user_id = comptr.user_id
-              inner join users u
-              	on img.user_id = u.id
-            where comptr.conteset_id = ". ContestsQuery::$currentId ."
+            from ". ImagesQuery::$tableForImageWithRP ."
+            where comptr.conteset_id = ". ContestsQuery::$prevContestId ."
             order by comptr.rank_points desc
             limit 3";
     return $db->fetch($sql, fetchMode:PDO::FETCH_CLASS, outputModel:ImageWithRP::class);
@@ -71,15 +77,21 @@ class ImagesQuery {
     return $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
   }
 
+  public static function fetchPrevSubmission($userId){
+    $db = new DbConnection();
+
+    $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
+            from ". ImagesQuery::$tableForImageWithRP ."
+            where u.id = :user_id
+              and comptr.contest_id = ". ContestsQuery::$currentId;
+    
+    $db->fetch($sql, ['user_id'=>$userId], PDO::FETCH_CLASS, ImageWithRP::class);
+  }
+
   public static function fetchHigherRankThan($rankPoints){
     $db = new DbConnection();
     $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
-            from images as img
-              inner join users as u
-                on img.user_id = u.id
-              inner join competitors as comptr
-                on img.user_id = comptr.user_id 
-                  and img.contest_id = comptr.contest_id 
+            from ". ImagesQuery::$tableForImageWithRP ."
             where comptr.rank_points > :rank_points + 150
               and comptr.contest_id = ". ContestsQuery::$currentId ."
             limit 3";

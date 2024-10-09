@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     $ranking->isLogin = false;
     $ranking->returnJson();
   }
-
+  
   ContestsQuery::setPrevContestId();
 
   $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id, ContestsQuery::$prevContestId);
@@ -31,15 +31,14 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     $ranking->returnJson();
   }
 
-  ContestsQuery::setCurrentContestId();
 
   $ranking->totalNumCompetitors = CompetitorsQuery::getTotalNumCompetitors();
   $ranking->rankPosition = CompetitorsQuery::getRankPosition($user->id);
   $ranking->top3Images = ImagesQuery::fetchImagesTop3();
-  $ranking->myImageSrc = ImagesQuery::fetchNameByUserId($user->id);
-  $ranking->myRankPoints = CompetitorsQuery::fetchRankPoints($user->id);
+  $ranking->myImage = ImagesQuery::fetchPrevSubmission($user->id);
+  $ranking->beforeRP = CompetitorsQuery::fetchRankPointsBeforePrevContest($usre->id);
 
-  $higherRankImages = ImagesQuery::fetchHigherRankThan($ranking->myRankPoints);
+  $higherRankImages = ImagesQuery::fetchHigherRankThan($ranking->myImage->rank_points);
   if(!is_array($higherRankImages) || count($higherRankImages) !== 3){
     $ranking->higherRankImages = $ranking->top3Images;
   }else{

@@ -8,30 +8,25 @@ require_once __DIR__."/../models/ranking.model.php";
 use PDO;
 
 class CompetitorsQuery {
-  public static function getIsSubmitted($userId){
+  public static function getIsSubmitted($userId, $contestId){
     $db = new DbConnection();
-
     $sql = "SELECT count(*) from competitors 
             where user_id = :user_id
-              and contest_id = ". ContestsQuery::$currentId;
+              and contest_id = :contest_id";
               
-    $isExisting = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
+    $isExisting = $db->fetch($sql, [':user_id'=>$userId, ':contest_id'=>$contestId], fetchOne:true);
     return (bool)$isExisting;
   }
 
-  public static function fetchRankPoints($userId, $fetchPrevRP=false){
+  public static function fetchRankPoints($userId){
     $db = new DbConnection();
-
-    $operator = $fetchPrevRP ? '!=':'=';
 
     $sql = "SELECT comptr.rank_points
             from competitors comptr
               inner join contests contest
               on comptr.contest_id = contest.id
             where comptr.user_id = :user_id
-              and contest.id {$operator}" . ContestsQuery::$currentId ."
-            order by round_num desc
-            limit 1";
+              and contest.id = ". ContestsQuery::$currentId;
     
     $rankPoints = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
                   
@@ -49,6 +44,21 @@ class CompetitorsQuery {
     $rankPointsOfUsers = $db->fetch($sql, $userIdList, PDO::FETCH_KEY_PAIR, questionPlaceHolder:true);
 
     return $rankPointsOfUsers;
+  }
+
+  public static function fetchRankPointsBeforePrevContest($userId){
+    $db = new DbConnection();
+
+    $sql = "SELECT rank_points from competitors comptr
+              inner join contests contest
+                on comptr.contest_id = contest.id
+            where comptr.user_id = :user_id
+              and  contest.round_num = (
+                select round_num-1 
+                from contests
+                where id = ". ContestsQuery::$prevContestId .")";
+    
+    return $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
   }
 
   public static function updateRankPointAndJudgedCount($updatedRPMap){
@@ -73,7 +83,7 @@ class CompetitorsQuery {
 
     $sql = "SELECT count(*)+1 as rankPosition
             from competitors
-            where contest_id = ". ContestsQuery::$currentId ."
+            where contest_id = ". ContestsQuery::$prevContestId ."
               and rank_points > (
                 SELECT rank_points 
                 from competitors 
@@ -88,7 +98,7 @@ class CompetitorsQuery {
 
     $sql = "SELECT count(*) 
             from competitors
-            where contest_id = ". ContestsQuery::$currentId;
+            where contest_id = ". ContestsQuery::$prevContestId;
 
     $totalNumCompetitors = $db->fetch($sql, fetchOne:true);
     return $totalNumCompetitors;

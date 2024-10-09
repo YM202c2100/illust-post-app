@@ -29,7 +29,7 @@ export default async function Ranking(){
   const top3 = data.top3Images
   const higher = data.higherRankImages
   const percentail = Math.round(data.rankPosition/data.totalNumCompetitors*100)
-  const myImgSrc = convertToValidSrc(data.myImageSrc)
+  const myImgSrc = convertToValidSrc(data.myImage.file_name)
   
   return(
     //上位何%か ランク 
@@ -45,7 +45,9 @@ export default async function Ranking(){
       <div className="grid grid-cols-2">
         <img src={myImgSrc}/>
         <div>
-          <div>RP:{data.myRankPoints}</div>
+          <div>RP:{data.beforeRP}</div>
+          <div>↓</div>
+          <div>RP:{data.myImage.rank_points}</div>
           <div>
             順位:{data.rankPosition}/{data.totalNumCompetitors}
           </div>
