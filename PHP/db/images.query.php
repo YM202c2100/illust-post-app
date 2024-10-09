@@ -85,7 +85,7 @@ class ImagesQuery {
             where u.id = :user_id
               and comptr.contest_id = ". ContestsQuery::$currentId;
     
-    $db->fetch($sql, ['user_id'=>$userId], PDO::FETCH_CLASS, ImageWithRP::class);
+    return $db->fetch($sql, ['user_id'=>$userId], PDO::FETCH_CLASS, ImageWithRP::class, fetchOne:true);
   }
 
   public static function fetchHigherRankThan($rankPoints){
