@@ -92,7 +92,7 @@ class ImagesQuery {
     $db = new DbConnection();
     $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
             from ". ImagesQuery::$tableForImageWithRP ."
-            where comptr.rank_points > :rank_points + 150
+            where comptr.rank_points > :rank_points + 100
               and comptr.contest_id = ". ContestsQuery::$prevContestId."
             limit 3";
     return $db->fetch($sql, ['rank_points'=>$rankPoints], PDO::FETCH_CLASS, ImageWithRP::class);
