@@ -12,9 +12,10 @@ class ContestsQuery {
 
   public static function setCurrentContestId(){
     $db = new DbConnection();
-    $sql = "SELECT id from contests
-            order by round_num desc
-            limit 1";
+    $sql = "SELECT id
+            FROM contests
+            WHERE NOW() BETWEEN application_start_date AND judge_end_date";
+            
     static::$currentId = $db->fetch($sql, fetchOne:true);
   }
 
