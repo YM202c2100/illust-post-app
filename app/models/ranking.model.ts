@@ -4,10 +4,10 @@ export type RankingDataGET = {
   rankPosition: number,
   totalNumCompetitors: number,
   top3Images: ImageWithRP[],
-  beforeRP: number,
+  beforeRP: number|null,
   myImage: ImageWithRP,
   higherRankImages: ImageWithRP[]
-  
+
   ,debug: string
 }
 

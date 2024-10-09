@@ -48,7 +48,7 @@ export default async function Ranking(){
       <div className="grid grid-cols-2">
         <img src={myImgSrc}/>
         <div>
-          <div>RP:{data.beforeRP}</div>
+          <div>RP:{data.beforeRP ?? "---"}</div>
           <div>↓</div>
           <div>RP:{data.myImage.rank_points}</div>
           <div>
