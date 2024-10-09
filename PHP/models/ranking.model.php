@@ -11,6 +11,8 @@ class RankingModel extends IsLogin{
   public $beforeRP;
   public ImageWithRP $myImage;
   public $higherRankImages; //ImageWithRP[]
+  
+  public $debug;
 }
 
 class ImageWithRP {

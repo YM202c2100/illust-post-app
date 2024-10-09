@@ -15,6 +15,7 @@ use models\RankingModel;
 
 if($_SERVER['REQUEST_METHOD'] === "GET"){
   $ranking = new RankingModel();
+  try {
 
   \libs\require_session();
   $user = Session::getUser();
@@ -46,4 +47,8 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
   }
 
   $ranking->returnJson();
+} catch (\Throwable $th) {
+  $ranking->debug = $th->getMessage();
+  $ranking->returnJson();
+}
 }

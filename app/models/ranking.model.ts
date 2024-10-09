@@ -7,6 +7,8 @@ export type RankingDataGET = {
   beforeRP: number,
   myImage: ImageWithRP,
   higherRankImages: ImageWithRP[]
+  
+  ,debug: string
 }
 
 export type ImageWithRP = {
