@@ -42,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
       Session::setUser($user);
 
       ContestsQuery::setCurrentContestId();
-      $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id);
+        $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id, ContestsQuery::$currentId);
       Session::setIsSubmitted($isSubmitted);
 
       echo json_encode(['status'=>'ok', 'body'=>"{$user->user_name}でログインしました"]);

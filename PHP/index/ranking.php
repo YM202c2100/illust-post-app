@@ -23,7 +23,10 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     $ranking->returnJson();
   }
 
-  if( !Session::isSubmitted() ){
+  ContestsQuery::setPrevContestId();
+
+  $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id, ContestsQuery::$prevContestId);
+  if(!$isSubmitted){
     $ranking->isSubmitted = false;
     $ranking->returnJson();
   }
