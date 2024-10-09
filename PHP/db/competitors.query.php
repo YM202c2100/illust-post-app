@@ -85,9 +85,10 @@ class CompetitorsQuery {
             from competitors
             where rank_points > (
                 SELECT rank_points 
-                from competitors 
-                where user_id = :user_id
-                and contest_id = ". ContestsQuery::$prevContestId .")";
+                  from competitors 
+                  where user_id = :user_id
+                  and contest_id = ". ContestsQuery::$prevContestId .")
+              and contest_id = ". ContestsQuery::$prevContestId;
     $rankPosition = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
     return $rankPosition;
   }
