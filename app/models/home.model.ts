@@ -1,5 +1,6 @@
 export type HomeDataGET = {
   isLogin: boolean,
+  isCurrentlyHeld: boolean,
   submittedFileName: string|null,
   contest: ContestData
 }

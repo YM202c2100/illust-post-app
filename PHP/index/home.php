@@ -25,11 +25,15 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     }
 
     ContestsQuery::setCurrentContestId();
-
-    $homeModel->submittedFileName = ImagesQuery::fetchNameByUserId($user->id);
-
-    $currentContestData = ContestsQuery::fetchContestInfo(ContestsQuery::$currentId);
-    $homeModel->contest = $currentContestData->createContestResponse();
+    if(isset(ContestsQuery::$currentId)){
+      $homeModel->submittedFileName = ImagesQuery::fetchNameByUserId($user->id);
+    }else{
+      $homeModel->isCurrentlyHeld = false;
+      ContestsQuery::setNextScheduledId();
+    }
+    
+    $contestData = ContestsQuery::fetchContestInfo();
+    $homeModel->contest = $contestData->createContestResponse();
 
     $homeModel->returnJson();
 
