@@ -83,7 +83,7 @@ class ImagesQuery {
     $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
             from ". ImagesQuery::$tableForImageWithRP ."
             where u.id = :user_id
-              and comptr.contest_id = ". ContestsQuery::$currentId;
+              and comptr.contest_id = ". ContestsQuery::$prevContestId;
     
     return $db->fetch($sql, ['user_id'=>$userId], PDO::FETCH_CLASS, ImageWithRP::class, fetchOne:true);
   }
