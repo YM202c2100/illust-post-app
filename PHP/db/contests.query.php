@@ -8,6 +8,7 @@ use PDO;
 
 class ContestsQuery {
   static $currentId;
+  static $prevContestId;
 
   public static function setCurrentContestId(){
     $db = new DbConnection();
@@ -15,6 +16,21 @@ class ContestsQuery {
             order by round_num desc
             limit 1";
     static::$currentId = $db->fetch($sql, fetchOne:true);
+  }
+
+  public static function setPrevContestId($offset=1){
+    $db = new DbConnection();
+
+    if(empty(ContestsQuery::$currentId)){
+      ContestsQuery::setCurrentContestId();
+    }
+
+    $sql = "SELECT id from contests
+            where round_num = (
+              select round_num - {$offset} from contests
+              where id = ". ContestsQuery::$currentId . ")";
+
+    static::$prevContestId = $db->fetch($sql, [], fetchOne:true);
   }
 
   public static function fetchContestInfo($contestId):ContestRecieveModel{
