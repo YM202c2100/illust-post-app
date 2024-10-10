@@ -1,6 +1,9 @@
 <?php
 namespace models;
 
+require_once __DIR__."/RecieveModel/contest.recieve.php";
+use \models\ContestRecieveModel;
+
 require_once __DIR__."/abstract.model.php";
 
 class HomeModel extends IsLogin {
@@ -15,11 +18,17 @@ class ContestModel {
   public PeriodModel $applicationPeriod;
   public PeriodModel $judgePeriod;
 
-  public function __construct($roundNum, $subject, $applicationPeriod, $judgePeriod) {
-    $this->roundNum = $roundNum;
-    $this->subject = $subject;
-    $this->applicationPeriod = $applicationPeriod;
-    $this->judgePeriod = $judgePeriod;
+  public function __construct(ContestRecieveModel $contest){
+    $this->roundNum = $contest->round_num;
+    $this->subject = $contest->subject;
+    $this->applicationPeriod = new PeriodModel(
+                                  $contest->application_start_date, 
+                                  $contest->application_end_date
+                                );
+    $this->judgePeriod = new PeriodModel(
+                            $contest->judge_start_date,
+                            $contest->judge_end_date
+                          );
   }
 }
 
@@ -33,30 +42,3 @@ class PeriodModel {
   }
 }
 
-class ContestRecieveModel{
-  private $id;
-  public $round_num;
-  public $subject;
-  public $application_start_date;
-  public $application_end_date;
-  public $judge_start_date;
-  public $judge_end_date;
-
-  public function createContestResponse(){
-    $applicationPeriod = new PeriodModel(
-                            $this->application_start_date, 
-                            $this->application_end_date
-                          );
-    $judgePeriod = new PeriodModel(
-                      $this->judge_start_date,
-                      $this->judge_end_date
-                    );
-
-    return new ContestModel(
-              $this->round_num,
-              $this->subject,
-              $applicationPeriod,
-              $judgePeriod
-            );
-  }
-}

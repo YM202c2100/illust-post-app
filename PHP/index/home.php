@@ -10,6 +10,7 @@ require_once __DIR__."/../db/contests.query.php";
 use db\ContestsQuery;
 use db\ImagesQuery;
 use libs\Session;
+use models\ContestModel;
 use models\HomeModel;
 
 if($_SERVER['REQUEST_METHOD'] === "GET"){
@@ -33,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
     }
     
     $contestData = ContestsQuery::fetchContestInfo();
-    $homeModel->contest = $contestData->createContestResponse();
+    $homeModel->contest = new ContestModel($contestData);
 
     $homeModel->returnJson();
 
