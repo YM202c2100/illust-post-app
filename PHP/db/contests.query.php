@@ -30,17 +30,19 @@ class ContestsQuery {
     static::$nextScheduledId = $db->fetch($sql, fetchOne:true);
   }
 
-  public static function setPrevContestId($offset=1){
+  public static function setPrevContestId(){
     $db = new DbConnection();
 
+    ContestsQuery::setCurrentContestId();
     if(empty(ContestsQuery::$currentId)){
-      ContestsQuery::setCurrentContestId();
+      ContestsQuery::setNextScheduledId();
     }
+    $latestId = ContestsQuery::$currentId ?? ContestsQuery::$nextScheduledId;
 
     $sql = "SELECT id from contests
             where round_num = (
-              select round_num - {$offset} from contests
-              where id = ". ContestsQuery::$currentId . ")";
+              select round_num - 1 from contests
+              where id = {$latestId})";
 
     static::$prevContestId = $db->fetch($sql, [], fetchOne:true);
   }
