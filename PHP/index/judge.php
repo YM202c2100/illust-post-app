@@ -18,7 +18,7 @@ use models\JudgeModel;
 
 if($_SERVER['REQUEST_METHOD']==="GET"){
   ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
-  if(isWithinJudgingPeriod()){
+  if(!isWithinJudgingPeriod()){
     echo json_encode(['error'=>'現在作品ジャッジ期間外です']);
     exit();
   }

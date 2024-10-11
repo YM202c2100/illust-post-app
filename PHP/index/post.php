@@ -15,7 +15,7 @@ use models\PostModel;
 
 if($_SERVER['REQUEST_METHOD'] === 'GET'){
   ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
-  if(isWithinApplicationPeriod()){
+  if(!isWithinApplicationPeriod()){
     echo json_encode(['error'=>'現在作品応募期間外です']);
     exit();
   }
