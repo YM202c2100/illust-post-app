@@ -48,7 +48,7 @@ class ImagesQuery {
                 and img.contest_id = comptr.contest_id
             where comptr.rank_points {$compOperator} :rankPointsOfEvalator
               and comptr.user_id != :user_id
-              and comptr.contest_id = ". ContestsQuery::$currentId ."
+              and comptr.contest_id = ". ContestsQuery::$targetId ."
             order by comptr.judged_count asc,
               comptr.rank_points {$order}
             limit 6";

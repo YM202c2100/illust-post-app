@@ -26,7 +26,7 @@ class CompetitorsQuery {
               inner join contests contest
               on comptr.contest_id = contest.id
             where comptr.user_id = :user_id
-              and contest.id = ". ContestsQuery::$currentId;
+              and contest.id = ". ContestsQuery::$targetId;
     
     $rankPoints = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
                   
@@ -110,7 +110,7 @@ class CompetitorsQuery {
     $sql = "SELECT limit_can_judge 
               from competitors 
             where user_id = :user_id
-              and contest_id = ". ContestsQuery::$currentId;
+              and contest_id = ". ContestsQuery::$targetId;
     
     return $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
   }

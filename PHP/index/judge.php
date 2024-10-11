@@ -31,25 +31,11 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
     $judgeResponse->returnJson();
   }
 
-  ContestsQuery::setCurrentContestId();
+  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
 
-  $judgeResponse->limitCanJudge = CompetitorsQuery::getLimitCanJudge($user->id);
-  
-  // ユーザーが作品を提出済みなら、6つの画像を返す
-  $rankPointsOfEvalator = CompetitorsQuery::fetchRankPoints($user->id);
-  $fetchedImages = Session::getImagesToJudge();
-  if(isset($fetchedImages)){
-    $judgeResponse->imagesToJudge = $fetchedImages;
-    $judgeResponse->returnJson();
-  }
+  $judgeResponse = fillJudgeResponse($judgeResponse, $user->id);
 
-  $fetchedImages = ImagesQuery::fetchImagesToJudge($user->id, $rankPointsOfEvalator);
-  if( !is_array($fetchedImages) || (count($fetchedImages) !== 6) ){
-    $fetchedImages = ImagesQuery::fetchImagesToJudge($user->id, $rankPointsOfEvalator, fetchHigher:false);
-  }
-
-  $judgeResponse->imagesToJudge = $fetchedImages;
-  Session::setImagesToJudge($fetchedImages);
+  Session::setImagesToJudge($judgeResponse->imagesToJudge);
 
   $judgeResponse->returnJson();
 }
@@ -82,6 +68,27 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
   }
 
   echo json_encode(['status'=>'ok', 'body'=>'更新されました']);
+}
+function fillJudgeResponse(JudgeModel $response, $userId):JudgeModel{
+  $response->limitCanJudge = CompetitorsQuery::getLimitCanJudge($userId);
+  
+  // 過去に審査対象を取得済みなら、それを使用する
+  $fetchedImages = Session::getImagesToJudge();
+  if(isset($fetchedImages)){
+    $response->imagesToJudge = $fetchedImages;
+    return $response;
+  }
+  
+  // 自分より上のランクポイントを持つ6つの画像を取得
+  // 6つも画像が取得できない場合は自分より下のランクから6つの画像を取得
+  $EvalatorRP = CompetitorsQuery::fetchRankPoints($userId);
+  $fetchedImages = ImagesQuery::fetchImagesToJudge($userId, $EvalatorRP);
+  if( !is_array($fetchedImages) || (count($fetchedImages) !== 6) ){
+    $fetchedImages = ImagesQuery::fetchImagesToJudge($userId, $EvalatorRP, fetchHigher:false);
+  }
+  $response->imagesToJudge = $fetchedImages;
+
+  return $response;
 }
 
 
