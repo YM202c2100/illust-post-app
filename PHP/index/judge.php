@@ -9,6 +9,7 @@ require_once __DIR__."/../db/competitors.query.php";
 require_once __DIR__."/../db/contests.query.php";
 require_once __DIR__."/../db/images.query.php";
 
+use DateTime;
 use db\ImagesQuery;
 use db\CompetitorsQuery;
 use db\ContestsQuery;
@@ -16,6 +17,12 @@ use libs\Session;
 use models\JudgeModel;
 
 if($_SERVER['REQUEST_METHOD']==="GET"){
+  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
+  if(isWithinJudgingPeriod()){
+    echo json_encode(['error'=>'現在作品ジャッジ期間外です']);
+    exit();
+  }
+
   $judgeResponse = new JudgeModel();
   
   \libs\require_session();
@@ -30,8 +37,6 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
     $judgeResponse->isSubmitted = false;
     $judgeResponse->returnJson();
   }
-
-  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
 
   $judgeResponse = fillJudgeResponse($judgeResponse, $user->id);
 
@@ -69,6 +74,23 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
   echo json_encode(['status'=>'ok', 'body'=>'更新されました']);
 }
+
+
+function isWithinJudgingPeriod():bool{
+  if(empty(ContestsQuery::$targetId)){
+    return false;
+  }
+
+  $contestInfo = ContestsQuery::fetchContestInfo(ContestsQuery::$targetId);
+
+  $currentDate = new DateTime();
+  $startDate = new DateTime($contestInfo->judge_start_date);
+  $endDate = new DateTime($contestInfo->judge_end_date);
+
+  return ($startDate <= $currentDate && $currentDate < $endDate);
+}
+
+
 function fillJudgeResponse(JudgeModel $response, $userId):JudgeModel{
   $response->limitCanJudge = CompetitorsQuery::getLimitCanJudge($userId);
   
