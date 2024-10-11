@@ -12,7 +12,7 @@ class CompetitorsQuery {
     if(empty(ContestsQuery::$targetId)){
       return false;
     }
-    
+
     $db = new DbConnection();
     $sql = "SELECT count(*) from competitors 
             where user_id = :user_id
@@ -43,7 +43,7 @@ class CompetitorsQuery {
     $placeHolder = generatePlaceholderByLength(count($userIdList));
     $sql = "SELECT user_id, rank_points from competitors 
             where user_id in ($placeHolder)
-              and contest_id = ". ContestsQuery::$currentId;
+              and contest_id = ". ContestsQuery::$targetId;
     
     $rankPointsOfUsers = $db->fetch($sql, $userIdList, PDO::FETCH_KEY_PAIR, questionPlaceHolder:true);
 
@@ -72,7 +72,7 @@ class CompetitorsQuery {
             set rank_points = :rank_points,
               judged_count = judged_count+1
             where user_id = :user_id
-              and contest_id = ". ContestsQuery::$currentId;
+              and contest_id = ". ContestsQuery::$targetId;
 
     foreach ($updatedRPMap as $userId => $newPoints) {
       $db->execute($sql, [
@@ -126,7 +126,7 @@ class CompetitorsQuery {
     $sql = "UPDATE competitors set 
               limit_can_judge = limit_can_judge-1 
             where user_id = :user_id
-              and contest_id = ". ContestsQuery::$currentId;
+              and contest_id = ". ContestsQuery::$targetId;
 
     return $db->execute($sql, [':user_id'=>$userId]);
   }

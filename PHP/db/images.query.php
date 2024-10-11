@@ -21,7 +21,7 @@ class ImagesQuery {
     $db = new DbConnection();
 
     $sql = 'INSERT into images (user_id, contest_id, file_name) 
-              values (:user_id,'. ContestsQuery::$currentId .', :file_name) 
+              values (:user_id,'. ContestsQuery::$targetId .', :file_name) 
             on duplicate key update 
               file_name = values(file_name)';
 

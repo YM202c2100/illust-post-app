@@ -62,7 +62,7 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
     exit();
   }
 
-  ContestsQuery::setCurrentContestId();
+  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
 
   $updatedRankPoints = getUpdatedRankPoints($winnerId, $loserId);
   CompetitorsQuery::updateRankPointAndJudgedCount($updatedRankPoints);

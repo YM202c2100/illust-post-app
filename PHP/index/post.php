@@ -53,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     exit();
   }
 
-  ContestsQuery::setCurrentContestId();
+  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
   
   $isSuccess = ImagesQuery::uploadImage($image['name'], $user->id);
   if(!$isSuccess){
