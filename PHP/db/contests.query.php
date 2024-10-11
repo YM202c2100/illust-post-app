@@ -2,7 +2,7 @@
 namespace db;
 
 require_once __DIR__."/libs/dbConnection.php";
-require_once __DIR__."/../models/home.model.php";
+require_once __DIR__."/../models/RecieveModel/contest.recieve.php";
 use models\ContestRecieveModel;
 use PDO;
 
