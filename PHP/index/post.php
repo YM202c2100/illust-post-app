@@ -13,59 +13,60 @@ use db\ImagesQuery;
 use libs\Session;
 use models\PostModel;
 
-if($_SERVER['REQUEST_METHOD'] === 'GET'){
-  $postResModel = new PostModel();
+try{
+  if($_SERVER['REQUEST_METHOD'] === 'GET'){
+    $postResModel = new PostModel();
 
-  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
-  if(!isWithinApplicationPeriod()){
-    $postResModel->isWithinPeriod = false;
+    ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
+    if(!isWithinApplicationPeriod()){
+      $postResModel->isWithinPeriod = false;
+      $postResModel->returnJson();
+    }
+
+    \libs\require_session();
+
+    $user = Session::getUser();
+    if(empty($user)){
+      $postResModel->isLogin = false;
+      $postResModel->returnJson();
+    }
+
+    if(isset(ContestsQuery::$targetId)){
+      $postResModel->submittedImage = ImagesQuery::fetchNameByUserId($user->id);
+    }
+
     $postResModel->returnJson();
   }
 
-  \libs\require_session();
+  if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $image = $_FILES['image_uploads'] ?? null;
+    if(!isset($image)){
+      throw new \Exception("投稿に失敗しました");
+    }
 
-  $user = Session::getUser();
-  if(empty($user)){
-    $postResModel->isLogin = false;
-    $postResModel->returnJson();
+    \libs\require_session();
+
+    $user = Session::getUser();
+    if(empty($user)){
+      throw new \Exception("投稿に失敗しました。ログインしてください");
+      
+    }
+
+    ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
+    
+    $isSuccess = ImagesQuery::uploadImage($image['name'], $user->id);
+    if(!$isSuccess){
+      throw new \Exception("投稿に失敗しました");
+    }
+
+    Session::setIsSubmitted(true);
+    
+    // move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
+    
   }
-
-  if(isset(ContestsQuery::$targetId)){
-    $postResModel->submittedImage = ImagesQuery::fetchNameByUserId($user->id);
-  }
-
-  $postResModel->returnJson();
-}
-
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-  $image = $_FILES['image_uploads'] ?? null;
-  if(!isset($image)){
-    http_response_code(500);
-    echo json_encode(['status'=>'error', 'body'=>'投稿失敗']);
-    exit();
-  }
-
-  \libs\require_session();
-
-  $user = Session::getUser();
-  if(empty($user)){
-    echo json_encode(['status'=>'error', 'body'=>'投稿失敗-ログインしてください']);
-    exit();
-  }
-
-  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
-  
-  $isSuccess = ImagesQuery::uploadImage($image['name'], $user->id);
-  if(!$isSuccess){
-    http_response_code(500);
-    echo json_encode(['status'=>'error', 'body'=>'投稿失敗']);
-  }
-
-  Session::setIsSubmitted(true);
-  
-  // move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
-  echo json_encode(['status'=>'ok', 'body'=>"投稿成功"]);
-  
+}catch (\Throwable $th){
+  http_response_code(500);
+  echo json_encode(['errMsg'=>$th->getMessage()]);
 }
 
 

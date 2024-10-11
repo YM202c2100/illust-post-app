@@ -16,63 +16,66 @@ use db\ContestsQuery;
 use libs\Session;
 use models\JudgeModel;
 
-if($_SERVER['REQUEST_METHOD']==="GET"){
-  $judgeResponse = new JudgeModel();
+try {
+  if($_SERVER['REQUEST_METHOD']==="GET"){
+    $judgeResponse = new JudgeModel();
 
-  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
-  if(!isWithinJudgingPeriod()){
-    $judgeResponse->isWithinPeriod = false;
+    ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
+    if(!isWithinJudgingPeriod()){
+      $judgeResponse->isWithinPeriod = false;
+      $judgeResponse->returnJson();
+    }
+    
+    \libs\require_session();
+
+    $user = Session::getUser();
+    if(empty($user)){
+      $judgeResponse->isLogin = false;
+      $judgeResponse->returnJson();
+    }
+    
+    if( !Session::isSubmitted() ){
+      $judgeResponse->isSubmitted = false;
+      $judgeResponse->returnJson();
+    }
+
+    $judgeResponse = fillJudgeResponse($judgeResponse, $user->id);
+
+    Session::setImagesToJudge($judgeResponse->imagesToJudge);
+
     $judgeResponse->returnJson();
   }
-  
-  \libs\require_session();
 
-  $user = Session::getUser();
-  if(empty($user)){
-    $judgeResponse->isLogin = false;
-    $judgeResponse->returnJson();
-  }
-  
-  if( !Session::isSubmitted() ){
-    $judgeResponse->isSubmitted = false;
-    $judgeResponse->returnJson();
-  }
+  else if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    \libs\require_session();
+    $user = Session::getUser();
+    if(empty($user)){
+      throw new \Exception("ログインしてください");
+    }
 
-  $judgeResponse = fillJudgeResponse($judgeResponse, $user->id);
+    $reqData = \libs\getReqJsonBody();
+    $winnerId = $reqData['winnerId'];
+    $loserId = $reqData['loserId'];
 
-  Session::setImagesToJudge($judgeResponse->imagesToJudge);
+    if(empty($winnerId)||empty($loserId)){
+      throw new \Exception("入力が正しくありません");
+    }
 
-  $judgeResponse->returnJson();
-}
+    ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
 
-else if($_SERVER['REQUEST_METHOD'] === 'POST'){
-  \libs\require_session();
-  $user = Session::getUser();
-  if(empty($user)){
-    http_response_code(500);
-    exit();
-  }
+    $updatedRankPoints = getUpdatedRankPoints($winnerId, $loserId);
+    CompetitorsQuery::updateRankPointAndJudgedCount($updatedRankPoints);
+    $isSuccess = CompetitorsQuery::decrementLimitCanJudge($user->id);
+    if(!$isSuccess){
+      throw new \Exception("予期せぬエラーが発生しました");
+    }
 
-  $reqData = \libs\getReqJsonBody();
-  $winnerId = $reqData['winnerId'];
-  $loserId = $reqData['loserId'];
-
-  if(empty($winnerId)||empty($loserId)){
-    http_response_code(500);
-    exit();
+    http_response_code(200);
   }
 
-  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
-
-  $updatedRankPoints = getUpdatedRankPoints($winnerId, $loserId);
-  CompetitorsQuery::updateRankPointAndJudgedCount($updatedRankPoints);
-  $isSuccess = CompetitorsQuery::decrementLimitCanJudge($user->id);
-  if(!$isSuccess){
-    http_response_code(500);
-    exit();
-  }
-
-  echo json_encode(['status'=>'ok', 'body'=>'更新されました']);
+} catch (\Throwable $th) {
+  http_response_code(500);
+  echo json_encode(['errMsg'=>$th->getMessage()]);
 }
 
 

@@ -15,39 +15,40 @@ use db\UsersQuery;
 use libs\Session;
 use models\UserModel;
 
+try{
+  session_start();
 
-session_start();
+  if($_SERVER['REQUEST_METHOD'] === "POST"){
+      $id = $_POST['id'] ?? null;
+      $pwd = $_POST['pwd'] ?? null;
 
-if($_SERVER['REQUEST_METHOD'] === "POST"){
-    $id = $_POST['id'] ?? null;
-    $pwd = $_POST['pwd'] ?? null;
+      $errors = UserModel::getValidationErrors([
+        'id' => $id,
+        'pwd' => $pwd
+      ]);
 
-    $errors = UserModel::getValidationErrors([
-      'id' => $id,
-      'pwd' => $pwd
-    ]);
+      if(isset($errors)){
+        throw new \Exception($errors);
+      }
 
-    if(isset($errors)){
-      echo json_encode(['status'=>'error', 'body'=>$errors]);
-      exit();
-    }
-
-    $user = UsersQuery::fetchById($id);
-    if(empty($user)){
-      echo json_encode(['status'=>'error', 'body'=>'ユーザーが見つかりませんでした。']);
-      exit();
-    }
-    
-    if($user->pwd === $pwd){
+      $user = UsersQuery::fetchById($id);
+      if(empty($user)){
+        throw new \Exception("ユーザーが見つかりませんでした");
+      }
+      
+      if($user->pwd !== $pwd){
+        throw new \Exception("パスワードが間違っています");
+      }
       Session::setUser($user);
-
+      
       ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
       $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id);
       Session::setIsSubmitted($isSubmitted);
 
-      echo json_encode(['status'=>'ok', 'body'=>"{$user->user_name}でログインしました"]);
-    }else{
-      echo json_encode(['status'=>'error', 'body'=>'パスワードが間違っています。']);
-      exit();
-    }
+      http_response_code(200);
+      echo json_encode(['body'=>"{$user->user_name}でログインしました"]);
+  }
+} catch(\Throwable $th){
+  http_response_code(500);
+  echo json_encode(['errMsg'=>$th->getMessage()]);
 }

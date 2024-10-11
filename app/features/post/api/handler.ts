@@ -13,10 +13,9 @@ export async function submitHandler(e:FormEvent<HTMLFormElement>, setPending:Dis
   })
 
   if(res.ok){
-    const resJson = await res.json();
-    console.log(resJson);
-   
     window.location.href = "/"
+  }else{
+    const data = await res.json()
+    console.error(data.errMsg)
   }
-
 }

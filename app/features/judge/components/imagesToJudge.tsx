@@ -48,11 +48,10 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
     })
 
     if(!res.ok){
-      console.error("not ok")
+      const data = await res.json()
+      console.error(data.errMsg)
     }
 
-    const data = await res.json()
-    console.log(data);
     setLimitCanJudge(prev => prev - 1)
   }
 

@@ -9,32 +9,34 @@ use db\UsersQuery;
 use libs\Session;
 use models\UserModel;
 
-session_start();
+try{
+  session_start();
 
-if($_SERVER['REQUEST_METHOD'] === "POST"){
-  $id = $_POST['id'] ?? null;
-  $pwd = $_POST['pwd'] ?? null;
-  $userName = $_POST['userName'] ?? null;
+  if($_SERVER['REQUEST_METHOD'] === "POST"){
+    $id = $_POST['id'] ?? null;
+    $pwd = $_POST['pwd'] ?? null;
+    $userName = $_POST['userName'] ?? null;
 
-  // バリデーションチェック
-  $errors = UserModel::getValidationErrors(['id'=>$id, 'pwd'=>$pwd, 'userName'=>$userName]);
-  if(isset($errors)){
-    echo json_encode(['status'=>'error', 'body'=>$errors]);
-    exit();
+    // バリデーションチェック
+    $errors = UserModel::getValidationErrors(['id'=>$id, 'pwd'=>$pwd, 'userName'=>$userName]);
+    if(isset($errors)){
+      throw new \Exception($errors);
+    }
+
+    // すでに同じIDのユーザーが存在するかどうか
+    $user = UsersQuery::fetchById($id);
+    if(!empty($user)){
+      throw new \Exception("既にユーザーが存在している");
+    }
+
+    $user = new UserModel($id, $pwd, $userName);
+
+    // dbにユーザー情報を格納
+    if(UsersQuery::registUser($user)){
+      Session::setUser($user);
+    }
   }
-
-  // すでに同じIDのユーザーが存在するかどうか
-  $user = UsersQuery::fetchById($id);
-  if(!empty($user)){
-    echo json_encode(['status'=>'error', 'body'=>'既にユーザーが存在している']);
-    exit();
-  }
-
-  $user = new UserModel($id, $pwd, $userName);
-
-  // dbにユーザー情報を格納
-  if(UsersQuery::registUser($user)){
-    Session::setUser($user);
-    echo json_encode(['status'=>'ok', 'body'=>$user]);
-  }
+}catch(\Throwable $th){
+  http_response_code(500);
+  echo json_encode(['errMsg'=>$th->getMessage()]);
 }

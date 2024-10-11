@@ -42,14 +42,11 @@ export const UserAuthForm:React.FC = ()=>{
         credentials:"include"
       })
 
-      if(!res.ok){
-        console.error(`submitHandler: not ok`);
-      }
-
-      const resJson = await res.json()
-      console.log(resJson);
-      if(resJson.status === "ok"){
+      if(res.ok){
         window.location.href = "/"
+      }else{
+        const data = await res.json()
+        console.error(data.errMsg)
       }
 
     } catch (error) {
