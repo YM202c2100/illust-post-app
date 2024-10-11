@@ -9,6 +9,10 @@ use PDO;
 
 class CompetitorsQuery {
   public static function getIsSubmitted($userId){
+    if(empty(ContestsQuery::$targetId)){
+      return false;
+    }
+    
     $db = new DbConnection();
     $sql = "SELECT count(*) from competitors 
             where user_id = :user_id
