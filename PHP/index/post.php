@@ -30,7 +30,9 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
     $postResModel->returnJson();
   }
 
-  $postResModel->submittedImage = ImagesQuery::fetchNameByUserId($user->id);
+  if(isset(ContestsQuery::$targetId)){
+    $postResModel->submittedImage = ImagesQuery::fetchNameByUserId($user->id);
+  }
 
   $postResModel->returnJson();
 }
