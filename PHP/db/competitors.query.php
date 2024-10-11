@@ -8,14 +8,14 @@ require_once __DIR__."/../models/ranking.model.php";
 use PDO;
 
 class CompetitorsQuery {
-  public static function getIsSubmitted($userId, $contestId){
+  public static function getIsSubmitted($userId){
     $db = new DbConnection();
     $sql = "SELECT count(*) from competitors 
             where user_id = :user_id
-              and contest_id = :contest_id";
+              and contest_id = ". ContestsQuery::$targetId;
               
-    $isExisting = $db->fetch($sql, [':user_id'=>$userId, ':contest_id'=>$contestId], fetchOne:true);
-    return (bool)$isExisting;
+    $isSubmitted = (bool)$db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
+    return $isSubmitted;
   }
 
   public static function fetchRankPoints($userId){
@@ -56,7 +56,7 @@ class CompetitorsQuery {
               and  contest.round_num = (
                 select round_num-1 
                 from contests
-                where id = ". ContestsQuery::$prevContestId .")";
+                where id = ". ContestsQuery::$targetId .")";
     
     return $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
   }
@@ -87,8 +87,9 @@ class CompetitorsQuery {
                 SELECT rank_points 
                   from competitors 
                   where user_id = :user_id
-                  and contest_id = ". ContestsQuery::$prevContestId .")
-              and contest_id = ". ContestsQuery::$prevContestId;
+                  and contest_id = ". ContestsQuery::$targetId ."
+              )
+              and contest_id = ". ContestsQuery::$targetId;
     $rankPosition = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
     return $rankPosition;
   }
@@ -98,7 +99,7 @@ class CompetitorsQuery {
 
     $sql = "SELECT count(*) 
             from competitors
-            where contest_id = ". ContestsQuery::$prevContestId;
+            where contest_id = ". ContestsQuery::$targetId;
 
     $totalNumCompetitors = $db->fetch($sql, fetchOne:true);
     return $totalNumCompetitors;

@@ -61,7 +61,7 @@ class ImagesQuery {
 
     $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
             from ". ImagesQuery::$tableForImageWithRP ."
-            where comptr.contest_id = ". ContestsQuery::$prevContestId ."
+            where comptr.contest_id = ". ContestsQuery::$targetId ."
             order by comptr.rank_points desc
             limit 3";
     return $db->fetch($sql, fetchMode:PDO::FETCH_CLASS, outputModel:ImageWithRP::class);
@@ -83,7 +83,7 @@ class ImagesQuery {
     $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
             from ". ImagesQuery::$tableForImageWithRP ."
             where u.id = :user_id
-              and comptr.contest_id = ". ContestsQuery::$prevContestId;
+              and comptr.contest_id = ". ContestsQuery::$targetId;
     
     return $db->fetch($sql, ['user_id'=>$userId], PDO::FETCH_CLASS, ImageWithRP::class, fetchOne:true);
   }
@@ -93,7 +93,7 @@ class ImagesQuery {
     $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
             from ". ImagesQuery::$tableForImageWithRP ."
             where comptr.rank_points > :rank_points + 100
-              and comptr.contest_id = ". ContestsQuery::$prevContestId."
+              and comptr.contest_id = ". ContestsQuery::$targetId."
             limit 3";
     return $db->fetch($sql, ['rank_points'=>$rankPoints], PDO::FETCH_CLASS, ImageWithRP::class);
   }

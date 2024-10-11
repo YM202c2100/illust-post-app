@@ -14,41 +14,47 @@ use libs\Session;
 use models\RankingModel;
 
 if($_SERVER['REQUEST_METHOD'] === "GET"){
-  $ranking = new RankingModel();
+  $rankingResponse = new RankingModel();
   try {
 
   \libs\require_session();
   $user = Session::getUser();
   if(empty($user)){
-    $ranking->isLogin = false;
-    $ranking->returnJson();
+    $rankingResponse->isLogin = false;
+    $rankingResponse->returnJson();
   }
   
-  ContestsQuery::setPrevContestId();
+  ContestsQuery::$targetId = ContestsQuery::fetchPrevContestId();
 
-  $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id, ContestsQuery::$prevContestId);
+  $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id);
   if(!$isSubmitted){
-    $ranking->isSubmitted = false;
-    $ranking->returnJson();
+    $rankingResponse->isSubmitted = false;
+    $rankingResponse->returnJson();
   }
 
+  $rankingResponse = fillRankingResponse($rankingResponse, $user->id);
 
-  $ranking->totalNumCompetitors = CompetitorsQuery::getTotalNumCompetitors();
-  $ranking->rankPosition = CompetitorsQuery::getRankPosition($user->id);
-  $ranking->top3Images = ImagesQuery::fetchImagesTop3();
-  $ranking->myImage = ImagesQuery::fetchPrevSubmission($user->id);
-  $ranking->beforeRP = CompetitorsQuery::fetchRankPointsBeforePrevContest($user->id);
+  $rankingResponse->returnJson();
 
-  $higherRankImages = ImagesQuery::fetchHigherRankThan($ranking->myImage->rank_points);
-  if(!is_array($higherRankImages) || count($higherRankImages) !== 3){
-    $ranking->higherRankImages = $ranking->top3Images;
-  }else{
-    $ranking->higherRankImages = $higherRankImages;
+  } catch (\Throwable $th) {
+    $rankingResponse->debug = $th->getMessage();
+    $rankingResponse->returnJson();
   }
-
-  $ranking->returnJson();
-} catch (\Throwable $th) {
-  $ranking->debug = $th->getMessage();
-  $ranking->returnJson();
 }
+
+function fillRankingResponse(RankingModel $response, $userId):RankingModel{
+  $response->totalNumCompetitors = CompetitorsQuery::getTotalNumCompetitors();
+  $response->rankPosition = CompetitorsQuery::getRankPosition($userId);
+  $response->top3Images = ImagesQuery::fetchImagesTop3();
+  $response->myImage = ImagesQuery::fetchPrevSubmission($userId);
+  $response->beforeRP = CompetitorsQuery::fetchRankPointsBeforePrevContest($userId);
+
+  $higherRankImages = ImagesQuery::fetchHigherRankThan($response->myImage->rank_points);
+  if(!is_array($higherRankImages) || count($higherRankImages) !== 3){
+    $response->higherRankImages = $response->top3Images;
+  }else{
+    $response->higherRankImages = $higherRankImages;
+  }
+
+  return $response;
 }

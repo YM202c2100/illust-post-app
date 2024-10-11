@@ -67,6 +67,22 @@ class ContestsQuery {
     static::$prevContestId = $db->fetch($sql, [], fetchOne:true);
   }
 
+  public static function fetchPrevContestId(){
+    $db = new DbConnection();
+
+    $latestContestId = ContestsQuery::fetchCurrentContestId();
+    if(empty($latesteContestId)){
+      $latestContestId = ContestsQuery::fetchnextScheduledId();
+    }
+
+    $sql = "SELECT id from contests
+            where round_num = (
+              select round_num - 1 from contests
+              where id = {$latestContestId})";
+
+    return $db->fetch($sql, [], fetchOne:true);
+  }
+
   public static function fetchContestInfo():ContestRecieveModel{
     $db = new DbConnection();
 
