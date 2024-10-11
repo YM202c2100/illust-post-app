@@ -12,6 +12,10 @@ export default async function Post(){
 
   const data:PostDataGET = await res.json()
   
+  if(!data.isWithinPeriod){
+    return <div>現在は投稿を受け付けておりません。コンテスト情報をお確かめください</div>
+  }
+
   if(!data.isLogin){
     redirect("login")
   }

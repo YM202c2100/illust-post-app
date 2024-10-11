@@ -14,15 +14,15 @@ use libs\Session;
 use models\PostModel;
 
 if($_SERVER['REQUEST_METHOD'] === 'GET'){
+  $postResModel = new PostModel();
+
   ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
   if(!isWithinApplicationPeriod()){
-    echo json_encode(['error'=>'現在作品応募期間外です']);
-    exit();
+    $postResModel->isWithinPeriod = false;
+    $postResModel->returnJson();
   }
 
   \libs\require_session();
-  
-  $postResModel = new PostModel();
 
   $user = Session::getUser();
   if(empty($user)){

@@ -17,13 +17,13 @@ use libs\Session;
 use models\JudgeModel;
 
 if($_SERVER['REQUEST_METHOD']==="GET"){
+  $judgeResponse = new JudgeModel();
+
   ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
   if(!isWithinJudgingPeriod()){
-    echo json_encode(['error'=>'現在作品ジャッジ期間外です']);
-    exit();
+    $judgeResponse->isWithinPeriod = false;
+    $judgeResponse->returnJson();
   }
-
-  $judgeResponse = new JudgeModel();
   
   \libs\require_session();
 
