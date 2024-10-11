@@ -7,12 +7,19 @@ require_once __DIR__."/../db/images.query.php";
 require_once __DIR__."/../db/contests.query.php";
 require_once __DIR__."/../models/post.model.php";
 
+use DateTime;
 use db\ContestsQuery;
 use db\ImagesQuery;
 use libs\Session;
 use models\PostModel;
 
 if($_SERVER['REQUEST_METHOD'] === 'GET'){
+  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
+  if(isWithinApplicationPeriod()){
+    echo json_encode(['error'=>'現在作品応募期間外です']);
+    exit();
+  }
+
   \libs\require_session();
   
   $postResModel = new PostModel();
@@ -22,8 +29,6 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
     $postResModel->isLogin = false;
     $postResModel->returnJson();
   }
-
-  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
 
   $postResModel->submittedImage = ImagesQuery::fetchNameByUserId($user->id);
 
@@ -59,4 +64,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   // move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
   echo json_encode(['status'=>'ok', 'body'=>"投稿成功"]);
   
+}
+
+
+function isWithinApplicationPeriod(){
+  if(empty(ContestsQuery::$targetId)){
+    return false;
+  }
+
+  $contestInfo = ContestsQuery::fetchContestInfo(ContestsQuery::$targetId);
+
+  $currentDate = new DateTime();
+  $startDate = new DateTime($contestInfo->application_start_date);
+  $endDate = new DateTime($contestInfo->application_end_date);
+
+  return ($startDate <= $currentDate && $currentDate < $endDate);
 }
