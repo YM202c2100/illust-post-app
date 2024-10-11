@@ -8,17 +8,26 @@ use models\ImageWithRP;
 use PDO;
 
 class ImagesQuery {
+
+  private static $tableForImageWithRP = "
+    images as img
+      inner join users as u
+        on img.user_id = u.id
+      inner join competitors as comptr
+        on img.user_id = comptr.user_id 
+          and img.contest_id = comptr.contest_id";
+
   public static function uploadImage($fileName, $userId):bool{
     $db = new DbConnection();
 
-    $sql = 'INSERT into images (file_name, user_id) 
-              values (:file_name, :user_id) 
+    $sql = 'INSERT into images (user_id, contest_id, file_name) 
+              values (:user_id,'. ContestsQuery::$targetId .', :file_name) 
             on duplicate key update 
               file_name = values(file_name)';
 
     $isSuccess = $db->execute($sql, [
-      ':file_name'=>$fileName,
-      ':user_id'=>$userId
+      ':user_id'=>$userId,
+      ':file_name'=>$fileName
     ]);
 
     return $isSuccess;
@@ -36,8 +45,10 @@ class ImagesQuery {
             from images as img 
             inner join competitors as comptr 
               on img.user_id = comptr.user_id
+                and img.contest_id = comptr.contest_id
             where comptr.rank_points {$compOperator} :rankPointsOfEvalator
               and comptr.user_id != :user_id
+              and comptr.contest_id = ". ContestsQuery::$targetId ."
             order by comptr.judged_count asc,
               comptr.rank_points {$order}
             limit 6";
@@ -47,12 +58,10 @@ class ImagesQuery {
 
   public static function fetchImagesTop3(){
     $db = new DbConnection();
+
     $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
-            from images as img
-              inner join competitors as comptr
-              	on img.user_id = comptr.user_id
-              inner join users u
-              	on img.user_id = u.id
+            from ". ImagesQuery::$tableForImageWithRP ."
+            where comptr.contest_id = ". ContestsQuery::$targetId ."
             order by comptr.rank_points desc
             limit 3";
     return $db->fetch($sql, fetchMode:PDO::FETCH_CLASS, outputModel:ImageWithRP::class);
@@ -62,19 +71,29 @@ class ImagesQuery {
     $db = new DbConnection();
     $sql = "SELECT file_name
               from images
-            where user_id = :user_id";
+            where user_id = :user_id
+              and contest_id = ". ContestsQuery::$targetId;
+
     return $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
+  }
+
+  public static function fetchPrevSubmission($userId){
+    $db = new DbConnection();
+
+    $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
+            from ". ImagesQuery::$tableForImageWithRP ."
+            where u.id = :user_id
+              and comptr.contest_id = ". ContestsQuery::$targetId;
+    
+    return $db->fetch($sql, ['user_id'=>$userId], PDO::FETCH_CLASS, ImageWithRP::class, fetchOne:true);
   }
 
   public static function fetchHigherRankThan($rankPoints){
     $db = new DbConnection();
     $sql = "SELECT img.file_name, u.user_name, comptr.rank_points
-            from users as u
-              inner join images as img
-                on u.id = img.user_id
-              inner join competitors as comptr
-                on u.id = comptr.user_id
-            where comptr.rank_points > :rank_points + 150
+            from ". ImagesQuery::$tableForImageWithRP ."
+            where comptr.rank_points > :rank_points + 100
+              and comptr.contest_id = ". ContestsQuery::$targetId."
             limit 3";
     return $db->fetch($sql, ['rank_points'=>$rankPoints], PDO::FETCH_CLASS, ImageWithRP::class);
   }

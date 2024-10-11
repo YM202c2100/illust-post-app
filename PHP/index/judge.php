@@ -6,15 +6,24 @@ require_once __DIR__."/../libs/helper.php";
 require_once __DIR__."/../libs/session.php";
 require_once __DIR__."/../models/judge.model.php";
 require_once __DIR__."/../db/competitors.query.php";
+require_once __DIR__."/../db/contests.query.php";
 require_once __DIR__."/../db/images.query.php";
 
+use DateTime;
 use db\ImagesQuery;
 use db\CompetitorsQuery;
+use db\ContestsQuery;
 use libs\Session;
 use models\JudgeModel;
 
 if($_SERVER['REQUEST_METHOD']==="GET"){
   $judgeResponse = new JudgeModel();
+
+  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
+  if(!isWithinJudgingPeriod()){
+    $judgeResponse->isWithinPeriod = false;
+    $judgeResponse->returnJson();
+  }
   
   \libs\require_session();
 
@@ -29,23 +38,9 @@ if($_SERVER['REQUEST_METHOD']==="GET"){
     $judgeResponse->returnJson();
   }
 
-  $judgeResponse->limitCanJudge = CompetitorsQuery::getLimitCanJudge($user->id);
-  
-  // ユーザーが作品を提出済みなら、6つの画像を返す
-  $rankPointsOfEvalator = CompetitorsQuery::getRankPointsOf($user);
-  $fetchedImages = Session::getImagesToJudge();
-  if(isset($fetchedImages)){
-    $judgeResponse->imagesToJudge = $fetchedImages;
-    $judgeResponse->returnJson();
-  }
+  $judgeResponse = fillJudgeResponse($judgeResponse, $user->id);
 
-  $fetchedImages = ImagesQuery::fetchImagesToJudge($user->id, $rankPointsOfEvalator);
-  if( !is_array($fetchedImages) || (count($fetchedImages) !== 6) ){
-    $fetchedImages = ImagesQuery::fetchImagesToJudge($user->id, $rankPointsOfEvalator, fetchHigher:false);
-  }
-
-  $judgeResponse->imagesToJudge = $fetchedImages;
-  Session::setImagesToJudge($fetchedImages);
+  Session::setImagesToJudge($judgeResponse->imagesToJudge);
 
   $judgeResponse->returnJson();
 }
@@ -67,6 +62,8 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
     exit();
   }
 
+  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
+
   $updatedRankPoints = getUpdatedRankPoints($winnerId, $loserId);
   CompetitorsQuery::updateRankPointAndJudgedCount($updatedRankPoints);
   $isSuccess = CompetitorsQuery::decrementLimitCanJudge($user->id);
@@ -79,8 +76,46 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 
 
+function isWithinJudgingPeriod():bool{
+  if(empty(ContestsQuery::$targetId)){
+    return false;
+  }
+
+  $contestInfo = ContestsQuery::fetchContestInfo(ContestsQuery::$targetId);
+
+  $currentDate = new DateTime();
+  $startDate = new DateTime($contestInfo->judge_start_date);
+  $endDate = new DateTime($contestInfo->judge_end_date);
+
+  return ($startDate <= $currentDate && $currentDate < $endDate);
+}
+
+
+function fillJudgeResponse(JudgeModel $response, $userId):JudgeModel{
+  $response->limitCanJudge = CompetitorsQuery::getLimitCanJudge($userId);
+  
+  // 過去に審査対象を取得済みなら、それを使用する
+  $fetchedImages = Session::getImagesToJudge();
+  if(isset($fetchedImages)){
+    $response->imagesToJudge = $fetchedImages;
+    return $response;
+  }
+  
+  // 自分より上のランクポイントを持つ6つの画像を取得
+  // 6つも画像が取得できない場合は自分より下のランクから6つの画像を取得
+  $EvalatorRP = CompetitorsQuery::fetchRankPoints($userId);
+  $fetchedImages = ImagesQuery::fetchImagesToJudge($userId, $EvalatorRP);
+  if( !is_array($fetchedImages) || (count($fetchedImages) !== 6) ){
+    $fetchedImages = ImagesQuery::fetchImagesToJudge($userId, $EvalatorRP, fetchHigher:false);
+  }
+  $response->imagesToJudge = $fetchedImages;
+
+  return $response;
+}
+
+
 function getUpdatedRankPoints($winnerId, $loserId){
-  $rankPoints = CompetitorsQuery::getAssocRankPointsOfUsers([$winnerId, $loserId]);
+  $rankPoints = CompetitorsQuery::fetchRankPointsToJudgeOthers([$winnerId, $loserId]);
   return calcRankPointFluctuation($rankPoints, $winnerId, $loserId);
 }
 

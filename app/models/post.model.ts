@@ -1,4 +1,6 @@
+import { LoginChecker } from "./common.model"
+
 export type PostDataGET = {
-  isLogin: boolean,
+  isWithinPeriod: boolean,
   submittedImage: string|null
-}
+} & LoginChecker

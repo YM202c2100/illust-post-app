@@ -1,9 +1,11 @@
+import { LoginChecker, SubmitChecker } from "./common.model"
+
 export type JudgeDataGET = {
-  isLogin: boolean,
-  isSubmitted: boolean,
+  isWithinPeriod: boolean,
   limitCanJudge: number,
   imagesToJudge: ImageToJudge[]
-}
+} & LoginChecker
+  & SubmitChecker
 
 export type ImageToJudge = {
   user_id: string,

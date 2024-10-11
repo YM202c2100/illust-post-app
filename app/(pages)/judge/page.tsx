@@ -11,6 +11,10 @@ export default async function Judge(){
 
   const data:JudgeDataGET =  await res.json()
   
+  if(!data.isWithinPeriod){
+    return <div>現在ジャッジ期間中ではございません。コンテスト情報をお確かめください</div>
+  }
+
   if(!data.isLogin){
     redirect("login")
   }

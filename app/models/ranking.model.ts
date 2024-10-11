@@ -1,13 +1,16 @@
+import { LoginChecker, SubmitChecker } from "./common.model"
+
 export type RankingDataGET = {
-  isLogin: boolean,
-  isSubmitted: boolean,
   rankPosition: number,
   totalNumCompetitors: number,
   top3Images: ImageWithRP[],
-  myImageSrc: string,
-  myRankPoints: number
+  beforeRP: number|null,
+  myImage: ImageWithRP,
   higherRankImages: ImageWithRP[]
-}
+
+  ,debug: string
+} & LoginChecker
+  & SubmitChecker
 
 export type ImageWithRP = {
   file_name: string,
