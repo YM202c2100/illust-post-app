@@ -32,7 +32,7 @@ class ContestsQuery {
     $db = new DbConnection();
 
     $latestContestId = ContestsQuery::fetchCurrentContestId();
-    if(empty($latesteContestId)){
+    if(empty($latestContestId)){
       $latestContestId = ContestsQuery::fetchnextScheduledId();
     }
 
