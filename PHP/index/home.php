@@ -15,31 +15,37 @@ use models\HomeModel;
 
 if($_SERVER['REQUEST_METHOD'] === "GET"){
   try {
-    $homeModel = new HomeModel();
+    $homeResponse = new HomeModel();
     \libs\require_session();
   
     $user = Session::getUser();
     if(empty($user)){
-      $homeModel->isLogin = false;
-      $homeModel->returnJson();
+      $homeResponse->isLogin = false;
+      $homeResponse->returnJson();
       exit();
     }
 
-    ContestsQuery::setCurrentContestId();
-    if(isset(ContestsQuery::$currentId)){
-      $homeModel->submittedFileName = ImagesQuery::fetchNameByUserId($user->id);
-    }else{
-      $homeModel->isCurrentlyHeld = false;
-      ContestsQuery::setNextScheduledId();
+    ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
+    if(empty(ContestsQuery::$targetId)){
+      $homeResponse->isCurrentlyHeld = false;
+      ContestsQuery::$targetId = ContestsQuery::fetchNextScheduledId();
     }
-    
-    $contestData = ContestsQuery::fetchContestInfo();
-    $homeModel->contest = new ContestModel($contestData);
 
-    $homeModel->returnJson();
+    $homeResponse = fillHomeResponse($homeResponse, $user->id);
+    
+    $homeResponse->returnJson();
 
   } catch (\Throwable $th) {
     echo json_encode(['status'=>'error', 'body'=>$th->getMessage()]);
     exit();
   }
+}
+
+function fillHomeResponse(HomeModel $response, $userId){
+  $contestData = ContestsQuery::fetchContestInfo();
+  $response->contest = new ContestModel($contestData);
+
+  $response->submittedFileName = ImagesQuery::fetchNameByUserId($userId);
+
+  return $response;
 }

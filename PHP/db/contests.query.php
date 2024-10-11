@@ -7,6 +7,7 @@ use models\ContestRecieveModel;
 use PDO;
 
 class ContestsQuery {
+  static $targetId;
   static $currentId;
   static $nextScheduledId;
   static $prevContestId;
@@ -18,6 +19,25 @@ class ContestsQuery {
             WHERE NOW() BETWEEN application_start_date AND judge_end_date";
             
     static::$currentId = $db->fetch($sql, fetchOne:true);
+  }
+
+  public static function fetchCurrentContestId(){
+    $db = new DbConnection();
+    $sql = "SELECT id
+            FROM contests
+            WHERE NOW() BETWEEN application_start_date AND judge_end_date";
+            
+    return $db->fetch($sql, fetchOne:true);
+  }
+
+  public static function fetchNextScheduledId(){
+    $db = new DbConnection();
+    $sql = "SELECT id from contests
+            where now() < application_start_date 
+            order by application_start_date 
+            limit 1";
+
+    return $db->fetch($sql, fetchOne:true);
   }
 
   public static function setNextScheduledId(){
@@ -50,9 +70,8 @@ class ContestsQuery {
   public static function fetchContestInfo():ContestRecieveModel{
     $db = new DbConnection();
 
-    $contest_id = ContestsQuery::$currentId ?? ContestsQuery::$nextScheduledId;
     $sql = "SELECT * from contests
-            where id = {$contest_id}";
+            where id = ". ContestsQuery::$targetId;
     return $db->fetch($sql, [], PDO::FETCH_CLASS, ContestRecieveModel::class, fetchOne:true);
   }
 }

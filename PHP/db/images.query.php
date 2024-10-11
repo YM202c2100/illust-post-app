@@ -72,7 +72,7 @@ class ImagesQuery {
     $sql = "SELECT file_name
               from images
             where user_id = :user_id
-              and contest_id = ". ContestsQuery::$currentId;
+              and contest_id = ". ContestsQuery::$targetId;
 
     return $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
   }
