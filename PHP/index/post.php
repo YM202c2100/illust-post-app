@@ -15,18 +15,19 @@ use models\PostModel;
 if($_SERVER['REQUEST_METHOD'] === 'GET'){
   \libs\require_session();
   
-  $postModel = new PostModel();
+  $postResModel = new PostModel();
 
   $user = Session::getUser();
   if(empty($user)){
-    $postModel->isLogin = false;
-    $postModel->returnJson();
+    $postResModel->isLogin = false;
+    $postResModel->returnJson();
   }
 
-  ContestsQuery::setCurrentContestId();
-  $postModel->submittedImage = ImagesQuery::fetchNameByUserId($user->id);
+  ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
 
-  $postModel->returnJson();
+  $postResModel->submittedImage = ImagesQuery::fetchNameByUserId($user->id);
+
+  $postResModel->returnJson();
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
