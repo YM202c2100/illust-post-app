@@ -4,6 +4,7 @@ import { GET } from "./api/getRequest";
 import { convertToValidSrc } from "./libs/helper";
 import { HomeDataGET } from "./models/home.model";
 import { ContestInfo } from "./features/home/components/ContestInfo";
+import { MyIllust } from "./features/home/components/myIllust";
 
 export default async function Home(){
   const res = await GET("home")
@@ -22,6 +23,7 @@ export default async function Home(){
                         :null
   return(
     <div>
+      <MyIllust/>
       <div>
         { myIllustSrc ? 
             <Image src={myIllustSrc} alt="submitted Illust" width={500} height={500}/>:
