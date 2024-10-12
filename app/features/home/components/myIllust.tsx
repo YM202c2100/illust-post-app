@@ -5,8 +5,11 @@ export const MyIllust:React.FC= ()=>{
 
       </div>
 
-      <div className="w-[45vh] h-[90vh] bg-slate-400 rounded-3xl">
-
+      <div className="w-[45vh] h-[90vh] space-y-2 flex flex-col gap-1">
+        <div className="flex-grow bg-slate-400 rounded-3xl"></div>
+        <div className="h-[30%] bg-slate-400 rounded-3xl"></div>
+        <div className="h-[40%] bg-slate-400 rounded-3xl"></div>
+        <div className="h-[20%] bg-slate-400 rounded-3xl"></div>
       </div>
     </div>
   )
