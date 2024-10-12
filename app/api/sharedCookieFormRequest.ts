@@ -11,15 +11,16 @@ export async function sharedCookieFormRequest(req: Request, endpoint:string){
     headers: reqHeaders
   })
 
+  if(!res.ok){
+    console.error("エラー発生")
+  }
+
   const data = await res.json()
   const resHeaders = new Headers()
   
-  if(data.status === "ok"){
-    const setcookie = res.headers.get("Set-Cookie")
-  
-    if(setcookie){
-      resHeaders.set("Set-Cookie", setcookie)
-    }
+  const setcookie = res.headers.get("Set-Cookie")
+  if(setcookie){
+    resHeaders.set("Set-Cookie", setcookie)
   }
 
   return new Response(
