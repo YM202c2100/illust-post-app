@@ -5,13 +5,14 @@ import { GET } from "@/app/api/getRequest"
 
 export const Header = async ()=>{
   const res = await GET("getUser")
-  const user = await res.json()
+  const data = await res.json()
+  const user = data.user
 
   return(
     <nav>
       <Link href={"/"} className="mx-2">ホーム</Link>
-      {(user.length === 0) ? <LoginButton/> : <LogoutButton/>}
-      {user.user_name &&
+      { user ? <LoginButton/> : <LogoutButton/>}
+      {user &&
         <div>
           {user.user_name}でログイン中
         </div>
