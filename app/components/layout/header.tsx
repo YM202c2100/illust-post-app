@@ -11,7 +11,12 @@ export const Header = async ()=>{
   return(
     <nav>
       <Link href={"/"} className="mx-2">ホーム</Link>
-      { user ? <LoginButton/> : <LogoutButton/>}
+      { user ? <LogoutButton/>
+        : <div>
+            <LoginButton/>
+            <Link href={"register"} className="ml-2">新規登録</Link>
+          </div> 
+      }
       {user &&
         <div>
           {user.user_name}でログイン中
