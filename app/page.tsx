@@ -23,7 +23,7 @@ export default async function Home(){
   return(<>
     <div className="flex flex-col xl:flex-row justify-center items-center gap-8">
       <div className="w-[90vh] h-[90vh] bg-gray-300 rounded-3xl">
-        <MyIllust/>
+        <MyIllust imgSrc={myIllustSrc}/>
       </div>
 
       <div className="h-[90vh] flex xl:flex-col gap-2">
