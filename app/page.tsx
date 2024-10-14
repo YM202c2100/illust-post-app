@@ -22,7 +22,7 @@ export default async function Home(){
 
   return(<>
     <div className="flex flex-col xl:flex-row justify-center items-center gap-8">
-      <div className="w-[90vh] h-[90vh] bg-gray-300 rounded-3xl">
+      <div className="w-[90vh] h-[90vh] rounded-3xl">
         <MyIllust imgSrc={myIllustSrc}/>
       </div>
 
