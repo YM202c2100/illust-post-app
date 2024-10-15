@@ -3,6 +3,8 @@ import { GET } from "./api/getRequest";
 import { convertToValidSrc } from "./libs/helper";
 import { HomeDataGET } from "./models/home.model";
 import { MyIllust } from "./features/home/components/myIllust";
+import { ContestInfo } from "./features/home/components/ContestInfo";
+import { NavButtonBasedOnPeriod } from "./features/home/components/navButtonBasedOnPeriod";
 
 export default async function Home(){
   const res = await GET("home")
@@ -33,6 +35,7 @@ export default async function Home(){
 
         <div className="h-1/2 w-[45vh] flex flex-col gap-2">
           <div className="h-[30%] bg-slate-300 rounded-2xl">
+            <NavButtonBasedOnPeriod contest={data.contest}/>
           </div>
           <div className="flex-grow bg-slate-300 rounded-2xl">
 
