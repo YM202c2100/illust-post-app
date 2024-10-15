@@ -3,7 +3,7 @@ namespace models;
 
 require_once __DIR__."/abstract.model.php";
 
-class RankingModel extends IsLogin{
+class ResultModel extends IsLogin{
   public $isSubmitted = true;
   public $rankPosition;
   public $totalNumCompetitors;

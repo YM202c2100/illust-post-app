@@ -52,7 +52,7 @@ export default async function Home(){
       <TempLink pageName="register"/>
       <TempLink pageName="login"/>
       <TempLink pageName="judge"/>
-      <TempLink pageName="ranking"/>
+      <TempLink pageName="result"/>
     </div> 
   </>)
 }

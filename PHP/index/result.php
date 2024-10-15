@@ -1,9 +1,9 @@
 <?php
-namespace index\ranking;
+namespace index\result;
 
 require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../libs/session.php";
-require_once __DIR__."/../models/ranking.model.php";
+require_once __DIR__."/../models/result.model.php";
 require_once __DIR__."/../db/competitors.query.php";
 require_once __DIR__."/../db/contests.query.php";
 require_once __DIR__."/../db/images.query.php";
@@ -11,38 +11,38 @@ use db\CompetitorsQuery;
 use db\ContestsQuery;
 use db\ImagesQuery;
 use libs\Session;
-use models\RankingModel;
+use models\ResultModel;
 
 if($_SERVER['REQUEST_METHOD'] === "GET"){
-  $rankingResponse = new RankingModel();
+  $resultResponse = new ResultModel();
   try {
 
   \libs\require_session();
   $user = Session::getUser();
   if(empty($user)){
-    $rankingResponse->isLogin = false;
-    $rankingResponse->returnJson();
+    $resultResponse->isLogin = false;
+    $resultResponse->returnJson();
   }
   
   ContestsQuery::$targetId = ContestsQuery::fetchPrevContestId();
 
   $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id);
   if(!$isSubmitted){
-    $rankingResponse->isSubmitted = false;
-    $rankingResponse->returnJson();
+    $resultResponse->isSubmitted = false;
+    $resultResponse->returnJson();
   }
 
-  $rankingResponse = fillRankingResponse($rankingResponse, $user->id);
+  $resultResponse = fillResultResponse($resultResponse, $user->id);
 
-  $rankingResponse->returnJson();
+  $resultResponse->returnJson();
 
   } catch (\Throwable $th) {
-    $rankingResponse->debug = $th->getMessage();
-    $rankingResponse->returnJson();
+    $resultResponse->debug = $th->getMessage();
+    $resultResponse->returnJson();
   }
 }
 
-function fillRankingResponse(RankingModel $response, $userId):RankingModel{
+function fillResultResponse(ResultModel $response, $userId):ResultModel{
   $response->totalNumCompetitors = CompetitorsQuery::getTotalNumCompetitors();
   $response->rankPosition = CompetitorsQuery::getRankPosition($userId);
   $response->top3Images = ImagesQuery::fetchImagesTop3();

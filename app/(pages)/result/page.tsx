@@ -1,12 +1,12 @@
 import { PHP_ROOT_PATH } from "@/app/api/config"
 import { getHeaderWithSessId } from "@/app/api/cookieHeader";
 import { convertToValidSrc } from "@/app/libs/helper";
-import { RankingDataGET } from "@/app/models/ranking.model";
+import { ResultDataGET } from "@/app/models/result.model";
 import { redirect } from "next/navigation";
 
-export default async function Ranking(){
+export default async function Result(){
   const reqHeader = getHeaderWithSessId()
-  const res = await fetch(PHP_ROOT_PATH+"ranking.php",{
+  const res = await fetch(PHP_ROOT_PATH+"result.php",{
     method:"get",
     credentials:"include",
     headers:reqHeader
@@ -16,7 +16,7 @@ export default async function Ranking(){
     console.error(res.status);
   }
 
-  const data:RankingDataGET = await res.json()
+  const data:ResultDataGET = await res.json()
   if(data.debug){
     return <div>{data.debug}</div>
   }
@@ -39,7 +39,7 @@ export default async function Ranking(){
     //自分より少し上の作品 自分の作品
     //上位3作品
     <div>
-      <div>ranking</div>
+      <div>result</div>
       <div className="grid grid-cols-3">
         <OthersImage image={top3[0]}/>
         <OthersImage image={top3[1]}/>

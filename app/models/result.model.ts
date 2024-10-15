@@ -1,6 +1,6 @@
 import { LoginChecker, SubmitChecker } from "./common.model"
 
-export type RankingDataGET = {
+export type ResultDataGET = {
   rankPosition: number,
   totalNumCompetitors: number,
   top3Images: ImageWithRP[],
