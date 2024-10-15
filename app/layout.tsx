@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Yusei_Magic } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/layout/header";
 
-const inter = Inter({ subsets: ["latin"] });
+const yusei = Yusei_Magic({ subsets: ["latin"] , weight:'400'});
 
 export const metadata: Metadata = {
   title: "イラスト投稿アプリ",
@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={inter.className}>
+      <body className={yusei.className}>
         <Header/>
         {children}
       </body>
