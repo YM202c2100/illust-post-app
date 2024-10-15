@@ -28,6 +28,7 @@ export default async function Home(){
 
       <div className="h-[90vh] flex xl:flex-col gap-2">
         <div className="h-1/2 w-[45vh] bg-slate-300 rounded-2xl">
+          <ContestInfo contest={data.contest}/>
         </div>
 
         <div className="h-1/2 w-[45vh] flex flex-col gap-2">
