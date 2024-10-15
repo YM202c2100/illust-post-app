@@ -62,7 +62,7 @@ try{
     Session::setIsSubmitted(true);
     
     // move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
-    
+    echo json_encode([]);
   }
 }catch (\Throwable $th){
   http_response_code(500);

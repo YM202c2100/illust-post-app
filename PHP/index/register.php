@@ -35,6 +35,8 @@ try{
     if(UsersQuery::registUser($user)){
       Session::setUser($user);
     }
+
+    echo json_encode([]);
   }
 }catch(\Throwable $th){
   http_response_code(500);
