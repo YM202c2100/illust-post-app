@@ -3,8 +3,8 @@ import { ContestData, PeriodData } from "@/app/models/home.model";
 export const ContestInfo:React.FC<{contest:ContestData}> = ({contest})=>{
   const {roundNum, subject, applicationPeriod, judgePeriod} = contest
 
-  formatPeriod(applicationPeriod)
-  formatPeriod(judgePeriod)
+  const formattedApplicationPeriod = formatPeriod(applicationPeriod)
+  const formattedJudgePeriod = formatPeriod(judgePeriod)
   
   return(
     <div>
@@ -13,21 +13,23 @@ export const ContestInfo:React.FC<{contest:ContestData}> = ({contest})=>{
       <div>
         <div>応募期間</div>
         <div>
-          {applicationPeriod.startAt}～{applicationPeriod.endAt}
+          {formattedApplicationPeriod.startAt}～{formattedApplicationPeriod.endAt}
         </div>
       </div>
       <div>
         <div>審査期間</div>
         <div>
-          {judgePeriod.startAt}～{judgePeriod.endAt}
+          {formattedJudgePeriod.startAt}～{formattedJudgePeriod.endAt}
         </div>
       </div>
     </div>
   )
 
   function formatPeriod(period: PeriodData){
-    period.startAt = formatDate(period.startAt)
-    period.endAt = formatDate(period.endAt)
+    return {
+      startAt: formatDate(period.startAt),
+      endAt: formatDate(period.endAt)
+    }
   }
 
   function formatDate(dateTime:string){
