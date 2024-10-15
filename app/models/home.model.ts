@@ -3,7 +3,8 @@ import { LoginChecker } from "./common.model"
 export type HomeDataGET = {
   isCurrentlyHeld: boolean,
   submittedFileName: string|null,
-  contest: ContestData
+  contest: ContestData,
+  limitCanJudge: number
 } & LoginChecker
 
 export type ContestData = {

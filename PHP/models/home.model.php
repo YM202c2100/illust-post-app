@@ -10,6 +10,7 @@ class HomeModel extends IsLogin {
   public $isCurrentlyHeld = true;
   public $submittedFileName;
   public ContestModel $contest;
+  public $limitCanJudge;
 }
 
 class ContestModel {

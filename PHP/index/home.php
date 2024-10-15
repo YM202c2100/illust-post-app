@@ -6,7 +6,9 @@ require_once __DIR__."/../libs/session.php";
 require_once __DIR__."/../models/home.model.php";
 require_once __DIR__."/../db/images.query.php";
 require_once __DIR__."/../db/contests.query.php";
+require_once __DIR__."/../db/competitors.query.php";
 
+use db\CompetitorsQuery;
 use db\ContestsQuery;
 use db\ImagesQuery;
 use libs\Session;
@@ -45,6 +47,7 @@ function fillHomeResponse(HomeModel $response, $userId){
   $contestData = ContestsQuery::fetchContestInfo();
   $response->contest = new ContestModel($contestData);
 
+  $response->limitCanJudge = CompetitorsQuery::getLimitCanJudge($userId);
   $response->submittedFileName = ImagesQuery::fetchNameByUserId($userId);
 
   return $response;
