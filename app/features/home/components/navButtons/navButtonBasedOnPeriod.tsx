@@ -1,6 +1,7 @@
 import { ContestData } from "@/app/models/home.model"
+import { JudgeNavButton } from "./judgeNavButton"
 
-export const NavButtonBasedOnPeriod:React.FC<{contest:ContestData}> = ({contest})=>{
+export const NavButtonBasedOnPeriod:React.FC<{contest:ContestData, limitCanJudge:number|null}> = ({contest, limitCanJudge})=>{
   type Phase = 'outsidePeriod'|'application'|'judge'
 
   const currentPhase:Phase = getCurrentPhase(contest)
@@ -12,7 +13,7 @@ export const NavButtonBasedOnPeriod:React.FC<{contest:ContestData}> = ({contest}
       }
       
       {(currentPhase === 'judge') && 
-        <div>judge navigation button</div>
+        <JudgeNavButton limitCanJudge={limitCanJudge}/>
       }
 
       {(currentPhase === 'outsidePeriod') && 

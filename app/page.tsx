@@ -35,7 +35,7 @@ export default async function Home(){
 
         <div className="h-1/2 w-[45vh] flex flex-col gap-2">
           <div className="h-[30%] bg-slate-300 rounded-2xl">
-            <NavButtonBasedOnPeriod contest={data.contest}/>
+            <NavButtonBasedOnPeriod contest={data.contest} limitCanJudge={data.limitCanJudge}/>
           </div>
           <div className="flex-grow bg-slate-300 rounded-2xl">
 
