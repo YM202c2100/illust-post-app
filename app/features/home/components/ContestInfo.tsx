@@ -1,7 +1,11 @@
-import { ContestData } from "@/app/models/home.model";
+import { ContestData, PeriodData } from "@/app/models/home.model";
 
 export const ContestInfo:React.FC<{contest:ContestData}> = ({contest})=>{
   const {roundNum, subject, applicationPeriod, judgePeriod} = contest
+
+  formatPeriod(applicationPeriod)
+  formatPeriod(judgePeriod)
+  
   return(
     <div>
       <div>第{roundNum}回 コンテスト</div>
@@ -20,4 +24,16 @@ export const ContestInfo:React.FC<{contest:ContestData}> = ({contest})=>{
       </div>
     </div>
   )
+
+  function formatPeriod(period: PeriodData){
+    period.startAt = formatDate(period.startAt)
+    period.endAt = formatDate(period.endAt)
+  }
+
+  function formatDate(dateTime:string){
+    const dateISO8601 = new Date(dateTime)
+    const month = dateISO8601.getMonth()
+    const date = dateISO8601.getDate()
+    return `${month}/${date}`
+  }
 }
