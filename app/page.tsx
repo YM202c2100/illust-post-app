@@ -38,10 +38,10 @@ export default async function Home(){
           <div className="h-[30%]">
             <NavButtonBasedOnPeriod contest={data.contest} limitCanJudge={data.limitCanJudge}/>
           </div>
-          <div className="flex-grow">
+          <div className="h-[50%]">
             <ResultNavButton/>
           </div>
-          <div className="h-[20%] bg-zinc-800 rounded-2xl">
+          <div className="flex-grow bg-zinc-800 rounded-2xl">
 
           </div>
         </div>
