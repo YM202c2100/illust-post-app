@@ -7,19 +7,28 @@ export const ContestInfo:React.FC<{contest:ContestData}> = ({contest})=>{
   const formattedJudgePeriod = formatPeriod(judgePeriod)
   
   return(
-    <div className="h-full bg-zinc-800 rounded-2xl text-white">
-      <div>第{roundNum}回 コンテスト</div>
-      <div>「{subject}」</div>
-      <div>
-        <div>応募期間</div>
-        <div>
-          {formattedApplicationPeriod.startAt}～{formattedApplicationPeriod.endAt}
-        </div>
+    <div className="h-full bg-zinc-800 rounded-2xl text-white text-center pt-4">
+      <div className="text-3xl">第{roundNum}回 コンテスト</div>
+
+      <div className="text-4xl mt-2">
+        <div className="text-start">「</div>
+        <div>{subject}</div>
+        <div className="text-end">」</div>
       </div>
-      <div>
-        <div>審査期間</div>
+
+      <div className="text-3xl mt-4">
         <div>
-          {formattedJudgePeriod.startAt}～{formattedJudgePeriod.endAt}
+          <div>応募期間</div>
+          <div>
+            {formattedApplicationPeriod.startAt}～{formattedApplicationPeriod.endAt}
+          </div>
+        </div>
+        
+        <div className="mt-2">
+          <div>審査期間</div>
+          <div>
+            {formattedJudgePeriod.startAt}～{formattedJudgePeriod.endAt}
+          </div>
         </div>
       </div>
     </div>
