@@ -7,7 +7,7 @@ export const JudgeNavButton:React.FC<{limitCanJudge:number|null}> = ({limitCanJu
 
   return(
     <div 
-      className="cursor-pointer bg-slate-300 hover:bg-green-200 w-full h-full rounded-2xl"
+      className="cursor-pointer bg-zinc-800 text-white hover:bg-green-200 hover:text-black w-full h-full rounded-2xl"
       onClick={()=>router.push("judge")}
     >
       <div>ジャッジ</div>

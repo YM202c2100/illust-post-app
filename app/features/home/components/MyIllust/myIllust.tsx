@@ -8,7 +8,7 @@ export const MyIllust:React.FC<{imgSrc:string|null}>= ({imgSrc})=>{
         <Image
           src={imgSrc} alt="your submitted illust"
           fill
-          className="shadow-xl shadow-slate-400 rounded-3xl object-cover"
+          className="shadow-2xl shadow-zinc-600 rounded-3xl object-cover"
         />
         :
         <div>Image is not submitted</div>

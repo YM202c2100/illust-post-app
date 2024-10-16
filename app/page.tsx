@@ -5,6 +5,7 @@ import { HomeDataGET } from "./models/home.model";
 import { MyIllust } from "./features/home/components/MyIllust/myIllust";
 import { ContestInfo } from "./features/home/components/ContestInfo/contestInfo";
 import { NavButtonBasedOnPeriod } from "./features/home/components/navButtons/navButtonBasedOnPeriod";
+import { ResultNavButton } from "./features/home/components/navButtons/resultNavButton";
 
 export default async function Home(){
   const res = await GET("home")
@@ -23,13 +24,13 @@ export default async function Home(){
                         :null
 
   return(<>
-    <div className="flex flex-col xl:flex-row justify-center items-center gap-8">
+    <div className="flex flex-col xl:flex-row justify-center items-center gap-8 bg-white">
       <div className="w-[90vh] h-[90vh] rounded-3xl">
         <MyIllust imgSrc={myIllustSrc}/>
       </div>
 
       <div className="h-[90vh] flex xl:flex-col gap-2">
-        <div className="h-1/2 w-[45vh] bg-slate-300 rounded-2xl">
+        <div className="h-1/2 w-[45vh]">
           <ContestInfo contest={data.contest}/>
         </div>
 
@@ -37,10 +38,10 @@ export default async function Home(){
           <div className="h-[30%]">
             <NavButtonBasedOnPeriod contest={data.contest} limitCanJudge={data.limitCanJudge}/>
           </div>
-          <div className="flex-grow bg-slate-300 rounded-2xl">
+          <div className="flex-grow">
             <ResultNavButton/>
           </div>
-          <div className="h-[20%] bg-slate-300 rounded-2xl">
+          <div className="h-[20%] bg-zinc-800 rounded-2xl">
 
           </div>
         </div>
