@@ -3,9 +3,9 @@
 
 <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" width="100%" height="100%" style="opacity: 1;" xml:space="preserve">
 	<linearGradient id="copperGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-		<stop offset="0%" style="stop-color:#b87333; stop-opacity:1" />
-		<stop offset="50%" style="stop-color:#d78c47; stop-opacity:1" />
-		<stop offset="100%" style="stop-color:#ad6d2f; stop-opacity:1" />
+		<stop offset="0%" style="stop-color:#be7017; stop-opacity:1" />
+		<stop offset="50%" style="stop-color:#d9a16c; stop-opacity:1" />
+		<stop offset="100%" style="stop-color:#ad6a11; stop-opacity:1" />
 	</linearGradient>
 	<g>
 		<path class="st0" d="M256,161.408c44.568,0,80.71-36.13,80.71-80.698C336.71,36.142,300.567,0,256,0
