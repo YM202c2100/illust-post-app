@@ -1,4 +1,4 @@
-import { RankIconBronze } from "@/app/components/icons/rank.icon"
+import { BronzeIcon } from "@/app/components/icons/rank.icon"
 import Link from "next/link"
 
 export const ResultNavButton:React.FC = ()=>{
@@ -6,7 +6,7 @@ export const ResultNavButton:React.FC = ()=>{
     <Link href={"result"} className="block h-full bg-zinc-800 text-white rounded-2xl">
       <div>コンテスト結果</div>
       <div className="h-[70%] aspect-square">
-        <RankIconBronze/>
+        <BronzeIcon/>
       </div>
     </Link>
   )
