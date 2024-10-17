@@ -20,7 +20,7 @@ export const MasterIcon = ()=>{
 
 export const RankIcon:React.FC<{svgSrc:string, borderColorHex:string}> = ({svgSrc, borderColorHex})=>{
   return(
-    <div className={`w-full h-full rounded-full bg-slate-900 p-4 ${borderColorHex} border-4`}>
+    <div className={`w-full h-full rounded-sm bg-slate-900 p-4 ${borderColorHex} border-4`}>
       <img src={svgSrc}/>
     </div>
   )
