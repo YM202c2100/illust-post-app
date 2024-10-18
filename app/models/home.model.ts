@@ -4,7 +4,8 @@ export type HomeDataGET = {
   isCurrentlyHeld: boolean,
   submittedFileName: string|null,
   contest: ContestData,
-  limitCanJudge: number|null
+  limitCanJudge: number|null,
+  rankTier: "bronze"|"silver"|"gold"|"diamond"|"master"
 } & LoginChecker
 
 export type ContestData = {

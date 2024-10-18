@@ -7,6 +7,7 @@ require_once __DIR__."/../models/home.model.php";
 require_once __DIR__."/../db/images.query.php";
 require_once __DIR__."/../db/contests.query.php";
 require_once __DIR__."/../db/competitors.query.php";
+require_once __DIR__."/../libs/rankTier.php";
 
 use db\CompetitorsQuery;
 use db\ContestsQuery;
@@ -50,5 +51,8 @@ function fillHomeResponse(HomeModel $response, $userId){
   $response->limitCanJudge = CompetitorsQuery::getLimitCanJudge($userId);
   $response->submittedFileName = ImagesQuery::fetchNameByUserId($userId);
 
+  $rankPoints = CompetitorsQuery::fetchRankPoints($userId);
+  $response->rankTier = \libs\getRankTier($rankPoints);
+  
   return $response;
 }

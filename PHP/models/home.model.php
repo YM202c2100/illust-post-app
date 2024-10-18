@@ -11,6 +11,7 @@ class HomeModel extends IsLogin {
   public $submittedFileName;
   public ContestModel $contest;
   public $limitCanJudge;
+  public $rankTier;
 }
 
 class ContestModel {
