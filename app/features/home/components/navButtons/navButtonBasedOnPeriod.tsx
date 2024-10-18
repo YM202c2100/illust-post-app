@@ -6,21 +6,14 @@ export const NavButtonBasedOnPeriod:React.FC<{contest:ContestData, limitCanJudge
 
   const currentPhase:Phase = getCurrentPhase(contest)
 
-  return(
-    <div className="w-full h-full">
-      {(currentPhase === 'application') && 
-        <div>application navigation button</div>
-      }
-      
-      {(currentPhase === 'judge') && 
-        <JudgeNavButton limitCanJudge={limitCanJudge}/>
-      }
-
-      {(currentPhase === 'outsidePeriod') && 
-        <div>disable button</div>
-      }
-    </div>
-  )
+  switch (currentPhase) {
+    case "application":
+      return <div>application navigation button</div>
+    case "judge":
+      return <JudgeNavButton limitCanJudge={limitCanJudge}/>
+    case "outsidePeriod":
+      return <div>disable button</div>
+  }
 
   function getCurrentPhase(contest:ContestData):Phase{
     const now = new Date();
