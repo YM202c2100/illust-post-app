@@ -5,8 +5,10 @@ export type HomeDataGET = {
   submittedFileName: string|null,
   contest: ContestData,
   limitCanJudge: number|null,
-  rankTier: "bronze"|"silver"|"gold"|"diamond"|"master"
+  rankTier: RankTier
 } & LoginChecker
+
+export type RankTier = "bronze"|"silver"|"gold"|"diamond"|"master"
 
 export type ContestData = {
   roundNum: number

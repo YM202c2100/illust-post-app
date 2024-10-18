@@ -39,7 +39,7 @@ export default async function Home(){
             <NavButtonBasedOnPeriod contest={data.contest} limitCanJudge={data.limitCanJudge}/>
           </div>
           <div className="h-[50%]">
-            <ResultNavButton/>
+            <ResultNavButton rankTier={data.rankTier}/>
           </div>
           <div className="flex-grow bg-zinc-800 rounded-2xl">
 

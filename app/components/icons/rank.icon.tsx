@@ -1,3 +1,20 @@
+import { RankTier } from "@/app/models/home.model"
+
+export const GetIconByRankTier:React.FC<{rankTier:RankTier}> = ({rankTier})=>{
+  switch (rankTier) {
+    case "bronze":
+      return <BronzeIcon/>
+    case "silver":
+      return <SilverIcon/>
+    case "gold":
+      return <GoldIcon/>
+    case "diamond":
+      return <DiamondIcon/>
+    case "master":
+      return <MasterIcon/>
+  }
+}
+
 export const BronzeIcon = ()=>{
   return <RankIcon svgSrc="/poll.svg" borderColorHex="border-[#ab7940]"/>
 }
