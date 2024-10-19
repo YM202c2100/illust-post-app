@@ -3,14 +3,19 @@ import { JudgeNavButton } from "./judgeNavButton"
 import { ApplicationNavButton } from "./applicationNavButton"
 import { OutSidePeriodButton } from "./outsidePeriodButton"
 
-export const NavButtonBasedOnPeriod:React.FC<{contest:ContestData, limitCanJudge:number|null}> = ({contest, limitCanJudge})=>{
+type PropsNavButtonBasedOnPeriod = {
+  contest:ContestData,
+  limitCanJudge:number|null,
+  isSubmitted: boolean
+}
+export const NavButtonBasedOnPeriod:React.FC<PropsNavButtonBasedOnPeriod> = ({contest, limitCanJudge, isSubmitted})=>{
   type Phase = 'outsidePeriod'|'application'|'judge'
 
   const currentPhase:Phase = getCurrentPhase(contest)
 
   switch (currentPhase) {
     case "application":
-      return <ApplicationNavButton/>
+      return <ApplicationNavButton isSubmitted={isSubmitted}/>
     case "judge":
       return <JudgeNavButton limitCanJudge={limitCanJudge}/>
     case "outsidePeriod":

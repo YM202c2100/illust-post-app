@@ -36,7 +36,7 @@ export default async function Home(){
 
         <div className="h-1/2 w-[45vh] flex flex-col gap-2">
           <div className="h-[30%]">
-            <NavButtonBasedOnPeriod contest={data.contest} limitCanJudge={data.limitCanJudge}/>
+            <NavButtonBasedOnPeriod contest={data.contest} limitCanJudge={data.limitCanJudge} isSubmitted={!!data.submittedFileName}/>
           </div>
           <div className="h-[50%]">
             <ResultNavButton rankTier={data.rankTier}/>
