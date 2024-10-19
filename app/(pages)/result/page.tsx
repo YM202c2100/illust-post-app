@@ -71,7 +71,7 @@ const OthersImage:React.FC<{
   image:{user_name:string, file_name:string, rank_points?:number}
 }> = ({image})=>{
   return(
-    <div>
+    <div key={image.user_name+image.file_name+image.rank_points}>
       <img src={`/postedImages/${image.file_name}`} width={300}/>
       <p>{image.user_name}</p>
       <p>{image.rank_points ?? null}</p>
