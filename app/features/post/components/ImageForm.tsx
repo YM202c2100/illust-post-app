@@ -10,15 +10,18 @@ export default function ImageForm() {
 
   return (
     <form onSubmit={(e)=>{submitHandler(e, setPending)}} method="post">
-      {previewFile ?<PreviewImage previewFile={previewFile}/>
-                   :<div>preview</div>
+      {previewFile && 
+        <div>
+          <p>変更後のイラスト</p>
+          <PreviewImage previewFile={previewFile}/>
+        </div>
       }
       <div>
         <label 
           htmlFor="image_uploads" 
           className="border border-black cursor-pointer"
         >
-            {previewFile ? "変更する":"アップロードする画像を選択してください"}
+            {previewFile ? "別のイラストを選ぶ":"アップロードする画像を選択してください"}
         </label>
 
         <input 

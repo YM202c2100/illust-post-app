@@ -26,6 +26,7 @@ export default async function Post(){
 
   return(
     <div>
+      <p>提出済みのイラスト</p>
       {submittedImgSrc && <img src={submittedImgSrc} width={300}/>}
       <ImageForm/>
     </div>
