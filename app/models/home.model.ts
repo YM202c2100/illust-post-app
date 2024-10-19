@@ -1,7 +1,6 @@
 import { LoginChecker } from "./common.model"
 
 export type HomeDataGET = {
-  isCurrentlyHeld: boolean,
   submittedFileName: string|null,
   contest: ContestData,
   limitCanJudge: number|null,

@@ -30,7 +30,6 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
 
     ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
     if(empty(ContestsQuery::$targetId)){
-      $homeResponse->isCurrentlyHeld = false;
       ContestsQuery::$targetId = ContestsQuery::fetchNextScheduledId();
     }
 

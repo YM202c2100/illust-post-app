@@ -7,7 +7,6 @@ use \models\ContestRecieveModel;
 require_once __DIR__."/abstract.model.php";
 
 class HomeModel extends IsLogin {
-  public $isCurrentlyHeld = true;
   public $submittedFileName;
   public ContestModel $contest;
   public $limitCanJudge;
