@@ -32,7 +32,7 @@ export default async function Result(){
   }
 
   return(
-    <div>
+    <div className="space-y-16">
       <div className="text-4xl">前回のコンテスト結果</div>
 
       <Top3Images images={data.top3Images}/>
