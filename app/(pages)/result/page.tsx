@@ -34,12 +34,11 @@ export default async function Result(){
   return(
     <div>
       <div className="text-4xl">前回のコンテスト結果</div>
+
       <Top3Images images={data.top3Images}/>
 
-      <div className="text-3xl">投稿した作品</div>
       <MySubmitResult {...data}/>
-
-      <div className="text-3xl">自分より上位の作品</div>
+        
       <HigherRankImages images={data.higherRankImages}/>
     </div>
   )

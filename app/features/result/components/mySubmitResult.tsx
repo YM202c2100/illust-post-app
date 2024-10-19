@@ -6,7 +6,10 @@ export const MySubmitResult:React.FC<ResultDataGET> = ({rankPosition, totalNumCo
   const percentail = Math.round(rankPosition/totalNumCompetitors*100)
 
   return(
-    <div className="flex justify-center">
+    <div>
+      <div className="text-3xl">投稿した作品</div>
+      
+      <div className="flex justify-center">
         <img src={myImgSrc}/>
         <div>
           <div>RP:{beforeRP ?? "---"}</div>
@@ -18,5 +21,6 @@ export const MySubmitResult:React.FC<ResultDataGET> = ({rankPosition, totalNumCo
           <div>上位:{percentail}%</div>
         </div>
       </div>
+    </div>
   )
 }
