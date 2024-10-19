@@ -11,7 +11,9 @@ export const MyIllust:React.FC<{imgSrc:string|null}>= ({imgSrc})=>{
           className="shadow-2xl shadow-zinc-600 rounded-3xl object-cover"
         />
         :
-        <div>Image is not submitted</div>
+        <div className="flex justify-center items-center bg-gray-300 w-full h-full rounded-3xl text-2xl">
+          作品は投稿されていません
+        </div>
       }
     </div>
   )
