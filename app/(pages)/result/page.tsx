@@ -36,16 +36,16 @@ export default async function Result(){
   
   return(
     <div>
-      <div>前回のコンテスト結果</div>
+      <div className="text-4xl">前回のコンテスト結果</div>
 
       <div>
-        <p>上位3作品</p>
+        <p className="text-3xl">上位3作品</p>
         <div className="grid grid-cols-3">
           {top3.map(image => <OthersImage image={image}/>)}
         </div>
       </div>
 
-      <div>投稿した作品</div>
+      <div className="text-3xl">投稿した作品</div>
       <div className="flex justify-center">
         <img src={myImgSrc}/>
         <div>
@@ -59,7 +59,7 @@ export default async function Result(){
         </div>
       </div>
 
-      <div>自分より上位の作品</div>
+      <div className="text-3xl">自分より上位の作品</div>
       <div className="grid grid-cols-3">
         {higher.map(image => <OthersImage image={image}/>)}
       </div>
