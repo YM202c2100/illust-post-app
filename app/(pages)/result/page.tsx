@@ -35,17 +35,18 @@ export default async function Result(){
   const myImgSrc = convertToValidSrc(data.myImage.file_name)
   
   return(
-    //上位何%か ランク 
-    //自分より少し上の作品 自分の作品
-    //上位3作品
     <div>
-      <div>result</div>
-      <div className="grid grid-cols-3">
-        <OthersImage image={top3[0]}/>
-        <OthersImage image={top3[1]}/>
-        <OthersImage image={top3[2]}/>
+      <div>前回のコンテスト結果</div>
+
+      <div>
+        <p>上位3作品</p>
+        <div className="grid grid-cols-3">
+          {top3.map(image => <OthersImage image={image}/>)}
+        </div>
       </div>
-      <div className="grid grid-cols-2">
+
+      <div>投稿した作品</div>
+      <div className="flex justify-center">
         <img src={myImgSrc}/>
         <div>
           <div>RP:{data.beforeRP ?? "---"}</div>
@@ -57,10 +58,10 @@ export default async function Result(){
           <div>上位:{percentail}%</div>
         </div>
       </div>
-      <div>
-        <OthersImage image={higher[0]}/>
-        <OthersImage image={higher[1]}/>
-        <OthersImage image={higher[2]}/>
+
+      <div>自分より上位の作品</div>
+      <div className="grid grid-cols-3">
+        {higher.map(image => <OthersImage image={image}/>)}
       </div>
     </div>
   )
