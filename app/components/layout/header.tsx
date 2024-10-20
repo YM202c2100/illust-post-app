@@ -11,7 +11,7 @@ export const Header = async ()=>{
   return(
     <nav>
       <div className="flex justify-between">
-        <Link href={"/"} className="mx-2">ホーム</Link>
+        <Link href={"/"} className="mx-2">ホームへ</Link>
         { user ? <LogoutButton/>
               : <div>
                   <LoginButton/>
