@@ -14,16 +14,16 @@ export default async function Home(){
   }
 
   const data:HomeDataGET = await res.json()
-  
+
   if(!data.isLogin){
     return <div>ログインしてください</div>
   }
-  
+
   const myIllustSrc = data.submittedFileName ?
                         convertToValidSrc(data.submittedFileName)
                         :null
 
-  return(<>
+  return(
     <div className="flex flex-col xl:flex-row justify-center items-center gap-8 bg-white">
       <div className="w-[90vh] h-[90vh] rounded-3xl">
         <MyIllust imgSrc={myIllustSrc}/>
@@ -48,14 +48,7 @@ export default async function Home(){
       </div>
 
     </div>
-    <div className="flex flex-col space-y-2 items-start">
-      <TempLink pageName="post"/>
-      <TempLink pageName="register"/>
-      <TempLink pageName="login"/>
-      <TempLink pageName="judge"/>
-      <TempLink pageName="result"/>
-    </div> 
-  </>)
+  )
 }
 
 const TempLink:React.FC<{pageName:string}> = ({pageName})=>{
