@@ -10,15 +10,18 @@ export const Header = async ()=>{
 
   return(
     <nav>
-      <Link href={"/"} className="mx-2">ホーム</Link>
-      { user ? <LogoutButton/>
-        : <div>
-            <LoginButton/>
-            <Link href={"register"} className="ml-2">新規登録</Link>
-          </div> 
-      }
+      <div className="flex justify-between">
+        <Link href={"/"} className="mx-2">ホーム</Link>
+        { user ? <LogoutButton/>
+              : <div>
+                  <LoginButton/>
+                  <Link href={"register"} className="ml-2">新規登録</Link>
+                </div>
+        }
+      </div>
+
       {user &&
-        <div>
+        <div className="text-end">
           {user.user_name}でログイン中
         </div>
       }
