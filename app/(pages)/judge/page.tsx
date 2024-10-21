@@ -25,7 +25,7 @@ export default async function Judge(){
 
   return(
     <div>
-      <p className="text-4xl text-center">自分が好きな作品を選択しよう</p>
+      <p className="text-4xl text-center mb-4">自分が好きな作品を選択しよう</p>
       <ImagesToJudge props={{allImages: data.imagesToJudge, limitCanJudge: data.limitCanJudge}} />
     </div>
   )
