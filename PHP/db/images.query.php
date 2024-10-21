@@ -94,6 +94,7 @@ class ImagesQuery {
             from ". ImagesQuery::$tableForImageWithRP ."
             where comptr.rank_points > :rank_points + 50
               and comptr.contest_id = ". ContestsQuery::$targetId."
+            order by comptr.rank_points asc
             limit 3";
     return $db->fetch($sql, ['rank_points'=>$rankPoints], PDO::FETCH_CLASS, ImageWithRP::class);
   }
