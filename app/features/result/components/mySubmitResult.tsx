@@ -9,8 +9,10 @@ export const MySubmitResult:React.FC<ResultDataGET> = ({rankPosition, totalNumCo
     <div className="text-2xl">
       <div className="text-3xl">投稿した作品</div>
 
-      <div className="flex justify-center">
-        <img src={myImgSrc}/>
+      <div className="grid grid-cols-2 items-center">
+        <div className="justify-self-end">
+          <img src={myImgSrc} width={400} />
+        </div>
         <div>
           <div>RP:{beforeRP ?? "---"}</div>
           <div>↓</div>
