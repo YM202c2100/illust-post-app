@@ -11,6 +11,7 @@ use db\CompetitorsQuery;
 use db\ContestsQuery;
 use db\ImagesQuery;
 use libs\Session;
+use models\ContestWithoutPeriodInfo;
 use models\ResultModel;
 
 if($_SERVER['REQUEST_METHOD'] === "GET"){
@@ -55,6 +56,9 @@ function fillResultResponse(ResultModel $response, $userId):ResultModel{
   }else{
     $response->higherRankImages = $higherRankImages;
   }
+
+  $contestInfo = ContestsQuery::fetchContestInfo();
+  $response->prevContestInfo = new ContestWithoutPeriodInfo($contestInfo);
 
   return $response;
 }

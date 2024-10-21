@@ -6,7 +6,8 @@ export type ResultDataGET = {
   top3Images: ImageWithRP[],
   beforeRP: number|null,
   myImage: ImageWithRP,
-  higherRankImages: ImageWithRP[]
+  higherRankImages: ImageWithRP[],
+  prevContestInfo: ContestWithoutPeriodInfo
 
   ,debug: string
 } & LoginChecker
@@ -16,4 +17,9 @@ export type ImageWithRP = {
   file_name: string,
   user_name: string,
   rank_points: number
+}
+
+export type ContestWithoutPeriodInfo = {
+  round_num: number,
+  subject: string
 }

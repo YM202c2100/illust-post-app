@@ -33,7 +33,11 @@ export default async function Result(){
 
   return(
     <div className="space-y-16">
-      <div className="text-4xl">前回のコンテスト結果</div>
+      <div className="text-center">
+        <div className="text-3xl">第{data.prevContestInfo.round_num}回コンテスト</div>
+        <div className="text-4xl">「{data.prevContestInfo.subject}」</div>
+        <div className="text-4xl mt-4">最終結果</div>
+      </div>
 
       <Top3Images images={data.top3Images}/>
 
