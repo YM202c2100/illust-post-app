@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
   
   ContestsQuery::$targetId = ContestsQuery::fetchPrevContestId();
 
-  $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id);
+  $isSubmitted = CompetitorsQuery::fetchIsSubmitted($user->id);
   if(!$isSubmitted){
     $resultResponse->isSubmitted = false;
     $resultResponse->returnJson();
@@ -44,8 +44,8 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
 }
 
 function fillResultResponse(ResultModel $response, $userId):ResultModel{
-  $response->totalNumCompetitors = CompetitorsQuery::getTotalNumCompetitors();
-  $response->rankPosition = CompetitorsQuery::getRankPosition($userId);
+  $response->totalNumCompetitors = CompetitorsQuery::fetchTotalNumCompetitors();
+  $response->rankPosition = CompetitorsQuery::fetchRankPosition($userId);
   $response->top3Images = ImagesQuery::fetchImagesTop3();
   $response->myImage = ImagesQuery::fetchPrevSubmission($userId);
   $response->beforeRP = CompetitorsQuery::fetchRankPointsBeforePrevContest($userId);

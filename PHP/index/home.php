@@ -47,7 +47,7 @@ function fillHomeResponse(HomeModel $response, $userId){
   $contestData = ContestsQuery::fetchContestInfo();
   $response->contest = new ContestModel($contestData);
 
-  $response->limitCanJudge = CompetitorsQuery::getLimitCanJudge($userId);
+  $response->limitCanJudge = CompetitorsQuery::fetchLimitCanJudge($userId);
   $response->submittedFileName = ImagesQuery::fetchNameByUserId($userId);
 
   $rankPoints = CompetitorsQuery::fetchRankPoints($userId);

@@ -8,7 +8,7 @@ require_once __DIR__."/../models/result.model.php";
 use PDO;
 
 class CompetitorsQuery {
-  public static function getIsSubmitted($userId){
+  public static function fetchIsSubmitted($userId){
     if(empty(ContestsQuery::$targetId)){
       return false;
     }
@@ -82,7 +82,7 @@ class CompetitorsQuery {
     }
   }
 
-  public static function getRankPosition($userId){
+  public static function fetchRankPosition($userId){
     $db = new DbConnection();
 
     $sql = "SELECT count(*)+1 as rankPosition
@@ -98,7 +98,7 @@ class CompetitorsQuery {
     return $rankPosition;
   }
 
-  public static function getTotalNumCompetitors(){
+  public static function fetchTotalNumCompetitors(){
     $db = new DbConnection();
 
     $sql = "SELECT count(*) 
@@ -109,7 +109,7 @@ class CompetitorsQuery {
     return $totalNumCompetitors;
   }
 
-  public static function getLimitCanJudge($userId){
+  public static function fetchLimitCanJudge($userId){
     $db = new DbConnection();
 
     $sql = "SELECT limit_can_judge 

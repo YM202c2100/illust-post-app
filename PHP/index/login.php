@@ -42,7 +42,7 @@ try{
       Session::setUser($user);
       
       ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
-      $isSubmitted = CompetitorsQuery::getIsSubmitted($user->id);
+      $isSubmitted = CompetitorsQuery::fetchIsSubmitted($user->id);
       Session::setIsSubmitted($isSubmitted);
 
       http_response_code(200);

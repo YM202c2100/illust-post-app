@@ -96,7 +96,7 @@ function isWithinJudgingPeriod():bool{
 
 
 function fillJudgeResponse(JudgeModel $response, $userId):JudgeModel{
-  $response->limitCanJudge = CompetitorsQuery::getLimitCanJudge($userId);
+  $response->limitCanJudge = CompetitorsQuery::fetchLimitCanJudge($userId);
   
   // 過去に審査対象を取得済みなら、それを使用する
   $fetchedImages = Session::getImagesToJudge();
