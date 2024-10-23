@@ -26,7 +26,7 @@ export default async function Post(){
                             :null
 
   return(
-    <div>
+    <div className="flex space-x-10">
       {submittedImgSrc && 
         <div>
           <p>提出済みのイラスト</p>
