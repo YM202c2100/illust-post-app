@@ -24,7 +24,7 @@ export default async function Home(){
                         :null
 
   return(<>
-    <div className="container p-4 mx-auto h-[200vw] md:h-auto grid gap-8 grid-rows-2 md:grid-rows-none md:grid-cols-3">
+    <div className="container p-4 mx-auto h-[200vw] md:h-auto grid gap-2 md:gap-6 grid-rows-2 md:grid-rows-none md:grid-cols-3">
       <div className="bg-orange-300 md:col-span-2 md:aspect-square"></div>
 
       <div className="grid gap-2 grid-rows-2 grid-cols-2 md:grid-rows-4 md:grid-cols-none">
@@ -35,7 +35,8 @@ export default async function Home(){
     </div>
 
 
-    <div className="flex flex-col xl:flex-row justify-center items-center gap-8 bg-white">
+
+    {/* <div className="flex flex-col xl:flex-row justify-center items-center gap-8 bg-white">
       <div className="w-[90vh] h-[90vh] rounded-3xl">
         <MyIllust imgSrc={myIllustSrc}/>
       </div>
@@ -58,7 +59,7 @@ export default async function Home(){
         </div>
       </div>
 
-    </div>
+    </div> */}
   </>)
 }
 
