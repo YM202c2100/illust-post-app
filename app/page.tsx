@@ -24,10 +24,10 @@ export default async function Home(){
                         :null
 
   return(<>
-    <div className="w-full h-[200vw] md:h-auto grid grid-rows-2 md:grid-rows-none md:grid-cols-3">
+    <div className="w-full h-[200vw] md:h-auto grid gap-8 grid-rows-2 md:grid-rows-none md:grid-cols-3">
       <div className="bg-orange-300 md:col-span-2 md:aspect-square"></div>
 
-      <div className="grid grid-rows-2 grid-cols-2 md:grid-rows-4 md:grid-cols-none">
+      <div className="grid gap-2 grid-rows-2 grid-cols-2 md:grid-rows-4 md:grid-cols-none">
         <div className="bg-red-300 row-span-1 md:row-span-2 col-span-full"></div>
         <div className="bg-blue-300 row-span-1 col-span-1"></div>
         <div className="bg-green-300 row-span-1 col-span-1"></div>
