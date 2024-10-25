@@ -24,7 +24,7 @@ export default async function Home(){
                         :null
 
   return(<>
-    <div className="w-full h-[200vw] md:h-auto grid gap-8 grid-rows-2 md:grid-rows-none md:grid-cols-3">
+    <div className="container p-4 mx-auto h-[200vw] md:h-auto grid gap-8 grid-rows-2 md:grid-rows-none md:grid-cols-3">
       <div className="bg-orange-300 md:col-span-2 md:aspect-square"></div>
 
       <div className="grid gap-2 grid-rows-2 grid-cols-2 md:grid-rows-4 md:grid-cols-none">
