@@ -7,8 +7,9 @@ export const ContestInfo:React.FC<{contest:ContestData}> = ({contest})=>{
   const formattedJudgePeriod = formatPeriod(judgePeriod)
   
   return(
-    <div className="h-full bg-zinc-800 rounded-2xl text-white text-center pt-4">
-      <div className="md:text-3xl">第{roundNum}回 コンテスト</div>
+    <div className="h-full bg-zinc-800 rounded-2xl text-white text-center pt-4 grid grid-cols-2 landscape:grid-cols-none">
+      <div>
+        <div className="md:text-3xl">第{roundNum}回 コンテスト</div>
 
         <div className="md:text-4xl mt-2 relative">
           <div className="absolute -translate-x-1 -translate-y-1">「</div>
