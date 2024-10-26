@@ -29,14 +29,14 @@ export default async function Home(){
         <MyIllust imgSrc={myIllustSrc}/>
       </div>
 
-      <div className="w-[90vw] landscape:w-[45vh] aspect-square landscape:aspect-auto landscape:h-[90vh] grid gap-2 grid-rows-2 grid-cols-2 landscape:grid-rows-4 landscape:grid-cols-none">
-        <div className="row-span-1 landscape:row-span-2 col-span-full">
+      <div className="w-[90vw] landscape:w-[45vh] landscape:h-[90vh] landscape:grid gap-2 landscape:grid-rows-4">
+        <div className="landscape:row-span-2">
           <ContestInfo contest={data.contest}/>
         </div>
-        <div className="row-span-1 col-span-1">
+        <div className="row-span-1">
           <NavButtonBasedOnPeriod contest={data.contest} limitCanJudge={data.limitCanJudge} isSubmitted={!!data.submittedFileName}/>
         </div>
-        <div className="row-span-1 col-span-1">
+        <div className="row-span-1">
           <ResultNavButton rankTier={data.rankTier}/>
         </div>
       </div>
