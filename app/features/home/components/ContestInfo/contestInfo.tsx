@@ -18,7 +18,7 @@ export const ContestInfo:React.FC<{contest:ContestData}> = ({contest})=>{
         </div>
       </div>
 
-      <div className="md:text-3xl mt-4">
+      <div className="md:text-3xl landscape:mt-4">
         <div>
           <div>応募期間</div>
           <div>
