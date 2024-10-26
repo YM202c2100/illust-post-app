@@ -8,7 +8,7 @@ export const JudgeNavButton:React.FC<{limitCanJudge:number|null}> = ({limitCanJu
     >
       <div className="grid grid-cols-2 flex-grow">
         <div className="text-center landscape:text-left">ジャッジ</div>
-        <div className="text-end self-end">残り回数：{limitCanJudge ?? "-"}/3</div>
+        <div className="text-center self-end">残り回数：{limitCanJudge ?? "-"}/3</div>
       </div>
       {(limitCanJudge===null) && <div className="text-xs mt-4">※ジャッジを行うには、コンテストに作品を投稿する必要があります</div>}
     </Link>
