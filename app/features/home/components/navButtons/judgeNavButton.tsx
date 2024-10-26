@@ -4,11 +4,13 @@ export const JudgeNavButton:React.FC<{limitCanJudge:number|null}> = ({limitCanJu
   return(
     <Link 
       href={"judge"}
-      className=" bg-zinc-800 text-white hover:bg-zinc-700 h-full rounded-2xl text-2xl p-2 flex flex-col justify-between"
+      className="py-5 bg-zinc-800 text-white hover:bg-zinc-700 h-full rounded-2xl md:text-2xl p-2 flex flex-col"
     >
-      <div>ジャッジ</div>
-      <div className="text-end">残り回数：{limitCanJudge ?? "-"}/3</div>
-      {(limitCanJudge===null) && <div className="text-sm">※ジャッジを行うには、コンテストに作品を投稿する必要があります</div>}
+      <div className="grid grid-cols-2 flex-grow">
+        <div className="text-center landscape:text-left">ジャッジ</div>
+        <div className="text-center self-end">残り回数：{limitCanJudge ?? "-"}/3</div>
+      </div>
+      {(limitCanJudge===null) && <div className="text-xs mt-4">※ジャッジを行うには、コンテストに作品を投稿する必要があります</div>}
     </Link>
   )
 }

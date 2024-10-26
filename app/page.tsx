@@ -24,29 +24,22 @@ export default async function Home(){
                         :null
 
   return(
-    <div className="flex flex-col xl:flex-row justify-center items-center gap-8 bg-white">
-      <div className="w-[90vh] h-[90vh] rounded-3xl">
+    <div className="p-4 mx-auto flex flex-col landscape:flex-row items-center justify-center gap-2 landscape:gap-6 ">
+      <div className="w-[90vw] landscape:w-[90vh] aspect-square">
         <MyIllust imgSrc={myIllustSrc}/>
       </div>
 
-      <div className="h-[90vh] flex xl:flex-col gap-2">
-        <div className="h-1/2 w-[45vh]">
+      <div className="w-[90vw] landscape:w-[45vh] landscape:h-[90vh] landscape:grid landscape:grid-rows-4 space-y-2">
+        <div className="landscape:row-span-2">
           <ContestInfo contest={data.contest}/>
         </div>
-
-        <div className="h-1/2 w-[45vh] flex flex-col gap-2">
-          <div className="h-[30%]">
-            <NavButtonBasedOnPeriod contest={data.contest} limitCanJudge={data.limitCanJudge} isSubmitted={!!data.submittedFileName}/>
-          </div>
-          <div className="h-[50%]">
-            <ResultNavButton rankTier={data.rankTier}/>
-          </div>
-          <div className="flex-grow bg-zinc-800 rounded-2xl">
-
-          </div>
+        <div className="row-span-1">
+          <NavButtonBasedOnPeriod contest={data.contest} limitCanJudge={data.limitCanJudge} isSubmitted={!!data.submittedFileName}/>
+        </div>
+        <div className="row-span-1">
+          <ResultNavButton rankTier={data.rankTier}/>
         </div>
       </div>
-
     </div>
   )
 }
