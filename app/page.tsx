@@ -24,11 +24,13 @@ export default async function Home(){
                         :null
 
   return(<>
-    <div className="container p-4 mx-auto h-[200vw] md:h-auto grid gap-2 md:gap-6 grid-rows-2 md:grid-rows-none md:grid-cols-3">
-      <div className="bg-orange-300 md:col-span-2 md:aspect-square"></div>
+    <div className="p-4 mx-auto flex flex-col landscape:flex-row items-center justify-center gap-2 landscape:gap-6 ">
+      <div className="w-[90vw] landscape:w-[90vh] aspect-square bg-orange-300">
 
-      <div className="grid gap-2 grid-rows-2 grid-cols-2 md:grid-rows-4 md:grid-cols-none">
-        <div className="bg-red-300 row-span-1 md:row-span-2 col-span-full"></div>
+      </div>
+
+      <div className="w-[90vw] landscape:w-[45vh] aspect-square landscape:aspect-auto landscape:h-[90vh] grid gap-2 grid-rows-2 grid-cols-2 landscape:grid-rows-4 landscape:grid-cols-none">
+        <div className="bg-red-300 row-span-1 landscape:row-span-2 col-span-full"></div>
         <div className="bg-blue-300 row-span-1 col-span-1"></div>
         <div className="bg-green-300 row-span-1 col-span-1"></div>
       </div>
