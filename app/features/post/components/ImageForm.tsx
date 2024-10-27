@@ -6,14 +6,14 @@ import { submitHandler } from "../api/handler";
 
 type ImageFormProps = {
   setButtonDisable: Dispatch<SetStateAction<boolean>>
+
 }
 
 export const ImageForm:React.FC<ImageFormProps> = ({setButtonDisable})=>{
   const [previewFile, setPreview] = useState<File>()
-  const [pending, setPending] = useState<boolean>(false);
 
   return (
-    <form id="imagePostForm" onSubmit={(e)=>{submitHandler(e, setPending)}} method="post">
+    <form id="imagePostForm" onSubmit={submitHandler} method="post">
       {previewFile && 
         <div>
           <p>変更後のイラスト</p>

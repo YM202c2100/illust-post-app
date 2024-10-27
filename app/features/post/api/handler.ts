@@ -1,9 +1,7 @@
-import { Dispatch, FormEvent, SetStateAction } from "react";
+import { FormEvent } from "react";
 
-export async function submitHandler(e:FormEvent<HTMLFormElement>, setPending:Dispatch<SetStateAction<boolean>>){
+export async function submitHandler(e:FormEvent<HTMLFormElement>){
   e.preventDefault()
-
-  setPending(true)
 
   const formData = new FormData(e.currentTarget)
   const res = await fetch("features/post/api", {
