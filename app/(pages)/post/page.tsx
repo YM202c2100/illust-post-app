@@ -2,8 +2,7 @@ import { redirect } from "next/navigation";
 import { GET } from "@/app/api/getRequest";
 import { PostDataGET } from "@/app/models/post.model";
 import { convertToValidSrc } from "@/app/libs/helper";
-import ImageForm from "@/app/features/post/components/ImageForm";
-import Image from "next/image";
+import { PostPage } from "@/app/features/post/components/postPage";
 
 export default async function Post(){
   const res = await GET("post")
@@ -26,16 +25,6 @@ export default async function Post(){
                             :null
 
   return(
-    <div className="flex space-x-10">
-      {submittedImgSrc && 
-        <div>
-          <p>提出済みのイラスト</p>
-          <div className="w-[300px] h-[300px] relative">
-            <Image src={submittedImgSrc} alt="submitted Image" fill style={{objectFit:"contain"}}/>
-          </div>
-        </div>
-      }
-      <ImageForm/>
-    </div>
+    <PostPage imgSrc={submittedImgSrc}/>
   )
 }
