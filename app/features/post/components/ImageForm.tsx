@@ -9,7 +9,7 @@ export default function ImageForm() {
   const [pending, setPending] = useState<boolean>(false);
 
   return (
-    <form onSubmit={(e)=>{submitHandler(e, setPending)}} method="post">
+    <form id="imagePostForm" onSubmit={(e)=>{submitHandler(e, setPending)}} method="post">
       {previewFile && 
         <div>
           <p>変更後のイラスト</p>
@@ -32,10 +32,6 @@ export default function ImageForm() {
           className="opacity-0" // デフォルト表記のスタイリングが難しいので代わりにlabelを用いた表示用要素を使用
           onChange={togglePreview}
         />
-
-        <button type="submit" className="block" disabled={!previewFile || pending}>
-          {(pending) ? "送信中…":"送信する"}
-        </button>
       </div>
     </form>
   )

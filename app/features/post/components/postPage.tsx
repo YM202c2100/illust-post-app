@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import ImageForm from "./ImageForm"
+import { PostButton } from "./postButton"
 
 export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
   return(
@@ -15,6 +16,7 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
         </div>
       }
       <ImageForm/>
+      <PostButton/>
     </div>
   )
 }
