@@ -1,10 +1,12 @@
 "use client"
 
 import Image from "next/image"
-import ImageForm from "./ImageForm"
+import { ImageForm } from "./ImageForm"
 import { PostButton } from "./postButton"
+import { useState } from "react"
 
 export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
+  const [isDisable, setButtonDisable] = useState<boolean>(true)
   return(
     <div className="flex space-x-10">
       {imgSrc && 
@@ -15,8 +17,8 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
           </div>
         </div>
       }
-      <ImageForm/>
-      <PostButton/>
+      <ImageForm setButtonDisable={setButtonDisable}/>
+      <PostButton isDisable={isDisable}/>
     </div>
   )
 }
