@@ -35,7 +35,7 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
         <div className="flex flex-col md:flex-row justify-center items-center bg-gray-300 relative">
           <div 
             className={`${isVisiblePreviousImg ? "opacity-100" : "opacity-0"} md:opacity-100 transition-opacity duration-150
-            absolute md:relative 
+            absolute z-10 md:relative 
             w-[90%] md:w-[40%] aspect-square 
             bg-red-300`}
           >
