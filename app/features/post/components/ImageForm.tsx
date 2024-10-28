@@ -13,31 +13,27 @@ export const ImageForm:React.FC<ImageFormProps> = ({setButtonDisable})=>{
   const [previewFile, setPreview] = useState<File>()
 
   return (
-    <form id="imagePostForm" onSubmit={submitHandler} method="post">
+    <div className="h-full relative">
       {previewFile && 
-        <div>
-          <p>変更後のイラスト</p>
+        <div className="w-full h-full absolute">
           <PreviewImage previewFile={previewFile}/>
         </div>
       }
-      <div>
-        <label 
-          htmlFor="image_uploads" 
-          className="border border-black cursor-pointer"
-        >
-            {previewFile ? "別のイラストを選ぶ":"アップロードする画像を選択してください"}
-        </label>
 
-        <input 
-          type="file" 
-          name="image_uploads" 
-          id="image_uploads" 
-          accept=".png, .jpg, .jpeg" //ツールを使って指定外のファイルも入力可能なためバリデーション必須
-          className="opacity-0" // デフォルト表記のスタイリングが難しいので代わりにlabelを用いた表示用要素を使用
-          onChange={changeHandler}
-        />
-      </div>
-    </form>
+      <label htmlFor="image_uploads" className="h-full flex justify-center items-center cursor-pointer text-center">
+        応募する作品を選択
+        <form id="imagePostForm" onSubmit={submitHandler} method="post" className="absolute pointer-events-none">
+          <input 
+            type="file" 
+            name="image_uploads" 
+            id="image_uploads" 
+            accept=".png, .jpg, .jpeg" //ツールを使って指定外のファイルも入力可能なためバリデーション必須
+            className="opacity-0" // デフォルト表記のスタイリングが難しいので代わりにlabelを用いた表示用要素を使用
+            onChange={changeHandler}
+          />
+        </form>
+      </label>
+    </div>
   )
 
   function changeHandler(e: ChangeEvent<HTMLInputElement>){

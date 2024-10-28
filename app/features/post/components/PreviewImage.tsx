@@ -21,7 +21,7 @@ export const PreviewImage:React.FC<{previewFile:File}> = ({previewFile})=>{
   return(<>
     {/* widthやheightは一時的に設定した仮の数値 */}
     {previewURL && 
-      <Image src={previewURL} alt={previewFile.name} width={300} height={300}/>
+      <Image src={previewURL} alt={previewFile.name} fill style={{objectFit:"contain"}}/>
     }
   </>)
 }
