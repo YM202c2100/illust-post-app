@@ -4,6 +4,7 @@ import Image from "next/image"
 import { ImageForm } from "./ImageForm"
 import { PostButton } from "./postButton"
 import { useState } from "react"
+import { FileSelectButton } from "./fileSelectButton"
 
 export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
   const [isDisable, setButtonDisable] = useState<boolean>(true)
@@ -52,6 +53,7 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
 
         <div className="text-center">
           <PostButton isDisable={isDisable}/>
+          <FileSelectButton/>
         </div>
       </div>
     )
