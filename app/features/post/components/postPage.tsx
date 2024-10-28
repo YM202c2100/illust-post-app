@@ -16,7 +16,9 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
           <ImageForm setButtonDisable={setButtonDisable}/>
         </div>
         
-        <PostButton isDisable={isDisable}/>
+        <div className="text-center">
+          <PostButton isDisable={isDisable}/>
+        </div>
       </div>
     )
   }else{
@@ -48,7 +50,9 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
           </div>
         </div>
 
-        <PostButton isDisable={isDisable}/>
+        <div className="text-center">
+          <PostButton isDisable={isDisable}/>
+        </div>
       </div>
     )
   }
