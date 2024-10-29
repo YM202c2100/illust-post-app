@@ -20,12 +20,11 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
           現在の応募作品を見る
         </button>
 
-        <div className="flex flex-col md:flex-row justify-center items-center bg-gray-300 relative">
+        <div className="flex flex-col md:flex-row justify-center items-center relative">
           <div 
             className={`${isVisiblePreviousImg ? "opacity-100" : "opacity-0 pointer-events-none"} md:opacity-100 transition-opacity duration-150
             absolute z-10 md:relative 
-            w-[90%] md:w-[40%] aspect-square 
-            bg-red-300`}
+            w-[90%] md:w-[40%] aspect-square`}
           >
             <Image src={imgSrc} alt="submitted Illust" fill style={{objectFit:"contain"}}/>
           </div>
@@ -34,12 +33,12 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
             →
           </div>
 
-          <div className="w-[90%] md:w-[40%] aspect-square bg-blue-300">
+          <div className="w-[90%] md:w-[40%] aspect-square">
             <ImageForm setButtonDisable={setButtonDisable}/>
           </div>
         </div>
       </>):(
-        <div className="w-[90%] md:w-[90vh] aspect-square mx-auto bg-blue-300">
+        <div className="w-[90%] md:w-[90vh] aspect-square mx-auto">
           <ImageForm setButtonDisable={setButtonDisable}/>
         </div>
       )}
