@@ -13,7 +13,7 @@ export const ImageForm:React.FC<ImageFormProps> = ({setButtonDisable})=>{
   const [previewFile, setPreview] = useState<File>()
 
   return (
-    <div className="h-full relative">
+    <div className={`h-full relative border-dashed border-gray-400 ${previewFile ?? "border-2"}`}>
       {previewFile && 
         <div className="w-full h-full absolute">
           <PreviewImage previewFile={previewFile}/>
