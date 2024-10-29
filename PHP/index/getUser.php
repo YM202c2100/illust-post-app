@@ -1,6 +1,6 @@
 <?php
 // ログイン中なら、ユーザー情報を返し
-// そうでないなら、空の配列を返す
+// そうでないなら、nullを返す
 namespace index\getUser;
 
 require_once __DIR__."/../libs/header.php";
