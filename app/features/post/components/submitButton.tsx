@@ -9,7 +9,7 @@ export const SubmitButton:React.FC<{isDisable:boolean}> = ({isDisable})=>{
       formEncType="multipart/form-data"
       disabled={isDisable}
       onClick={()=>{setPending(true)}}
-      className={`p-4 rounded-md bg-green-500 text-gray-100 ${isPending && "pointer-events-none"}`}
+      className={`rounded-md bg-green-500 text-gray-100 ${isPending && "pointer-events-none"}`}
     >
       { isPending ? "送信中…" : "提出する"}
     </button>

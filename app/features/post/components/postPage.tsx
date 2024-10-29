@@ -43,9 +43,11 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
         </div>
       )}
 
-      <div className="text-center">
-        <FileSelectButton/>
-        <SubmitButton isDisable={isDisable}/>
+      <div className="mt-8 text-center">
+        <div className="inline-grid grid-cols-2 gap-10">
+            <FileSelectButton/>
+            <SubmitButton isDisable={isDisable}/>
+        </div>
       </div>
     </div>
   )
