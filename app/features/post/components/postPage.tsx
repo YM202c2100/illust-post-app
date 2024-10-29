@@ -44,8 +44,8 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
       )}
 
       <div className="text-center">
-        <SubmitButton isDisable={isDisable}/>
         <FileSelectButton/>
+        <SubmitButton isDisable={isDisable}/>
       </div>
     </div>
   )
