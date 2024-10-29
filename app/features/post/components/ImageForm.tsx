@@ -20,7 +20,7 @@ export const ImageForm:React.FC<ImageFormProps> = ({setButtonDisable})=>{
         </div>
       }
 
-      <label htmlFor="image_uploads" className="h-full flex justify-center items-center cursor-pointer text-center">
+      <label htmlFor="image_uploads" className="h-full flex justify-center items-center cursor-pointer text-center text-gray-700">
         応募する作品を選択
         <form id="imagePostForm" onSubmit={submitHandler} method="post" className="absolute pointer-events-none">
           <input 
