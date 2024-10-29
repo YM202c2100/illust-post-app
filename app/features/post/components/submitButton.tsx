@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export const PostButton:React.FC<{isDisable:boolean}> = ({isDisable})=>{
+export const SubmitButton:React.FC<{isDisable:boolean}> = ({isDisable})=>{
   const [isPending, setPending] = useState<boolean>(false)
   return(
     <button 

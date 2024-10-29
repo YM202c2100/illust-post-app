@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { ImageForm } from "./ImageForm"
-import { PostButton } from "./postButton"
+import { SubmitButton } from "./submitButton"
 import { useState } from "react"
 import { FileSelectButton } from "./fileSelectButton"
 
@@ -18,7 +18,7 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
         </div>
         
         <div className="text-center">
-          <PostButton isDisable={isDisable}/>
+          <SubmitButton isDisable={isDisable}/>
           <FileSelectButton/>
         </div>
       </div>
@@ -53,7 +53,7 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
         </div>
 
         <div className="text-center">
-          <PostButton isDisable={isDisable}/>
+          <SubmitButton isDisable={isDisable}/>
           <FileSelectButton/>
         </div>
       </div>
