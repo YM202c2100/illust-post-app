@@ -24,7 +24,8 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
           <div 
             className={`${isVisiblePreviousImg ? "opacity-100" : "opacity-0 pointer-events-none"} md:opacity-100 transition-opacity duration-150
             absolute z-10 md:relative 
-            w-[90%] md:w-[40%] aspect-square`}
+            w-[90%] md:w-[40%] aspect-square
+            bg-white`}
           >
             <Image src={imgSrc} alt="submitted Illust" fill style={{objectFit:"contain"}}/>
           </div>
