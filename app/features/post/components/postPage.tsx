@@ -31,7 +31,7 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
           </div>
 
           <div className="hidden md:block flex-grow">
-            <div className="w-[50%] aspect-square mx-auto relative">
+            <div className="w-[40%] aspect-square mx-auto relative">
               <Image src={"/SVG/rightArrow.svg"} alt="right arrow" fill/>
             </div>
           </div>
