@@ -20,7 +20,7 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
           現在の応募作品を見る
         </button>
 
-        <div className="flex flex-col md:flex-row justify-center items-center relative">
+        <div className="flex flex-col md:flex-row items-center">
           <div 
             className={`${isVisiblePreviousImg ? "opacity-100" : "opacity-0 pointer-events-none"} md:opacity-100 transition-opacity duration-150
             absolute z-10 md:relative 
