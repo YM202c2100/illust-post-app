@@ -10,22 +10,9 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
   const [isDisable, setButtonDisable] = useState<boolean>(true)
   const [isVisiblePreviousImg, togglePreviousImg] = useState<boolean>(false)
 
-  if(!imgSrc){
-    return(
-      <div className="container mx-auto bg-gray-300">
-        <div className="w-[90%] md:w-[90vh] aspect-square mx-auto bg-blue-300">
-          <ImageForm setButtonDisable={setButtonDisable}/>
-        </div>
-        
-        <div className="text-center">
-          <SubmitButton isDisable={isDisable}/>
-          <FileSelectButton/>
-        </div>
-      </div>
-    )
-  }else{
-    return(
-      <div className="container mx-auto ">
+  return(
+    <div className="container mx-auto">
+      {imgSrc ? (<>
         <button 
           onClick={()=>{togglePreviousImg(!isVisiblePreviousImg)}}
           className="md:hidden"
@@ -51,12 +38,16 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
             <ImageForm setButtonDisable={setButtonDisable}/>
           </div>
         </div>
-
-        <div className="text-center">
-          <SubmitButton isDisable={isDisable}/>
-          <FileSelectButton/>
+      </>):(
+        <div className="w-[90%] md:w-[90vh] aspect-square mx-auto bg-blue-300">
+          <ImageForm setButtonDisable={setButtonDisable}/>
         </div>
+      )}
+
+      <div className="text-center">
+        <SubmitButton isDisable={isDisable}/>
+        <FileSelectButton/>
       </div>
-    )
-  }
+    </div>
+  )
 }
