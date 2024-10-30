@@ -19,7 +19,7 @@ const Top3Image:React.FC<{image: ImageWithRP, order:number}> = ({image, order})=
   return(
     <div key={image.user_name+order} className={`text-center ${(order === 1) ? "w-[90%]" : "w-[80%]"}`}>
       <p className="text-2xl">{`${order}位`}</p>
-      <div className="flex justify-between">
+      <div className="flex justify-between mx-2">
         <p>{image.user_name}</p>
         <p>{image.rank_points} RP</p>
       </div>
