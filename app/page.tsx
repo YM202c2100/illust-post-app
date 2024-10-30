@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { GET } from "./api/getRequest";
 import { convertToValidSrc } from "./libs/helper";
-import { HomeDataGET } from "./models/home.model";
+import { HomeDataGET } from "./models/pages/home.model";
 import { MyIllust } from "./features/home/components/MyIllust/myIllust";
 import { ContestInfo } from "./features/home/components/ContestInfo/contestInfo";
 import { NavButtonBasedOnPeriod } from "./features/home/components/navButtons/navButtonBasedOnPeriod";

@@ -1,4 +1,4 @@
-import { ContestData, PeriodData } from "@/app/models/home.model";
+import { ContestData, PeriodData } from "@/app/models/pages/home.model";
 
 export const ContestInfo:React.FC<{contest:ContestData}> = ({contest})=>{
   const {roundNum, subject, applicationPeriod, judgePeriod} = contest

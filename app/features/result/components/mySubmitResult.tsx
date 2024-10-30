@@ -1,5 +1,5 @@
 import { convertToValidSrc } from "@/app/libs/helper"
-import { ResultDataGET } from "@/app/models/result.model"
+import { ResultDataGET } from "@/app/models/pages/result.model"
 
 export const MySubmitResult:React.FC<ResultDataGET> = ({rankPosition, totalNumCompetitors, beforeRP, myImage})=>{
   const myImgSrc = convertToValidSrc(myImage.file_name)

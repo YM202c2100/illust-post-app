@@ -1,4 +1,4 @@
-import { ImageWithRP } from "@/app/models/result.model"
+import { ImageWithRP } from "@/app/models/pages/result.model"
 
 export const OthersImage:React.FC<{
   image:ImageWithRP

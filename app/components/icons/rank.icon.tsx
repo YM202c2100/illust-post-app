@@ -1,4 +1,4 @@
-import { RankTier } from "@/app/models/home.model"
+import { RankTier } from "@/app/models/pages/home.model"
 
 export const GetIconByRankTier:React.FC<{rankTier:RankTier}> = ({rankTier})=>{
   switch (rankTier) {

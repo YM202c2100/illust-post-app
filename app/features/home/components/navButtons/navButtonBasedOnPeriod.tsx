@@ -1,4 +1,4 @@
-import { ContestData } from "@/app/models/home.model"
+import { ContestData } from "@/app/models/pages/home.model"
 import { JudgeNavButton } from "./judgeNavButton"
 import { ApplicationNavButton } from "./applicationNavButton"
 import { OutSidePeriodButton } from "./outsidePeriodButton"

@@ -1,4 +1,4 @@
-import { ImageWithRP } from "@/app/models/result.model"
+import { ImageWithRP } from "@/app/models/pages/result.model"
 import Image from "next/image"
 
 export const Top3Images:React.FC<{images:ImageWithRP[]}> = ({images})=>{

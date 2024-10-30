@@ -1,6 +1,6 @@
 "use client"
 
-import { ImageToJudge } from "@/app/models/judge.model"
+import { ImageToJudge } from "@/app/models/pages/judge.model"
 import { useState } from "react"
 
 export type ImagesToJudgeProps = {

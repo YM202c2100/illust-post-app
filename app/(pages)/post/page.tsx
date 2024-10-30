@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { GET } from "@/app/api/getRequest";
-import { PostDataGET } from "@/app/models/post.model";
+import { PostDataGET } from "@/app/models/pages/post.model";
 import { convertToValidSrc } from "@/app/libs/helper";
 import { PostPage } from "@/app/features/post/components/postPage";
 
