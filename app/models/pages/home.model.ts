@@ -1,11 +1,10 @@
-import { RankTier } from "../rankTier.model"
 import { LoginChecker } from "./common.model"
 
 export type HomeDataGET = {
   submittedFileName: string|null,
   contest: ContestData,
   limitCanJudge: number|null,
-  rankTier: RankTier
+  rankPoints: number
 } & LoginChecker
 
 export type ContestData = {
