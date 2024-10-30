@@ -45,9 +45,3 @@ export default async function Home(){
     </div>
   )
 }
-
-const TempLink:React.FC<{pageName:string}> = ({pageName})=>{
-  return(
-    <Link href={pageName} className="underline underline-offset-2">{pageName}</Link>
-  )
-}
