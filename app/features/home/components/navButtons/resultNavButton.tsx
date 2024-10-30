@@ -1,5 +1,5 @@
 import { GetIconByRankTier } from "@/app/components/icons/rank.icon"
-import { RankTier } from "@/app/models/pages/home.model"
+import { RankTier } from "@/app/models/rankTier.model"
 import Link from "next/link"
 
 export const ResultNavButton:React.FC<{rankTier:RankTier}> = ({rankTier})=>{

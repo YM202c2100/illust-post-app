@@ -1,3 +1,4 @@
+import { RankTier } from "../rankTier.model"
 import { LoginChecker } from "./common.model"
 
 export type HomeDataGET = {
@@ -6,8 +7,6 @@ export type HomeDataGET = {
   limitCanJudge: number|null,
   rankTier: RankTier
 } & LoginChecker
-
-export type RankTier = "bronze"|"silver"|"gold"|"diamond"|"master"
 
 export type ContestData = {
   roundNum: number
