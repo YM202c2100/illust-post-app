@@ -7,7 +7,7 @@ export const Top3Images:React.FC<{images:ImageWithRP[]}> = ({images})=>{
     <div>
       <div className="container mx-auto flex flex-col md:flex-row items-center md:items-end gap-4 text-center">
         <div className="w-[90%]">
-          <p>1位</p>
+          <p className="text-2xl">1位</p>
           <div className="flex justify-between">
             <p>{images[0].user_name}</p>
             <p>{images[0].rank_points} RP</p>
@@ -16,7 +16,7 @@ export const Top3Images:React.FC<{images:ImageWithRP[]}> = ({images})=>{
         </div>
 
         <div className="w-[80%]">
-          <p>2位</p>
+          <p className="text-2xl">2位</p>
           <div className="flex justify-between">
             <p>{images[1].user_name}</p>
             <p>{images[1].rank_points} RP</p>
@@ -25,7 +25,7 @@ export const Top3Images:React.FC<{images:ImageWithRP[]}> = ({images})=>{
         </div>
 
         <div className="w-[80%]">
-          <p>3位</p>
+          <p className="text-2xl">3位</p>
           <div className="flex justify-between">
             <p>{images[2].user_name}</p>
             <p>{images[2].rank_points} RP</p>
