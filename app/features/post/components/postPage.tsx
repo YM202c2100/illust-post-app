@@ -27,12 +27,20 @@ export const PostPage:React.FC<{imgSrc: string|null}> = ({imgSrc})=>{
             w-[90%] md:w-[40%] aspect-square
             bg-white`}
           >
-            <Image src={imgSrc} alt="submitted Illust" fill style={{objectFit:"contain"}}/>
+            <Image src={imgSrc} 
+              alt="submitted Illust" 
+              fill style={{objectFit:"contain"}} 
+              sizes="(max-width: 768px) 90vw, 40vw"
+            />
           </div>
 
           <div className="hidden md:block flex-grow">
             <div className="w-[40%] aspect-square mx-auto relative">
-              <Image src={"/SVG/rightArrow.svg"} alt="right arrow" fill/>
+              <Image src={"/SVG/rightArrow.svg"} 
+                alt="right arrow" 
+                fill style={{objectFit:"cover"}}
+                sizes="20vw"
+              />
             </div>
           </div>
 

@@ -24,7 +24,10 @@ const Top3Image:React.FC<{image: ImageWithRP, order:number}> = ({image, order})=
         <p>{image.rank_points} RP</p>
       </div>
       <div className="w-full aspect-square relative rounded-xl overflow-hidden">
-        <Image src={`/postedImages/${image.file_name}`} alt="top3 images" fill style={{objectFit:"cover"}}/>
+        <Image src={`/postedImages/${image.file_name}`} 
+          alt="top3 images" 
+          fill style={{objectFit:"cover"}}
+          sizes="(max-width: 768px) 90vw, 40vw"/>
       </div>
     </div>
   )

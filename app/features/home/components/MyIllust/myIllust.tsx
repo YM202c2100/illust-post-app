@@ -7,7 +7,8 @@ export const MyIllust:React.FC<{imgSrc:string|null}>= ({imgSrc})=>{
       {imgSrc ?
         <Image
           src={imgSrc} alt="your submitted illust"
-          fill
+          fill style={{objectFit:"cover"}}
+          sizes="(max-width 1000px) 90vw, 70vw"
           className="shadow-2xl shadow-zinc-600 rounded-3xl object-cover"
         />
         :
