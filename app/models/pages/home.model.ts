@@ -4,7 +4,7 @@ export type HomeDataGET = {
   submittedFileName: string|null,
   contest: ContestData,
   limitCanJudge: number|null,
-  rankPoints: number
+  rankPoints: number|null
 } & LoginChecker
 
 export type ContestData = {

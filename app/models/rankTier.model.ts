@@ -1,7 +1,9 @@
-export type RankTier = "bronze"|"silver"|"gold"|"diamond"|"master"
+export type RankTier = "bronze"|"silver"|"gold"|"diamond"|"master"|null
 
-export function getRankTierbyRP(rankPoints:number):RankTier{
-  if(rankPoints < 1250){
+export function getRankTierbyRP(rankPoints:number|null):RankTier{
+  if(rankPoints === null){
+    return null
+  }else if(rankPoints < 1250){
     return "bronze";
   }else if(1250 <= rankPoints && rankPoints < 1500){
     return "silver";
