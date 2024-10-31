@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { GET } from "./api/getRequest";
 import { convertToValidSrc } from "./libs/helper";
 import { HomeDataGET } from "./models/pages/home.model";
@@ -6,7 +5,6 @@ import { MyIllust } from "./features/home/components/MyIllust/myIllust";
 import { ContestInfo } from "./features/home/components/ContestInfo/contestInfo";
 import { NavButtonBasedOnPeriod } from "./features/home/components/navButtons/navButtonBasedOnPeriod";
 import { ResultNavButton } from "./features/home/components/navButtons/resultNavButton";
-import { getRankTierbyRP } from "./models/rankTier.model";
 
 export default async function Home(){
   const res = await GET("home")
@@ -23,7 +21,6 @@ export default async function Home(){
   const myIllustSrc = data.submittedFileName ?
                         convertToValidSrc(data.submittedFileName)
                         :null
-  const rankTier = getRankTierbyRP(data.rankPoints)
 
   return(
     <div className="p-4 mx-auto flex flex-col landscape:flex-row items-center justify-center gap-2 landscape:gap-6 ">
@@ -39,7 +36,7 @@ export default async function Home(){
           <NavButtonBasedOnPeriod contest={data.contest} limitCanJudge={data.limitCanJudge} isSubmitted={!!data.submittedFileName}/>
         </div>
         <div className="row-span-1">
-          <ResultNavButton rankTier={rankTier}/>
+          <ResultNavButton rankPoints={data.rankPoints}/>
         </div>
       </div>
     </div>
