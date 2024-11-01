@@ -6,7 +6,7 @@ export const Top3Images:React.FC<{images:ImageWithRP[]}> = ({images})=>{
   return(
     <div>
       <p className="text-3xl">上位3作品</p>
-      <div className="container mx-auto flex flex-col md:flex-row items-center md:items-end gap-4">
+      <div className="flex flex-col md:flex-row items-center md:items-end gap-4">
         {images.map((image, idx)=>(
           <Top3Image image={image} order={idx+1}/>
         ))}

@@ -32,7 +32,7 @@ export default async function Result(){
   }
 
   return(
-    <div className="space-y-16">
+    <div className="container mx-auto space-y-16">
       <div className="text-center">
         <div className="text-3xl">第{data.prevContestInfo.round_num}回コンテスト</div>
         <div className="text-4xl">「{data.prevContestInfo.subject}」</div>
