@@ -1,4 +1,5 @@
 import { getRankTierbyRP } from "@/app/models/rankTier.model"
+import Image from "next/image"
 
 export const RankIcon:React.FC<{rankPoints:number|null}> = ({rankPoints})=>{
   const rankTier = getRankTierbyRP(rankPoints)
@@ -45,7 +46,12 @@ export const MasterIcon = ()=>{
 export const RankIconBase:React.FC<{svgSrc:string, borderColorHex:string}> = ({svgSrc, borderColorHex})=>{
   return(
     <div className={`w-full h-full rounded-sm bg-slate-900 p-4 ${borderColorHex} border-4`}>
-      <img src={svgSrc}/>
+      <div className="h-full relative">
+        <Image src={svgSrc} 
+          alt={"rank icon"} 
+          fill style={{objectFit:"contain"}}
+        />
+      </div>
     </div>
   )
 }
