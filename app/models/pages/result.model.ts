@@ -16,7 +16,7 @@ export type ResultDataGET = {
 export type ImageWithRP = {
   file_name: string,
   user_name: string,
-  rank_points: number
+  rank_points: number|null
 }
 
 export type ContestWithoutPeriodInfo = {
