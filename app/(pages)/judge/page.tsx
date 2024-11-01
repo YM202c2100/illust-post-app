@@ -23,6 +23,10 @@ export default async function Judge(){
     return <div>作品を提出してください</div>
   }
 
+  if(!Array.isArray(data.imagesToJudge) || data.imagesToJudge.length != 6){
+    return <div>このコンテストでは十分な作品が投稿されていないため利用できません</div>
+  }
+
   return(
     <div>
       <p className="text-4xl text-center mb-4">自分が好きな作品を選択しよう</p>
