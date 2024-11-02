@@ -1,4 +1,5 @@
 export type RankTier = "bronze"|"silver"|"gold"|"diamond"|"master"|null
+export type RankPoints = number|null
 
 export function getRankTierbyRP(rankPoints:number|null):RankTier{
   if(rankPoints === null){

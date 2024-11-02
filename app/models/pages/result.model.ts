@@ -1,10 +1,11 @@
+import { RankPoints } from "../rankTier.model"
 import { LoginChecker, SubmitChecker } from "./common.model"
 
 export type ResultDataGET = {
   rankPosition: number,
   totalNumCompetitors: number,
   top3Images: ImageWithRP[],
-  beforeRP: number|null,
+  beforeRP: RankPoints,
   myImage: ImageWithRP,
   higherRankImages: ImageWithRP[],
   prevContestInfo: ContestWithoutPeriodInfo
@@ -16,7 +17,7 @@ export type ResultDataGET = {
 export type ImageWithRP = {
   file_name: string,
   user_name: string,
-  rank_points: number|null
+  rank_points: RankPoints
 }
 
 export type ContestWithoutPeriodInfo = {
