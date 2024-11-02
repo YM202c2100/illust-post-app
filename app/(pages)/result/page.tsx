@@ -1,7 +1,7 @@
 import { PHP_ROOT_PATH } from "@/app/api/config"
 import { getHeaderWithSessId } from "@/app/api/cookieHeader";
 import { HigherRankImages } from "@/app/features/result/components/higherRankImages";
-import { MySubmitResult } from "@/app/features/result/components/mySubmitResult";
+import { SubmissionResult } from "@/app/features/result/components/SubmissionResult/submissionResult";
 import { Top3Images } from "@/app/features/result/components/top3Images";
 import { ResultDataGET } from "@/app/models/pages/result.model";
 import { redirect } from "next/navigation";
@@ -41,7 +41,7 @@ export default async function Result(){
 
       <Top3Images images={data.top3Images}/>
 
-      <MySubmitResult {...data}/>
+      <SubmissionResult {...data}/>
         
       <HigherRankImages images={data.higherRankImages}/>
     </div>
