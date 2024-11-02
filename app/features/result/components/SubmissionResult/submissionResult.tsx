@@ -1,7 +1,6 @@
-import { RankIcon } from "@/app/components/icons/rank.icon"
 import { convertToValidSrc } from "@/app/libs/helper"
 import { ResultDataGET } from "@/app/models/pages/result.model"
-import Image from "next/image"
+import { RankFluctuation } from "./rankFluctuation"
 
 export const SubmissionResult:React.FC<ResultDataGET> = ({rankPosition, totalNumCompetitors, beforeRP, myImage})=>{
   const myImgSrc = convertToValidSrc(myImage.file_name)
@@ -15,29 +14,7 @@ export const SubmissionResult:React.FC<ResultDataGET> = ({rankPosition, totalNum
           <img src={myImgSrc} width={400} />
         </div>
         <div>
-          <div className="flex justify-around items-center">
-            <div className="w-[30%] text-center">
-              <div className="aspect-square relative">
-                <RankIcon rankPoints={beforeRP} />
-              </div>
-              <div className="text-xl">{beforeRP} RP</div>
-            </div>
-
-            <div className="w-[10%] aspect-square relative">
-              <Image src={"/SVG/rightArrow.svg"} 
-                alt="right arrow" 
-                fill style={{objectFit:"cover"}}
-                sizes="20vw"
-              />
-            </div>
-
-            <div className="w-[30%] text-center">
-              <div className="aspect-square relative">
-                <RankIcon rankPoints={myImage.rank_points} />
-              </div>
-              <div className="text-xl">{myImage.rank_points} RP</div>
-            </div>
-          </div>
+          <RankFluctuation beforeRP={beforeRP} afterRP={myImage.rank_points}/>
           <div className="text-center">
             順位: {rankPosition}/{totalNumCompetitors}
           </div>
