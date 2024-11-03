@@ -10,10 +10,13 @@ export const SubmissionResult:React.FC<ResultDataGET> = ({rankPosition, totalNum
       <div className="text-3xl">投稿した作品</div>
 
       <div className="md:grid grid-cols-2 items-center">
-        <div className="justify-self-end">
-          <img src={myImgSrc} width={400} />
-        </div>
-        <div>
+        {/* next/Imageを使うとアスペクト比が不明のため無駄な余白が生じるためimgを使用 */}
+        <img src={myImgSrc}
+          alt="my sumitted illust" 
+          className="ml-auto max-h-[500px]"
+        />
+
+        <div className="mt-10">
           <RankFluctuation beforeRP={beforeRP} afterRP={myImage.rank_points}/>
           <div className="text-center">
             順位: {rankPosition}/{totalNumCompetitors}
