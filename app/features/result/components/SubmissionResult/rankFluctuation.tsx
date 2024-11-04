@@ -18,7 +18,7 @@ export const RankFluctuation:React.FC<{beforeRP:RankPoints, afterRP:RankPoints}>
       </div>
       
       <div className="w-[30%] text-center">
-        <RankResult rankPoints={beforeRP}/>
+        <RankResult rankPoints={afterRP}/>
       </div>
     </div>
   )
