@@ -1,5 +1,5 @@
 import { ImageWithRP } from "@/app/models/pages/result.model"
-import Image from "next/image"
+import { OthersImage } from "./othersImage"
 
 export const Top3Images:React.FC<{images:ImageWithRP[]}> = ({images})=>{
   
@@ -19,16 +19,7 @@ const Top3Image:React.FC<{image: ImageWithRP, order:number}> = ({image, order})=
   return(
     <div key={image.user_name+order} className={`text-center ${(order === 1) ? "w-[90%]" : "w-[80%]"}`}>
       <p className="text-2xl">{`${order}位`}</p>
-      <div className="flex justify-between mx-2">
-        <p>{image.user_name}</p>
-        <p>{image.rank_points} RP</p>
-      </div>
-      <div className="w-full aspect-square relative rounded-xl overflow-hidden">
-        <Image src={`/postedImages/${image.file_name}`} 
-          alt="top3 images" 
-          fill style={{objectFit:"cover"}}
-          sizes="(max-width: 768px) 90vw, 40vw"/>
-      </div>
+      <OthersImage image={image}/>
     </div>
   )
 }
