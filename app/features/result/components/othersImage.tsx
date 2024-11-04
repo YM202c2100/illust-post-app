@@ -10,13 +10,10 @@ export const OthersImage:React.FC<{
   const [isEnlarged, setIsEnlarged] = useState<boolean>(false)
   return(<>
     {isEnlarged && 
-      <div className="fixed inset-0 z-10 bg-enlarged-view flex justify-center items-center">
-        <button 
-          className="absolute z-10 top-3 right-3 text-white text-3xl"
-          onClick={()=>{setIsEnlarged(false)}}
-        >
-          戻る
-        </button>
+      <div 
+        className="fixed inset-0 z-10 bg-enlarged-view flex justify-center items-center"
+        onClick={()=>{setIsEnlarged(false)}}
+      >
         <div className="w-[98%] h-[98%] relative">
           <Image src={`/postedImages/${image.file_name}`} 
             alt="others submission" 
