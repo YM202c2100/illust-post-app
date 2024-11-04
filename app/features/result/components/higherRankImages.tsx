@@ -6,9 +6,19 @@ export const HigherRankImages:React.FC<{images:ImageWithRP[]}> = ({images})=>{
     <div>
       <div className="text-3xl">自分より上位の作品</div>
       
-      <div className="grid grid-cols-3">
-        {images.map(image => <OthersImage image={image}/>)}
+      <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-4">
+        {images.map((image)=>(
+          <HigherRankSubmission image={image}/>
+        ))}
       </div>
+    </div>
+  )
+}
+
+const HigherRankSubmission:React.FC<{image: ImageWithRP}> = ({image})=>{
+  return(
+    <div key={image.user_name+image.rank_points} className="w-[90%]">
+      <OthersImage image={image}/>
     </div>
   )
 }
