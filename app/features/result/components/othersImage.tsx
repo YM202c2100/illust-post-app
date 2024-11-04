@@ -11,7 +11,7 @@ export const OthersImage:React.FC<{
   return(<>
     {isEnlarged && 
       <div 
-        className="fixed inset-0 z-10 bg-enlarged-view flex justify-center items-center"
+        className="fixed inset-0 z-10 bg-enlarged-view flex justify-center items-center cursor-zoom-out"
         onClick={()=>{setIsEnlarged(false)}}
       >
         <div className="w-[98%] h-[98%] relative">
@@ -32,7 +32,7 @@ export const OthersImage:React.FC<{
         alt="others submission" 
         fill style={{objectFit:"cover"}}
         sizes="(max-width: 768px) 90vw, 40vw"
-        className="cursor-pointer"
+        className="cursor-zoom-in"
         onClick={()=>{setIsEnlarged(true)}}
       />
     </div>
