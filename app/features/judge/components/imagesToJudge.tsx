@@ -18,6 +18,19 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
   }
 
   return(
+    <>
+    <div 
+      className="w-[90%] mx-auto
+      overflow-auto snap-x snap-mandatory
+      flex justify-between
+      my-10"
+    >
+      <div className="snap-center flex-none w-full md:w-[45%] aspect-square bg-red-300"></div>
+      <div className="snap-center w-0 md:hidden"></div>
+      <div className="hidden md:block flex-grow bg-orange-300"></div>
+      <div className="snap-center flex-none w-full md:w-[45%] aspect-square bg-green-300"></div>
+    </div>
+    
     <div className="flex justify-around">
       {images.map((image,idx) => (
         <div key={image.user_id}>
@@ -26,6 +39,7 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
         </div>
       ))}
     </div>
+    </>
   )
 
   async function chooseImage(winnerIndex:number){
