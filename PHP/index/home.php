@@ -49,7 +49,7 @@ function fillHomeResponse(HomeModel $response, $userId){
   $response->limitCanJudge = CompetitorsQuery::fetchLimitCanJudge($userId);
   $response->submittedFileName = ImagesQuery::fetchNameByUserId($userId);
 
-  $response->rankPoints = CompetitorsQuery::fetchRankPoints($userId);
+  $response->rankPoints = CompetitorsQuery::fetchLastRankPoints($userId);
   
   return $response;
 }

@@ -37,6 +37,26 @@ class CompetitorsQuery {
     return $rankPoints;
   }
 
+  public static function fetchLastRankPoints($userId){
+    $db = new DbConnection();
+
+    $sql = "SELECT comptr.rank_points
+            from competitors comptr
+              inner join contests contest
+              on comptr.contest_id = contest.id
+            where comptr.user_id = :user_id
+              and contest.round_num < (
+                  SELECT round_num 
+                    from contests
+                    where id = ". ContestsQuery::$targetId ."
+              )
+            order by contest.round_num desc
+            limit 1";
+
+    $rankPoints = $db->fetch($sql, [':user_id'=>$userId], fetchOne:true);
+    return $rankPoints;
+  }
+
   public static function fetchRankPointsToJudgeOthers($userIdList){
     $db = new DbConnection();
 
