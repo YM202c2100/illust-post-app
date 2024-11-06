@@ -1,14 +1,14 @@
-import { Dispatch, SetStateAction } from "react"
-import { SelectedSide } from "./imagesToJudge"
+import { Dispatch } from "react"
+import { SelectedSide, SelectSideAction } from "./imagesToJudge"
 
 
 export type ImageUnderJudgingProps = {
   thisSide:NonNullable<SelectedSide>
   selectedSide:SelectedSide
-  setSelectedSide:Dispatch<SetStateAction<SelectedSide>>
+  dispatchSelectedSide:Dispatch<SelectSideAction>
 }
 
-export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({thisSide, selectedSide, setSelectedSide})=>{
+export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({thisSide, selectedSide, dispatchSelectedSide})=>{
   return(
     <div 
       className={`snap-center 
@@ -16,7 +16,7 @@ export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({thisSide, se
         w-full md:w-auto 
         md:flex flex-col justify-end
         transition-[flex-grow] bg-red-500`}
-      onClick={()=>{setSelectedSide(thisSide)}}
+      onClick={()=>{dispatchSelectedSide({type:thisSide})}}
     >
       <div className="w-full aspect-square bg-red-300"></div>
     </div>

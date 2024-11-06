@@ -1,7 +1,7 @@
 "use client"
 
 import { ImageToJudge } from "@/app/models/pages/judge.model"
-import { useState } from "react"
+import { useReducer, useState } from "react"
 import { ImageUnderJudging, ImageUnderJudgingProps } from "./imageUnderJudging"
 
 export type ImagesToJudgeProps = {
@@ -13,7 +13,7 @@ export type SelectedSide = "left"|"right"|null
 // 引数のimages配列の要素数は2
 export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
   const [limitCanJudge, setLimitCanJudge] = useState(props.limitCanJudge)
-  const [selectedSide, setSelectedSide] = useState<SelectedSide>(null)
+  const [selectedSide, dispatchSelectedSide] = useReducer(selectedSideReducer, null)
   const images = getRemainingJudgeableImages(props.allImages, limitCanJudge)
 
   if(limitCanJudge === 0){
@@ -54,7 +54,7 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
     return {
       thisSide:side,
       selectedSide:selectedSide,
-      setSelectedSide: setSelectedSide
+      dispatchSelectedSide: dispatchSelectedSide
     }
   }
 
@@ -85,6 +85,25 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
     setLimitCanJudge(prev => prev - 1)
   }
 
+}
+
+export type SelectSideAction = {type:NonNullable<SelectedSide>}
+function selectedSideReducer(prevState:SelectedSide, action:SelectSideAction):SelectedSide{
+  switch (action.type) {
+    case "left":
+      if(prevState === "left"){
+        return null
+      }else{
+        return "left"
+      }
+
+    case "right":
+      if(prevState === "right"){
+        return null
+      }else{
+        return "right"
+      }
+  }
 }
 
 function getRemainingJudgeableImages(allImages:ImageToJudge[], limitCanJudge:number){
