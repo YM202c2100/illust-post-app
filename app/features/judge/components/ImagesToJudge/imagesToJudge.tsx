@@ -7,11 +7,12 @@ export type ImagesToJudgeProps = {
   allImages: ImageToJudge[],
   limitCanJudge: number
 }
+export type SelectedSide = "left"|"right"|null
 
 // 引数のimages配列の要素数は2
 export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
   const [limitCanJudge, setLimitCanJudge] = useState(props.limitCanJudge)
-  const [selectedSide, setSelectedSide] = useState<"left"|"right"|null>(null)
+  const [selectedSide, setSelectedSide] = useState<SelectedSide>(null)
   const images = getRemainingJudgeableImages(props.allImages, limitCanJudge)
 
   if(limitCanJudge === 0){
