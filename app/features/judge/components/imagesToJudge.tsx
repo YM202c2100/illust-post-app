@@ -30,7 +30,8 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
         className={`snap-center 
           flex-shrink-0 ${(selectedSide==="left")?"md:flex-grow-1.2":"md:flex-grow"}
           w-full md:w-auto 
-          md:flex flex-col justify-end bg-red-500`}
+          md:flex flex-col justify-end
+          transition-[flex-grow] bg-red-500`}
         onClick={()=>{setSelectedSide("left")}}
       >
         <div className="w-full aspect-square bg-red-300"></div>
@@ -42,7 +43,8 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
         className={`snap-center 
           flex-shrink-0 ${(selectedSide==="right")?"md:flex-grow-1.2":"md:flex-grow"}
           w-full md:w-auto 
-          md:flex flex-col justify-end bg-green-500`}
+          md:flex flex-col justify-end
+          transition-[flex-grow] bg-green-500`}
         onClick={()=>{setSelectedSide("right")}}
       >
         <div className="w-full aspect-square bg-green-300"></div>
