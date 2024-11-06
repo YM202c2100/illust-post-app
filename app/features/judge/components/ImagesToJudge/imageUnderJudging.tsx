@@ -25,12 +25,14 @@ export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({images, this
         transition-[flex-grow] ease-in bg-red-500`}
       onClick={()=>{dispatchSelectedSide({type:thisSide})}}
     >
-      <div className="w-full aspect-square relative bg-red-300">
-        <Image src={imgSrc} 
-          alt={"image to judge"}
-          fill style={{objectFit:"contain"}}
-          sizes="(max-width 768px) 90vw, 50vw"
-        />
+      <div className="w-full aspect-square bg-red-300 p-4">
+        <div className="relative w-full h-full rounded-xl">
+          <Image src={imgSrc} 
+            alt={"image to judge"}
+            fill style={{objectFit:"contain"}}
+            sizes="(max-width 768px) 90vw, 50vw"
+          />
+        </div>
       </div>
     </div>
   )
