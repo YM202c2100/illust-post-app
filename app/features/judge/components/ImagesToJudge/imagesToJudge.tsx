@@ -2,6 +2,7 @@
 
 import { ImageToJudge } from "@/app/models/pages/judge.model"
 import { useState } from "react"
+import { ImageUnderJudging, ImageUnderJudgingProps } from "./imageUnderJudging"
 
 export type ImagesToJudgeProps = {
   allImages: ImageToJudge[],
@@ -19,6 +20,9 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
     return <div>全ての審査を終えました! 結果発表をお待ちください!</div>
   }
 
+  const leftImageProps = generateProps("left")
+  const rightImageProps = generateProps("right")
+
   return(
     <>
     <div 
@@ -27,29 +31,11 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
       flex md:justify-center md:gap-4
       my-10"
     >
-      <div 
-        className={`snap-center 
-          flex-shrink-0 ${(selectedSide==="left")?"md:flex-grow-1.2":"md:flex-grow"}
-          w-full md:w-auto 
-          md:flex flex-col justify-end
-          transition-[flex-grow] bg-red-500`}
-        onClick={()=>{setSelectedSide("left")}}
-      >
-        <div className="w-full aspect-square bg-red-300"></div>
-      </div>
+      <ImageUnderJudging {...leftImageProps}/>
 
       <div className="snap-center w-0 md:hidden"></div>
 
-      <div 
-        className={`snap-center 
-          flex-shrink-0 ${(selectedSide==="right")?"md:flex-grow-1.2":"md:flex-grow"}
-          w-full md:w-auto 
-          md:flex flex-col justify-end
-          transition-[flex-grow] bg-green-500`}
-        onClick={()=>{setSelectedSide("right")}}
-      >
-        <div className="w-full aspect-square bg-green-300"></div>
-      </div>
+      <ImageUnderJudging {...rightImageProps}/>
 
     </div>
 
@@ -63,6 +49,14 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
     </div>
     </>
   )
+
+  function generateProps(side:NonNullable<SelectedSide>):ImageUnderJudgingProps{
+    return {
+      thisSide:side,
+      selectedSide:selectedSide,
+      setSelectedSide: setSelectedSide
+    }
+  }
 
   async function chooseImage(winnerIndex:number){
     const loserIndex = (winnerIndex===0) ? 1:0
