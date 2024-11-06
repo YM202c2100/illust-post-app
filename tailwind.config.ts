@@ -15,6 +15,9 @@ const config: Config = {
       },
       backgroundColor: {
         "enlarged-view" : "rgb(0 0 0 / 80%)"
+      },
+      flexGrow: {
+        "1.2":"1.2"
       }
     },
   },

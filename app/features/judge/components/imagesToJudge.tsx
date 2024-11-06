@@ -11,6 +11,7 @@ export type ImagesToJudgeProps = {
 // 引数のimages配列の要素数は2
 export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
   const [limitCanJudge, setLimitCanJudge] = useState(props.limitCanJudge)
+  const [selectedSide, setSelectedSide] = useState<"left"|"right"|null>(null)
   const images = getRemainingJudgeableImages(props.allImages, limitCanJudge)
 
   if(limitCanJudge === 0){
@@ -20,17 +21,35 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
   return(
     <>
     <div 
-      className="w-[90%] mx-auto
+      className="w-[90%] md:w-[85%] mx-auto
       overflow-auto snap-x snap-mandatory
-      flex justify-between
+      flex md:justify-center md:gap-4
       my-10"
     >
-      <div className="snap-center flex-none w-full md:w-[45%] aspect-square bg-red-300"></div>
+      <div 
+        className={`snap-center 
+          flex-shrink-0 ${(selectedSide==="left")?"md:flex-grow-1.2":"md:flex-grow"}
+          w-full md:w-auto 
+          md:flex flex-col justify-end bg-red-500`}
+        onClick={()=>{setSelectedSide("left")}}
+      >
+        <div className="w-full aspect-square bg-red-300"></div>
+      </div>
+
       <div className="snap-center w-0 md:hidden"></div>
-      <div className="hidden md:block flex-grow bg-orange-300"></div>
-      <div className="snap-center flex-none w-full md:w-[45%] aspect-square bg-green-300"></div>
+
+      <div 
+        className={`snap-center 
+          flex-shrink-0 ${(selectedSide==="right")?"md:flex-grow-1.2":"md:flex-grow"}
+          w-full md:w-auto 
+          md:flex flex-col justify-end bg-green-500`}
+        onClick={()=>{setSelectedSide("right")}}
+      >
+        <div className="w-full aspect-square bg-green-300"></div>
+      </div>
+
     </div>
-    
+
     <div className="flex justify-around">
       {images.map((image,idx) => (
         <div key={image.user_id}>
