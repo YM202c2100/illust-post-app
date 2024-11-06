@@ -29,7 +29,7 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
       className="w-[90%] md:w-[85%] mx-auto
       overflow-auto snap-x snap-mandatory
       flex md:justify-center md:gap-4
-      my-10"
+      py-10 px-4"
     >
       <ImageUnderJudging {...leftImageProps}/>
 
