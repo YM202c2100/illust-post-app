@@ -22,7 +22,7 @@ export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({images, this
         flex-shrink-0 ${(selectedSide===thisSide) ? "md:flex-grow-1.2":"md:flex-grow"}
         w-full md:w-auto 
         md:flex flex-col justify-center
-        transition-[flex-grow] ease-in`}
+        transition-[flex-grow] ease-in cursor-pointer`}
       onClick={()=>{dispatchSelectedSide({type:thisSide})}}
     >
       <div className="w-full aspect-square bg-zinc-100 md:rounded-2xl p-4 shadow-none md:shadow-lg md:shadow-slate-400">
