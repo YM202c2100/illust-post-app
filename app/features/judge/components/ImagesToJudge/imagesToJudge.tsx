@@ -1,8 +1,9 @@
 "use client"
 
 import { ImageToJudge } from "@/app/models/pages/judge.model"
-import { useReducer, useState } from "react"
+import { useReducer, useRef, useState } from "react"
 import { ImageUnderJudging, ImageUnderJudgingProps } from "./imageUnderJudging"
+import { useEnterAnimation } from "../../hooks/enterAnimation"
 
 export type ImagesToJudgeProps = {
   allImages: ImageToJudge[],
@@ -15,17 +16,21 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
   const [limitCanJudge, setLimitCanJudge] = useState(props.limitCanJudge)
   const [selectedSide, dispatchSelectedSide] = useReducer(selectedSideReducer, null)
   const images = getRemainingJudgeableImages(props.allImages, limitCanJudge)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   if(limitCanJudge === 0){
     return <div>全ての審査を終えました! 結果発表をお待ちください!</div>
   }
 
+  useEnterAnimation(scrollContainerRef)
+  
   const leftImageProps = generateProps("left")
   const rightImageProps = generateProps("right")
 
   return(
     <>
     <div 
+      ref={scrollContainerRef}
       className="w-[90%] md:w-[85%] mx-auto
       overflow-auto snap-x snap-mandatory
       flex md:justify-center md:gap-4
