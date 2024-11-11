@@ -9,7 +9,7 @@ export type ImagesToJudgeProps = {
   allImages: ImageToJudge[],
   limitCanJudge: number
 }
-const SelectedSide = {
+export const SelectedSide = {
   left:0,
   right:1,
   null:null
@@ -107,17 +107,17 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
 
 }
 
-export type SelectSideAction = {type:NonNullable<SelectedSideType>}
-function selectedSideReducer(prevState:SelectedSideType, action:SelectSideAction):SelectedSideType{
+export type SelectSideAction = "left-selected"|"right-selected"
+function selectedSideReducer(prevState:SelectedSideType, action:{type:SelectSideAction}):SelectedSideType{
   switch (action.type) {
-    case SelectedSide.left:
+    case "left-selected":
       if(prevState === SelectedSide.left){
         return SelectedSide.null
       }else{
         return SelectedSide.left
       }
 
-    case SelectedSide.right:
+    case "right-selected":
       if(prevState === SelectedSide.right){
         return null
       }else{

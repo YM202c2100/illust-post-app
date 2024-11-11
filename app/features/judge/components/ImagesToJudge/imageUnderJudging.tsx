@@ -1,5 +1,5 @@
 import { Dispatch, RefObject, useEffect, useRef } from "react"
-import { SelectedSideType, SelectSideAction } from "./imagesToJudge"
+import { SelectedSide, SelectedSideType, SelectSideAction } from "./imagesToJudge"
 import { ImageToJudge } from "@/app/models/pages/judge.model"
 import { convertToValidSrc } from "@/app/libs/helper"
 import Image from "next/image"
@@ -9,7 +9,7 @@ export type ImageUnderJudgingProps = {
   images:ImageToJudge[]
   thisSide:NonNullable<SelectedSideType>
   selectedSide:SelectedSideType
-  dispatchSelectedSide:Dispatch<SelectSideAction>,
+  dispatchSelectedSide:Dispatch<{type:SelectSideAction}>,
   containerRef:RefObject<HTMLDivElement>
 }
 
@@ -22,7 +22,7 @@ export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({images, this
 
     if(window.matchMedia("(max-width:768px)").matches){
       const observer = new IntersectionObserver(()=>{
-        dispatchSelectedSide({type:thisSide})
+        dispatchSelectedSide({type:convSelectSideAction(thisSide)})
       },{root:containerRef.current, threshold:1})
   
       if(observeTargetRef.current){
@@ -42,7 +42,7 @@ export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({images, this
         w-full md:w-auto 
         md:flex flex-col justify-center
         transition-[flex-grow] ease-in cursor-pointer`}
-      onClick={()=>{dispatchSelectedSide({type:thisSide})}}
+      onClick={()=>{dispatchSelectedSide({type:convSelectSideAction(thisSide)})}}
     >
       <div className="w-full aspect-square bg-zinc-100 md:rounded-2xl p-4 shadow-none md:shadow-lg md:shadow-slate-400">
         <div 
@@ -57,4 +57,13 @@ export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({images, this
       </div>
     </div>
   )
+}
+
+function convSelectSideAction(side:NonNullable<SelectedSideType>):SelectSideAction{
+  switch (side) {
+    case SelectedSide.left:
+      return "left-selected"
+    case SelectedSide.right:
+      return "right-selected"
+  }
 }
