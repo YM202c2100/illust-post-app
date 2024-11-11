@@ -41,6 +41,16 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
       <ImageUnderJudging {...rightImageProps}/>
     </div>
 
+    <div className="text-center my-2">
+      <button
+      disabled={selectedSide===null}
+      className="bg-green-500 text-gray-100 p-3 rounded-2xl"
+      onClick={()=>{console.log(selectedSide)}}
+      >
+        こっちが良い！
+      </button>
+    </div>
+
     <div className="flex justify-around">
       {images.map((image,idx) => (
         <div key={image.user_id}>
