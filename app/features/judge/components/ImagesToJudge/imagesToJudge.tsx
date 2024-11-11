@@ -61,7 +61,8 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
       images:images,
       thisSide:side,
       selectedSide:selectedSide,
-      dispatchSelectedSide: dispatchSelectedSide
+      dispatchSelectedSide: dispatchSelectedSide,
+      containerRef:scrollContainerRef
     }
   }
 

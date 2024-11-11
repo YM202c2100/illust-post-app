@@ -1,4 +1,4 @@
-import { Dispatch } from "react"
+import { Dispatch, RefObject, useEffect, useRef } from "react"
 import { SelectedSide, SelectSideAction } from "./imagesToJudge"
 import { ImageToJudge } from "@/app/models/pages/judge.model"
 import { convertToValidSrc } from "@/app/libs/helper"
@@ -9,12 +9,31 @@ export type ImageUnderJudgingProps = {
   images:ImageToJudge[]
   thisSide:NonNullable<SelectedSide>
   selectedSide:SelectedSide
-  dispatchSelectedSide:Dispatch<SelectSideAction>
+  dispatchSelectedSide:Dispatch<SelectSideAction>,
+  containerRef:RefObject<HTMLDivElement>
 }
 
-export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({images, thisSide, selectedSide, dispatchSelectedSide})=>{
+export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({images, thisSide, selectedSide, dispatchSelectedSide, containerRef})=>{
   const idx = (thisSide === "left") ? 0:1
   const imgSrc = convertToValidSrc(images[idx].file_name)
+  const observeTargetRef = useRef(null)
+
+  useEffect(()=>{
+    if(!observeTargetRef.current || !containerRef.current) return;
+
+    const observer = new IntersectionObserver(()=>{
+      dispatchSelectedSide({type:thisSide})
+    },{root:containerRef.current, threshold:1})
+
+    if(observeTargetRef.current){
+      observer.observe(observeTargetRef.current)
+    }
+
+    return ()=>{
+      observer.disconnect()
+    }
+
+  },[])
 
   return(
     <div 
@@ -26,7 +45,9 @@ export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({images, this
       onClick={()=>{dispatchSelectedSide({type:thisSide})}}
     >
       <div className="w-full aspect-square bg-zinc-100 md:rounded-2xl p-4 shadow-none md:shadow-lg md:shadow-slate-400">
-        <div className="relative w-full h-full rounded-xl">
+        <div 
+          ref={observeTargetRef}
+          className="relative w-full h-full rounded-xl">
           <Image src={imgSrc} 
             alt={"image to judge"}
             fill style={{objectFit:"contain"}}
