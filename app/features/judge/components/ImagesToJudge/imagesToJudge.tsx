@@ -9,7 +9,13 @@ export type ImagesToJudgeProps = {
   allImages: ImageToJudge[],
   limitCanJudge: number
 }
-export type SelectedSide = "left"|"right"|null
+const SelectedSide = {
+  left:0,
+  right:1,
+  null:null
+} as const
+
+export type SelectedSideType = typeof SelectedSide[keyof typeof SelectedSide]
 
 // 引数のimages配列の要素数は2
 export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
@@ -24,8 +30,8 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
 
   useEnterAnimation(scrollContainerRef)
   
-  const leftImageProps = generateProps("left")
-  const rightImageProps = generateProps("right")
+  const leftImageProps = generateProps(SelectedSide.left)
+  const rightImageProps = generateProps(SelectedSide.right)
 
   return(
     <>
@@ -62,7 +68,7 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
     </>
   )
 
-  function generateProps(side:NonNullable<SelectedSide>):ImageUnderJudgingProps{
+  function generateProps(side:NonNullable<SelectedSideType>):ImageUnderJudgingProps{
     return {
       images:images,
       thisSide:side,
@@ -101,21 +107,21 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
 
 }
 
-export type SelectSideAction = {type:NonNullable<SelectedSide>}
-function selectedSideReducer(prevState:SelectedSide, action:SelectSideAction):SelectedSide{
+export type SelectSideAction = {type:NonNullable<SelectedSideType>}
+function selectedSideReducer(prevState:SelectedSideType, action:SelectSideAction):SelectedSideType{
   switch (action.type) {
-    case "left":
-      if(prevState === "left"){
-        return null
+    case SelectedSide.left:
+      if(prevState === SelectedSide.left){
+        return SelectedSide.null
       }else{
-        return "left"
+        return SelectedSide.left
       }
 
-    case "right":
-      if(prevState === "right"){
+    case SelectedSide.right:
+      if(prevState === SelectedSide.right){
         return null
       }else{
-        return "right"
+        return SelectedSide.right
       }
   }
 }
