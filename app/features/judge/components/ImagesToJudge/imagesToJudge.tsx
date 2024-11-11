@@ -38,11 +38,7 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
       shadow-md md:shadow-none shadow-slate-400"
     >
       <ImageUnderJudging {...leftImageProps}/>
-
-      <div className="snap-center w-0 md:hidden"></div>
-
       <ImageUnderJudging {...rightImageProps}/>
-
     </div>
 
     <div className="flex justify-around">

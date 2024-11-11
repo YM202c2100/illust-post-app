@@ -23,7 +23,7 @@ export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({images, this
 
     const observer = new IntersectionObserver(()=>{
       dispatchSelectedSide({type:thisSide})
-    },{root:containerRef.current, threshold:1})
+      },{root:containerRef.current, threshold:0})
 
     if(observeTargetRef.current){
       observer.observe(observeTargetRef.current)
