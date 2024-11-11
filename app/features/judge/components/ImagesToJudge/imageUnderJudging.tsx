@@ -21,18 +21,19 @@ export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({images, this
   useEffect(()=>{
     if(!observeTargetRef.current || !containerRef.current) return;
 
-    const observer = new IntersectionObserver(()=>{
-      dispatchSelectedSide({type:thisSide})
+    if(window.matchMedia("(max-width:768px)").matches){
+      const observer = new IntersectionObserver(()=>{
+        dispatchSelectedSide({type:thisSide})
       },{root:containerRef.current, threshold:0})
-
-    if(observeTargetRef.current){
-      observer.observe(observeTargetRef.current)
+  
+      if(observeTargetRef.current){
+        observer.observe(observeTargetRef.current)
+      }
+  
+      return ()=>{
+        observer.disconnect()
+      }
     }
-
-    return ()=>{
-      observer.disconnect()
-    }
-
   },[])
 
   return(
