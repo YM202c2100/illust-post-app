@@ -1,6 +1,6 @@
 import { ImageToJudge } from "@/app/models/pages/judge.model"
 import { SelectedSide, SelectedSideType } from "./imagesToJudge"
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 
 type ConfirmButtonProps = {
   selectedSide:SelectedSideType
@@ -9,16 +9,19 @@ type ConfirmButtonProps = {
 }
 
 export const ConfirmButton:React.FC<ConfirmButtonProps> = ({selectedSide, images, setLimitCanJudge})=>{
+  const [isPending, setIsPending] = useState<boolean>(false)
+  const isButtonDisable = (selectedSide===null) || isPending
   return(
     <div className="text-center my-2">
       <button
-      disabled={selectedSide===null}
-      className="bg-green-500 text-gray-100 p-3 rounded-2xl"
-      onClick={()=>{
-        if(selectedSide !== null){
-          chooseImage(selectedSide)
-        }
-      }}
+        disabled={isButtonDisable}
+        className={`text-gray-100 p-3 rounded-2xl ${isButtonDisable ? "bg-gray-400":"bg-green-500"}`}
+        onClick={()=>{
+          if(selectedSide !== null){
+            setIsPending(true)
+            chooseImage(selectedSide)
+          }
+        }}
       >
         こっちが良い！
       </button>
@@ -50,5 +53,6 @@ export const ConfirmButton:React.FC<ConfirmButtonProps> = ({selectedSide, images
     }
   
     setLimitCanJudge(prev => prev - 1)
+    setIsPending(false)
   }
 }
