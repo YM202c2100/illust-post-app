@@ -48,7 +48,7 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
       <ImageUnderJudging {...rightImageProps}/>
     </div>
 
-    <ConfirmButton selectedSide={selectedSide} images={images} setLimitCanJudge={setLimitCanJudge}/>
+    <ConfirmButton selectedSide={selectedSide} images={images} setLimitCanJudge={setLimitCanJudge} dispatchSelectedSide={dispatchSelectedSide}/>
     </>
   )
 
@@ -63,7 +63,7 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
   }
 }
 
-export type SelectSideAction = "left-selected"|"right-selected"
+export type SelectSideAction = "left-selected"|"right-selected"|"reset"
 function selectedSideReducer(prevState:SelectedSideType, action:{type:SelectSideAction}):SelectedSideType{
   switch (action.type) {
     case "left-selected":
@@ -79,6 +79,9 @@ function selectedSideReducer(prevState:SelectedSideType, action:{type:SelectSide
       }else{
         return SelectedSide.right
       }
+    
+    case "reset":
+      return null
   }
 }
 

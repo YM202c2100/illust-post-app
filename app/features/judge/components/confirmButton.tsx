@@ -1,14 +1,15 @@
 import { ImageToJudge } from "@/app/models/pages/judge.model"
-import { SelectedSide, SelectedSideType } from "./imagesToJudge"
+import { SelectedSide, SelectedSideType, SelectSideAction } from "./imagesToJudge"
 import { Dispatch, SetStateAction, useState } from "react"
 
 type ConfirmButtonProps = {
   selectedSide:SelectedSideType
   images:ImageToJudge[]
   setLimitCanJudge:Dispatch<SetStateAction<number>>
+  dispatchSelectedSide:Dispatch<{type:SelectSideAction}>
 }
 
-export const ConfirmButton:React.FC<ConfirmButtonProps> = ({selectedSide, images, setLimitCanJudge})=>{
+export const ConfirmButton:React.FC<ConfirmButtonProps> = ({selectedSide, images, setLimitCanJudge, dispatchSelectedSide})=>{
   const [isPending, setIsPending] = useState<boolean>(false)
   const isButtonDisable = (selectedSide===null) || isPending
   return(
@@ -54,5 +55,6 @@ export const ConfirmButton:React.FC<ConfirmButtonProps> = ({selectedSide, images
   
     setLimitCanJudge(prev => prev - 1)
     setIsPending(false)
+    dispatchSelectedSide({type:"reset"})
   }
 }
