@@ -1,5 +1,5 @@
 import { GET } from "@/app/api/getRequest";
-import { ImagesToJudge, ImagesToJudgeProps } from "@/app/features/judge/components/ImagesToJudge/imagesToJudge"
+import { ImagesToJudge } from "@/app/features/judge/components/imagesToJudge"
 import { JudgeDataGET } from "@/app/models/pages/judge.model";
 import { redirect } from "next/navigation";
 

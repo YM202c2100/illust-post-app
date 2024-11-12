@@ -3,7 +3,7 @@
 import { ImageToJudge } from "@/app/models/pages/judge.model"
 import { useReducer, useRef, useState } from "react"
 import { ImageUnderJudging, ImageUnderJudgingProps } from "./imageUnderJudging"
-import { useEnterAnimation } from "../../hooks/enterAnimation"
+import { useEnterAnimation } from "../hooks/enterAnimation"
 
 export type ImagesToJudgeProps = {
   allImages: ImageToJudge[],
@@ -81,8 +81,6 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
       loserId:images[loserIndex].user_id
     }
 
-    console.log(judgeResult);
-    
     const body = JSON.stringify(judgeResult)
 
     const res = await fetch("features/judge/api",{
