@@ -51,19 +51,14 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
       <button
       disabled={selectedSide===null}
       className="bg-green-500 text-gray-100 p-3 rounded-2xl"
-      onClick={()=>{console.log(selectedSide)}}
+      onClick={()=>{
+        if(selectedSide !== null){
+          chooseImage(selectedSide)
+        }
+      }}
       >
         こっちが良い！
       </button>
-    </div>
-
-    <div className="flex justify-around">
-      {images.map((image,idx) => (
-        <div key={image.user_id}>
-          <img src={`/postedImages/${image.file_name}`} alt={image.file_name} width={700}/>
-          <button onClick={()=>{chooseImage(idx)}}>選択</button>
-        </div>
-      ))}
     </div>
     </>
   )
@@ -78,14 +73,16 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
     }
   }
 
-  async function chooseImage(winnerIndex:number){
-    const loserIndex = (winnerIndex===0) ? 1:0
+  async function chooseImage(winnerIndex:NonNullable<SelectedSideType>){
+    const loserIndex = (winnerIndex===SelectedSide.left) ? SelectedSide.right:SelectedSide.left
 
     const judgeResult = {
       winnerId:images[winnerIndex].user_id,
       loserId:images[loserIndex].user_id
     }
 
+    console.log(judgeResult);
+    
     const body = JSON.stringify(judgeResult)
 
     const res = await fetch("features/judge/api",{
