@@ -86,5 +86,6 @@ function selectedSideReducer(prevState:SelectedSideType, action:{type:SelectSide
 }
 
 function getRemainingJudgeableImages(allImages:ImageToJudge[], limitCanJudge:number){
-  return allImages.slice(2*limitCanJudge-2, 2*limitCanJudge)
+  const offset = (3-limitCanJudge)*2
+  return allImages.slice(offset, offset+2)
 }
