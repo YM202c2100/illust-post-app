@@ -20,7 +20,7 @@ export const ConfirmButton:React.FC<ConfirmButtonProps> = ({selectedSide, images
         onClick={()=>{
           if(selectedSide !== null){
             setIsPending(true)
-            chooseImage(selectedSide)
+            confirmRequest(selectedSide)
           }
         }}
       >
@@ -29,7 +29,7 @@ export const ConfirmButton:React.FC<ConfirmButtonProps> = ({selectedSide, images
     </div>
   )
 
-  async function chooseImage(winnerIndex:NonNullable<SelectedSideType>){
+  async function confirmRequest(winnerIndex:NonNullable<SelectedSideType>){
     const loserIndex = (winnerIndex===SelectedSide.left) ? SelectedSide.right:SelectedSide.left
   
     const judgeResult = {
