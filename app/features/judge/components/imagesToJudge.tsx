@@ -22,7 +22,7 @@ export type SelectedSideType = typeof SelectedSide[keyof typeof SelectedSide]
 export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
   const [limitCanJudge, setLimitCanJudge] = useState(props.limitCanJudge)
   const [selectedSide, dispatchSelectedSide] = useReducer(selectedSideReducer, null)
-  const images = getRemainingJudgeableImages(props.allImages, limitCanJudge)
+  const images = getNextJudgeableImages(props.allImages, limitCanJudge)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   if(limitCanJudge === 0){
@@ -85,7 +85,8 @@ function selectedSideReducer(prevState:SelectedSideType, action:{type:SelectSide
   }
 }
 
-function getRemainingJudgeableImages(allImages:ImageToJudge[], limitCanJudge:number){
+// 表示する二つの画像を取得
+function getNextJudgeableImages(allImages:ImageToJudge[], limitCanJudge:number){
   const offset = (3-limitCanJudge)*2
   return allImages.slice(offset, offset+2)
 }
