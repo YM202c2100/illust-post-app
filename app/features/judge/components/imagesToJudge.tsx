@@ -87,6 +87,10 @@ function selectedSideReducer(prevState:SelectedSideType, action:{type:SelectSide
 
 // 表示する二つの画像を取得
 function getNextJudgeableImages(allImages:ImageToJudge[], limitCanJudge:number){
-  const offset = (3-limitCanJudge)*2
+  const offset = calcOffset(limitCanJudge)
   return allImages.slice(offset, offset+2)
+}
+
+export function calcOffset(limitCanJudge:number){
+  return (3-limitCanJudge)*2
 }
