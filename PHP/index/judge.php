@@ -54,16 +54,11 @@ try {
     }
 
     $reqData = \libs\getReqJsonBody();
-    $winnerId = $reqData['winnerId'];
-    $loserId = $reqData['loserId'];
-
-    if(empty($winnerId)||empty($loserId)){
-      throw new \Exception("入力が正しくありません");
-    }
+    $judgedUserIds = getJudgedUserIds($reqData);
 
     ContestsQuery::$targetId = ContestsQuery::fetchCurrentContestId();
 
-    $updatedRankPoints = getUpdatedRankPoints($winnerId, $loserId);
+    $updatedRankPoints = getUpdatedRankPoints($judgedUserIds['winnerId'], $judgedUserIds['loserId']);
     CompetitorsQuery::updateRankPointAndJudgedCount($updatedRankPoints);
     $isSuccess = CompetitorsQuery::decrementLimitCanJudge($user->id);
     if(!$isSuccess){
@@ -117,6 +112,20 @@ function fillJudgeResponse(JudgeModel $response, $userId):JudgeModel{
   return $response;
 }
 
+function getJudgedUserIds($requestData){
+  $winnerIndex = $requestData['winnerIndex'];
+  $loserIndex = $requestData['loserIndex'];
+
+  if(is_null($winnerIndex)||is_null($loserIndex)){
+    throw new \Exception("入力が正しくありません");
+  }
+
+  $images = Session::getImagesToJudge();
+  return [
+    'winnerId'=> $images[$winnerIndex]['user_id'],
+    'loserId' => $images[$loserIndex ]['user_id']
+  ];
+}
 
 function getUpdatedRankPoints($winnerId, $loserId){
   $rankPoints = CompetitorsQuery::fetchRankPointsToJudgeOthers([$winnerId, $loserId]);

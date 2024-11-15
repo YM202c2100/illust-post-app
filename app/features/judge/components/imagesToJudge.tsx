@@ -1,15 +1,15 @@
 "use client"
 
-import { ImageToJudge } from "@/app/models/pages/judge.model"
 import { useReducer, useRef, useState } from "react"
 import { ImageUnderJudging, ImageUnderJudgingProps } from "./imageUnderJudging"
 import { useEnterAnimation } from "../hooks/enterAnimation"
 import { ConfirmButton } from "./confirmButton"
 
 export type ImagesToJudgeProps = {
-  allImages: ImageToJudge[],
+  allImages: string[],
   limitCanJudge: number
 }
+
 export const SelectedSide = {
   left:0,
   right:1,
@@ -48,7 +48,7 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
       <ImageUnderJudging {...rightImageProps}/>
     </div>
 
-    <ConfirmButton selectedSide={selectedSide} images={images} setLimitCanJudge={setLimitCanJudge} dispatchSelectedSide={dispatchSelectedSide}/>
+    <ConfirmButton selectedSide={selectedSide} limitCanJudge={limitCanJudge} setLimitCanJudge={setLimitCanJudge} dispatchSelectedSide={dispatchSelectedSide}/>
     </>
   )
 
@@ -86,7 +86,7 @@ function selectedSideReducer(prevState:SelectedSideType, action:{type:SelectSide
 }
 
 // 表示する二つの画像を取得
-function getNextJudgeableImages(allImages:ImageToJudge[], limitCanJudge:number){
+function getNextJudgeableImages(allImages:string[], limitCanJudge:number){
   const offset = calcOffset(limitCanJudge)
   return allImages.slice(offset, offset+2)
 }

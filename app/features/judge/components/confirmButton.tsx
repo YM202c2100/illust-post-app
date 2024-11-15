@@ -1,15 +1,14 @@
-import { ImageToJudge } from "@/app/models/pages/judge.model"
-import { SelectedSide, SelectedSideType, SelectSideAction } from "./imagesToJudge"
+import { calcOffset, SelectedSideType, SelectSideAction } from "./imagesToJudge"
 import { Dispatch, SetStateAction, useState } from "react"
 
 type ConfirmButtonProps = {
   selectedSide:SelectedSideType
-  images:ImageToJudge[]
+  limitCanJudge:number
   setLimitCanJudge:Dispatch<SetStateAction<number>>
   dispatchSelectedSide:Dispatch<{type:SelectSideAction}>
 }
 
-export const ConfirmButton:React.FC<ConfirmButtonProps> = ({selectedSide, images, setLimitCanJudge, dispatchSelectedSide})=>{
+export const ConfirmButton:React.FC<ConfirmButtonProps> = ({selectedSide, limitCanJudge, setLimitCanJudge, dispatchSelectedSide})=>{
   const [isPending, setIsPending] = useState<boolean>(false)
   const isButtonDisable = (selectedSide===null) || isPending
   return(
@@ -20,7 +19,7 @@ export const ConfirmButton:React.FC<ConfirmButtonProps> = ({selectedSide, images
         onClick={()=>{
           if(selectedSide !== null){
             setIsPending(true)
-            confirmRequest(selectedSide)
+            confirmRequest(limitCanJudge,selectedSide)
           }
         }}
       >
@@ -29,12 +28,14 @@ export const ConfirmButton:React.FC<ConfirmButtonProps> = ({selectedSide, images
     </div>
   )
 
-  async function confirmRequest(winnerIndex:NonNullable<SelectedSideType>){
-    const loserIndex = (winnerIndex===SelectedSide.left) ? SelectedSide.right:SelectedSide.left
+  async function confirmRequest(limitCanJudge:number, selectedSide:NonNullable<SelectedSideType>){
+    const offset = calcOffset(limitCanJudge)
+    const winnerIndex = offset+selectedSide
+    const loserIndex = offset+Number(!selectedSide)
   
     const judgeResult = {
-      winnerId:images[winnerIndex].user_id,
-      loserId:images[loserIndex].user_id
+      winnerIndex:winnerIndex,
+      loserIndex:loserIndex
     }
   
     const body = JSON.stringify(judgeResult)

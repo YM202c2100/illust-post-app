@@ -1,12 +1,11 @@
 import { Dispatch, RefObject, useEffect, useRef } from "react"
 import { SelectedSide, SelectedSideType, SelectSideAction } from "./imagesToJudge"
-import { ImageToJudge } from "@/app/models/pages/judge.model"
 import { convertToValidSrc } from "@/app/libs/helper"
 import Image from "next/image"
 
 
 export type ImageUnderJudgingProps = {
-  images:ImageToJudge[]
+  images:string[]
   thisSide:NonNullable<SelectedSideType>
   selectedSide:SelectedSideType
   dispatchSelectedSide:Dispatch<{type:SelectSideAction}>,
@@ -14,7 +13,7 @@ export type ImageUnderJudgingProps = {
 }
 
 export const ImageUnderJudging:React.FC<ImageUnderJudgingProps> = ({images, thisSide, selectedSide, dispatchSelectedSide, containerRef})=>{
-  const imgSrc = convertToValidSrc(images[thisSide].file_name)
+  const imgSrc = convertToValidSrc(images[thisSide])
   const observeTargetRef = useRef(null)
 
   useEffect(()=>{
