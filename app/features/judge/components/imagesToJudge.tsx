@@ -25,11 +25,11 @@ export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
   const images = getNextJudgeableImages(props.allImages, limitCanJudge)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
+  useEnterAnimation(scrollContainerRef)
+
   if(limitCanJudge === 0){
     return <div>全ての審査を終えました! 結果発表をお待ちください!</div>
   }
-
-  useEnterAnimation(scrollContainerRef)
   
   const leftImageProps = generateProps(SelectedSide.left)
   const rightImageProps = generateProps(SelectedSide.right)
