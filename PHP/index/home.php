@@ -18,7 +18,7 @@ use models\HomeModel;
 if($_SERVER['REQUEST_METHOD'] === "GET"){
   try {
     $homeResponse = new HomeModel();
-    \libs\require_session();
+    Session::require_session();
   
     $user = Session::getUser();
     if(empty($user)){

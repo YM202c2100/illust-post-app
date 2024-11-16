@@ -26,7 +26,7 @@ try {
       $judgeResponse->returnJson();
     }
     
-    \libs\require_session();
+    Session::require_session();
 
     $user = Session::getUser();
     if(empty($user)){
@@ -47,7 +47,7 @@ try {
   }
 
   else if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    \libs\require_session();
+    Session::require_session();
     $user = Session::getUser();
     if(empty($user)){
       throw new \Exception("ログインしてください");

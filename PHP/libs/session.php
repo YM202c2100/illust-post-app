@@ -4,16 +4,16 @@ namespace libs;
 require_once __DIR__."/../models/user.model.php";
 use models\UserModel;
 
-function require_session(){
-  if(isset($_COOKIE["PHPSESSID"])){
-    session_start();
-  }
-}
-
 class Session{
   private const USER = 'user';
   private const IS_SUBMITTED = 'isSubmitted';
   private const IMAGES_JUDGE = 'ImagesToJudge';
+
+  public static function require_session(){
+    if(isset($_COOKIE["PHPSESSID"])){
+      session_start();
+    }
+  }
 
   public static function isSubmitted():bool{
     $isSubmitted = $_SESSION[Session::IS_SUBMITTED] ?? null;

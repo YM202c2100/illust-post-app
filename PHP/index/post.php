@@ -23,7 +23,7 @@ try{
       $postResModel->returnJson();
     }
 
-    \libs\require_session();
+    Session::require_session();
 
     $user = Session::getUser();
     if(empty($user)){
@@ -44,7 +44,7 @@ try{
       throw new \Exception("投稿に失敗しました");
     }
 
-    \libs\require_session();
+    Session::require_session();
 
     $user = Session::getUser();
     if(empty($user)){

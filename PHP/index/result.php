@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
   $resultResponse = new ResultModel();
   try {
 
-  \libs\require_session();
+  Session::require_session();
   $user = Session::getUser();
   if(empty($user)){
     $resultResponse->isLogin = false;
