@@ -33,7 +33,7 @@ export default async function Judge(){
   return(
     <div>
       <p className="text-4xl text-center mb-4">自分が好きな作品を選択しよう</p>
-      <ImagesToJudge props={{allImages: ImagesWithoutUserId, limitCanJudge: data.limitCanJudge}} />
+      <ImagesToJudge {...{allImages: ImagesWithoutUserId, initialLimitCanJudge: data.limitCanJudge}} />
     </div>
   )
 }

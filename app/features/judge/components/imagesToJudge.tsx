@@ -7,7 +7,7 @@ import { ConfirmButton } from "./confirmButton"
 
 export type ImagesToJudgeProps = {
   allImages: string[],
-  limitCanJudge: number
+  initialLimitCanJudge: number
 }
 
 export const SelectedSide = {
@@ -19,10 +19,10 @@ export const SelectedSide = {
 export type SelectedSideType = typeof SelectedSide[keyof typeof SelectedSide]
 
 // 引数のimages配列の要素数は2
-export const ImagesToJudge:React.FC<{props: ImagesToJudgeProps}> = ({props})=>{
-  const [limitCanJudge, setLimitCanJudge] = useState(props.limitCanJudge)
+export const ImagesToJudge:React.FC<ImagesToJudgeProps> = ({allImages, initialLimitCanJudge})=>{
+  const [limitCanJudge, setLimitCanJudge] = useState(initialLimitCanJudge)
   const [selectedSide, dispatchSelectedSide] = useReducer(selectedSideReducer, null)
-  const images = getNextJudgeableImages(props.allImages, limitCanJudge)
+  const images = getNextJudgeableImages(allImages, limitCanJudge)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   useEnterAnimation(scrollContainerRef)
