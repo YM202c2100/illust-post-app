@@ -3,7 +3,7 @@
 import { useReducer, useRef, useState } from "react"
 import { ImageUnderJudging, ImageUnderJudgingProps } from "./imageUnderJudging"
 import { useEnterAnimation } from "../hooks/enterAnimation"
-import { ConfirmButton } from "./confirmButton"
+import { ConfirmButton, ConfirmButtonProps } from "./confirmButton"
 
 export type ImagesToJudgeProps = {
   allImages: string[],
@@ -33,6 +33,12 @@ export const ImagesToJudge:React.FC<ImagesToJudgeProps> = ({allImages, initialLi
   
   const leftImageProps = generateProps(SelectedSide.left)
   const rightImageProps = generateProps(SelectedSide.right)
+  const confirmButtonProps:ConfirmButtonProps = {
+    selectedSide:selectedSide,
+    limitCanJudge:limitCanJudge,
+    setLimitCanJudge:setLimitCanJudge,
+    dispatchSelectedSide:dispatchSelectedSide
+  }
 
   return(
     <>
@@ -48,7 +54,7 @@ export const ImagesToJudge:React.FC<ImagesToJudgeProps> = ({allImages, initialLi
       <ImageUnderJudging {...rightImageProps}/>
     </div>
 
-    <ConfirmButton selectedSide={selectedSide} limitCanJudge={limitCanJudge} setLimitCanJudge={setLimitCanJudge} dispatchSelectedSide={dispatchSelectedSide}/>
+    <ConfirmButton {...confirmButtonProps}/>
     </>
   )
 

@@ -1,7 +1,7 @@
 import { calcOffset, SelectedSideType, SelectSideAction } from "./imagesToJudge"
 import { Dispatch, SetStateAction, useState } from "react"
 
-type ConfirmButtonProps = {
+export type ConfirmButtonProps = {
   selectedSide:SelectedSideType
   limitCanJudge:number
   setLimitCanJudge:Dispatch<SetStateAction<number>>
