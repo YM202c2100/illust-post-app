@@ -28,8 +28,8 @@ export default async function Home(){
         <MyIllust imgSrc={myIllustSrc}/>
       </div>
 
-      <div className="w-[90vw] landscape:w-[45vh] landscape:h-[90vh] landscape:grid landscape:grid-rows-4 space-y-2">
-        <div className="landscape:row-span-2">
+      <div className="w-[90vw] landscape:w-[45vh] landscape:h-[90vh] landscape:grid grid-rows-4 space-y-2">
+        <div className="row-span-2">
           <ContestInfo contest={data.contest}/>
         </div>
         <div className="row-span-1">
