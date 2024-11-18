@@ -39,9 +39,9 @@ export default async function Result(){
         <div className="text-4xl mt-4">最終結果</div>
       </div>
 
-      <Top3Images images={data.top3Images}/>
-
       <SubmissionResult {...data}/>
+      
+      <Top3Images images={data.top3Images}/>
         
       <HigherRankImages images={data.higherRankImages}/>
     </div>
