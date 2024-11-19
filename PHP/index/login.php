@@ -4,6 +4,7 @@ namespace index\login;
 require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../libs/session.php";
 require_once __DIR__."/../libs/validate.php";
+require_once __DIR__."/../libs/errorMessage.php";
 require_once __DIR__."/../db/users.query.php";
 require_once __DIR__."/../db/contests.query.php";
 require_once __DIR__."/../db/competitors.query.php";
@@ -28,16 +29,16 @@ try{
       ]);
 
       if(isset($errors)){
-        throw new \Exception($errors);
+        \libs\returnErrorMessage('入力が正しくありません');
       }
 
       $user = UsersQuery::fetchById($id);
       if(empty($user)){
-        throw new \Exception("ユーザーが見つかりませんでした");
+        \libs\returnErrorMessage('ユーザーが見つかりませんでした');
       }
       
       if($user->pwd !== $pwd){
-        throw new \Exception("パスワードが間違っています");
+        \libs\returnErrorMessage('パスワードが間違っています');
       }
       Session::setUser($user);
       
@@ -46,9 +47,9 @@ try{
       Session::setIsSubmitted($isSubmitted);
 
       http_response_code(200);
-      echo json_encode(['body'=>"{$user->user_name}でログインしました"]);
-  }
-} catch(\Throwable $th){
-  http_response_code(500);
-  echo json_encode(['errMsg'=>$th->getMessage()]);
+      \libs\returnErrorMessage(null);
+    }
+  } catch(\Throwable $th){
+    http_response_code(500);
+    \libs\returnErrorMessage('予期せぬエラーが発生しました');
 }

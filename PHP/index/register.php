@@ -3,6 +3,7 @@ namespace index\register;
 
 require_once __DIR__."/../libs/header.php";
 require_once __DIR__."/../libs/session.php";
+require_once __DIR__."/../libs/errorMessage.php";
 require_once __DIR__."/../models/user.model.php";
 require_once __DIR__."/../db/users.query.php";
 use db\UsersQuery;
@@ -20,13 +21,13 @@ try{
     // バリデーションチェック
     $errors = UserModel::getValidationErrors(['id'=>$id, 'pwd'=>$pwd, 'userName'=>$userName]);
     if(isset($errors)){
-      throw new \Exception($errors);
+      \libs\returnErrorMessage('入力が正しくありません');
     }
 
     // すでに同じIDのユーザーが存在するかどうか
     $user = UsersQuery::fetchById($id);
     if(!empty($user)){
-      throw new \Exception("既にユーザーが存在している");
+      \libs\returnErrorMessage('既にユーザーが存在しています');
     }
 
     $user = new UserModel($id, $pwd, $userName);
@@ -36,9 +37,9 @@ try{
       Session::setUser($user);
     }
 
-    echo json_encode([]);
+    \libs\returnErrorMessage(null);
   }
 }catch(\Throwable $th){
   http_response_code(500);
-  echo json_encode(['errMsg'=>$th->getMessage()]);
+  \libs\returnErrorMessage('予期せぬエラーが発生しました');
 }

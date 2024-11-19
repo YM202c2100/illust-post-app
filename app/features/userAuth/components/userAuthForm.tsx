@@ -1,5 +1,6 @@
 "use client"
 
+import { ErrorMessage } from "@/app/models/pages/common.model"
 import { usePathname } from "next/navigation"
 import { FormEvent } from "react"
 
@@ -36,17 +37,17 @@ export const UserAuthForm:React.FC = ()=>{
     const endpoit = isRegisterPage ? "features/userAuth/register/api" : "features/userAuth/login/api"
     try {
       const formData = new FormData(e.currentTarget)
-      const res =await fetch(endpoit, {
+      const res = await fetch(endpoit, {
         method:"post",
         body:formData,
         credentials:"include"
       })
 
-      if(res.ok){
+      const data:Partial<ErrorMessage> = await res.json()
+      if(!data.errMsg && res.ok){
         window.location.href = "/"
       }else{
-        const data = await res.json()
-        console.error(data.errMsg)
+        alert(data.errMsg);
       }
 
     } catch (error) {
