@@ -5,6 +5,7 @@ import { MyIllust } from "./features/home/components/MyIllust/myIllust";
 import { ContestInfo } from "./features/home/components/ContestInfo/contestInfo";
 import { NavButtonBasedOnPeriod } from "./features/home/components/navButtons/navButtonBasedOnPeriod";
 import { ResultNavButton } from "./features/home/components/navButtons/resultNavButton";
+import { redirect } from "next/navigation";
 
 export default async function Home(){
   const res = await GET("home")
@@ -15,7 +16,7 @@ export default async function Home(){
   const data:HomeDataGET = await res.json()
 
   if(!data.isLogin){
-    return <div>ログインしてください</div>
+    redirect("login")
   }
 
   const myIllustSrc = data.submittedFileName ?
