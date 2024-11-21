@@ -29,6 +29,6 @@ const RankResult:React.FC<{rankPoints:RankPoints}> = ({rankPoints})=>{
     <div className="aspect-square relative">
       <RankIcon rankPoints={rankPoints} />
     </div>
-    <div className="text-xl">{rankPoints} RP</div>
+    <div className="text-xl">{rankPoints ?? "-"} RP</div>
   </>)
 }
