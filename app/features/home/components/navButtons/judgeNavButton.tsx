@@ -5,7 +5,10 @@ export const JudgeNavButton:React.FC<{limitCanJudge:number|null}> = ({limitCanJu
   return(
     <Link 
       href={"judge"}
-      className={`py-5 text-white h-full rounded-2xl md:text-2xl p-2 flex flex-col ${isSubmitted ? "bg-zinc-800 hover:bg-zinc-700":"pointer-events-none bg-slate-400"}`}
+      className={`py-5 px-2 h-full rounded-2xl flex flex-col
+        text-white md:text-2xl 
+        ${isSubmitted ? "bg-zinc-800 hover:bg-zinc-700":"pointer-events-none bg-slate-400"}`
+      }
     >
       <div className="grid grid-cols-2 flex-grow">
         <div className="text-center landscape:text-left">ジャッジ</div>
