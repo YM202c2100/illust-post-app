@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const JudgeNavButton:React.FC<{limitCanJudge:number|null}> = ({limitCanJudge})=>{
-  const isSubmitted = (limitCanJudge === null)
+  const isSubmitted = (limitCanJudge !== null)
   return(
     <Link 
       href={"judge"}
