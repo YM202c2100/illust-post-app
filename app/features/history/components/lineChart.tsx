@@ -34,8 +34,8 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
     const maxRP = Math.max(...RPHistory)
     const minRP = Math.min(...RPHistory)
     
-    const rankTier = {
-      bronze:0,
+    const rankTierBoundary = {
+      bronze:1000,
       silver:1250,
       gold:1500,
       diamond:1750,
@@ -44,7 +44,7 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
 
     const tickRange = {max:0, min:0}
 
-    const rankTierArray = Object.values(rankTier)
+    const rankTierArray = Object.values(rankTierBoundary)
     for (let i=0; i<rankTierArray.length; i++){
       tickRange.max = maxRP+50
 
@@ -55,12 +55,10 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
     }
 
     for (let i=0; i<rankTierArray.length; i++){
+      tickRange.min = (minRP===0) ? minRP : minRP-50
+
       if(minRP >= rankTierArray.toReversed()[i]){
         tickRange.min = rankTierArray.toReversed()[i] - 50
-        if(tickRange.min < 0){
-          tickRange.min = 0
-        }
-
         break;
       }
     }
