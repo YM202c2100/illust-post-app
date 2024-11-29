@@ -1,4 +1,4 @@
-import { TickRange } from "../lineChart"
+import { rankTierBoundary, TickRange } from "../lineChart"
 
 export type BackGroundRectsProps = {
   tickRange: TickRange
@@ -12,27 +12,48 @@ export const BackGroundRects:React.FC<BackGroundRectsProps> = ({
   getPositionY
 })=>{
   const gapBetweenTier = 250
-  const numOfRectsWithoutPadding = (tickRange.diff - 2*padding)/gapBetweenTier
   const maxRP = tickRange.max - padding
-  const bottomPaddingPosition = getPositionY(maxRP - numOfRectsWithoutPadding*gapBetweenTier)
 
   return(<>
-    <rect y={0} width={"100%"} height={calcHeightPixel(padding)} stroke='black' fill='blue' opacity={0.3}/>
-    {[...Array(numOfRectsWithoutPadding)].map((_, i)=>(
+    {maxRP > rankTierBoundary.diamond && 
+      <rect y={0} width={"100%"} height={calcHeightPixel(tickRange.max-rankTierBoundary.master)} stroke='black' fill='purple' opacity={0.3}/>
+    }
+
+    {[rankTierBoundary.master, 
+      rankTierBoundary.diamond, 
+      rankTierBoundary.gold   ].map((boundory)=>(
       <rect 
-        key={i}
-        y={getPositionY(maxRP - i*gapBetweenTier)} 
-        width={"100%"} 
-        height={calcHeightPixel(gapBetweenTier)} 
+        y={getPositionY(boundory)} 
+        width={"100%"} height={calcHeightPixel(gapBetweenTier)} 
         stroke='black' 
-        fill='yellow' 
+        fill={getColorBelowOneRank(boundory)}
         opacity={0.3}
       />
     ))}
-    <rect y={bottomPaddingPosition} width={"100%"} height={calcHeightPixel(padding)} stroke='black' fill='blue' opacity={0.3}/>
+
+    <rect 
+      y={getPositionY(rankTierBoundary.silver)} 
+      width={"100%"} height={calcHeightPixel(rankTierBoundary.silver)} 
+      stroke='black' 
+      fill={getColorBelowOneRank(rankTierBoundary.silver)}
+      opacity={0.3}
+    />
   </>)
 
   function calcHeightPixel(value:number){
     return Math.abs(getPositionY(value) - getPositionY(0))
+  }
+
+  function getColorBelowOneRank(rankTier:number){
+    switch (rankTier - gapBetweenTier) {
+      case rankTierBoundary.diamond:
+        return "blue"
+      case rankTierBoundary.gold:
+        return "yellow"
+      case rankTierBoundary.silver:
+        return "gray"
+      case rankTierBoundary.bronze:
+        return "brown"
+    }
   }
 }

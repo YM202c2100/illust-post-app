@@ -6,6 +6,14 @@ export type TickRange = {
   diff: number
 }
 
+export const rankTierBoundary = {
+  bronze:1000,
+  silver:1250,
+  gold:1500,
+  diamond:1750,
+  master:2000
+}
+
 export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
   const viewWidth = 800
   const viewHeight = 600
@@ -48,15 +56,6 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
   function getTickRange(RPHistory:number[]):TickRange{
     const maxRP = Math.max(...RPHistory)
     const minRP = Math.min(...RPHistory)
-    
-    const rankTierBoundary = {
-      bronze:1000,
-      silver:1250,
-      gold:1500,
-      diamond:1750,
-      master:2000
-    }
-
     const tickRange = {max:0, min:0, diff:0}
 
     const rankTierArray = Object.values(rankTierBoundary)
