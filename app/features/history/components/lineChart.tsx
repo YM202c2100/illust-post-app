@@ -7,6 +7,7 @@ export type TickRange = {
 export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
   const viewWidth = 800
   const viewHeight = 600
+  const padding = 50
   const tickRange = getTickRange(RPHistory)
 
   let path = ""
@@ -52,19 +53,19 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
 
     const rankTierArray = Object.values(rankTierBoundary)
     for (let i=0; i<rankTierArray.length; i++){
-      tickRange.max = maxRP+50
+      tickRange.max = maxRP + padding
 
       if(maxRP <= rankTierArray[i]){
-        tickRange.max = rankTierArray[i]+50
+        tickRange.max = rankTierArray[i] + padding
         break;
       }
     }
 
     for (let i=0; i<rankTierArray.length; i++){
-      tickRange.min = (minRP===0) ? minRP : minRP-50
+      tickRange.min = (minRP===0) ? minRP : minRP - padding
 
       if(minRP >= rankTierArray.toReversed()[i]){
-        tickRange.min = rankTierArray.toReversed()[i] - 50
+        tickRange.min = rankTierArray.toReversed()[i] - padding
         break;
       }
     }
