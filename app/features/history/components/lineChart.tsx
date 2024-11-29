@@ -30,7 +30,7 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
     </div>
   )
 
-  function getTickRange(RPHistory:number[]){
+  function getTickRange(RPHistory:number[]):{max:number, min:number, diff:number}{
     const maxRP = Math.max(...RPHistory)
     const minRP = Math.min(...RPHistory)
     
@@ -42,7 +42,7 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
       master:2000
     }
 
-    const tickRange = {max:0, min:0}
+    const tickRange = {max:0, min:0, diff:0}
 
     const rankTierArray = Object.values(rankTierBoundary)
     for (let i=0; i<rankTierArray.length; i++){
@@ -62,11 +62,14 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
         break;
       }
     }
+
+    tickRange.diff = tickRange.max - tickRange.min
+
     return tickRange
   }
 
   function getPositionY(value: number){
-    const ratio = (value-tickRange.min)/(tickRange.max - tickRange.min)
+    const ratio = (value-tickRange.min)/tickRange.diff
     return viewHeight - (ratio * viewHeight)
   }
 }
