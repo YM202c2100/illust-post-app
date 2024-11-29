@@ -1,3 +1,5 @@
+import { BackGroundRects, BackGroundRectsProps } from "./LineChart/backGroundRects"
+
 export type TickRange = {
   min: number,
   max: number, 
@@ -19,6 +21,12 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
     }
   });
 
+  const backGroundRectsProps:BackGroundRectsProps = {
+    tickRange:tickRange,
+    padding:padding,
+    getPositionY:getPositionY
+  }
+
   return(
     <div className="mx-auto">
       <svg xmlns="http://www.w3.org/2000/svg" 
@@ -31,7 +39,7 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
           stroke="red"
           strokeWidth={2}
         />
-        <rect width={viewWidth}/>
+        <BackGroundRects {...backGroundRectsProps}/>
         <rect x='0' y='0' width='100%' height='100%' stroke='cadetblue' strokeWidth={4} fill='none' />
       </svg>
     </div>
