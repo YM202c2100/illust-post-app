@@ -20,6 +20,7 @@ export const BackGroundRects:React.FC<BackGroundRectsProps> = ({
     <rect y={0} width={"100%"} height={calcHeightPixel(padding)} stroke='black' fill='blue' opacity={0.3}/>
     {[...Array(numOfRectsWithoutPadding)].map((_, i)=>(
       <rect 
+        key={i}
         y={getPositionY(maxRP - i*gapBetweenTier)} 
         width={"100%"} 
         height={calcHeightPixel(gapBetweenTier)} 
