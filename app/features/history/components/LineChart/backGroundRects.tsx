@@ -23,6 +23,7 @@ export const BackGroundRects:React.FC<BackGroundRectsProps> = ({
       rankTierBoundary.diamond, 
       rankTierBoundary.gold   ].map((boundory)=>(
       <rect 
+        key={boundory}
         y={getPositionY(boundory)} 
         width={"100%"} height={calcHeightPixel(gapBetweenTier)} 
         stroke='black' 
