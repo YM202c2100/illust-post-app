@@ -1,3 +1,9 @@
+export type TickRange = {
+  min: number,
+  max: number, 
+  diff: number
+}
+
 export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
   const viewWidth = 800
   const viewHeight = 600
@@ -30,7 +36,7 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
     </div>
   )
 
-  function getTickRange(RPHistory:number[]):{max:number, min:number, diff:number}{
+  function getTickRange(RPHistory:number[]):TickRange{
     const maxRP = Math.max(...RPHistory)
     const minRP = Math.min(...RPHistory)
     
