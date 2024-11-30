@@ -20,15 +20,6 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
   const padding = 50
   const tickRange = getTickRange(RPHistory)
 
-  let path = ""
-  RPHistory.forEach((rp, i) => {
-    if(i === 0){
-      path += `M ${viewWidth/10}, ${getPositionY(rp)} `
-    }else{
-      path += `L ${(i+1)*viewWidth/10}, ${getPositionY(rp)} M ${(i+1)*viewWidth/10}, ${getPositionY(rp)} `
-    }
-  });
-
   const backGroundRectsProps:BackGroundRectsProps = {
     tickRange:tickRange,
     padding:padding,
@@ -43,7 +34,7 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
         className="mx-auto"
       >
         <path 
-          d={path}
+          d={getPath(RPHistory)}
           stroke="red"
           strokeWidth={2}
         />
@@ -85,6 +76,19 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
   function getPositionY(value: number){
     const ratio = (value-tickRange.min)/tickRange.diff
     return viewHeight - (ratio * viewHeight)
+  }
+
+  function getPath(RankPointsArray:number[]):string{
+    let path = ""
+    RankPointsArray.forEach((rp, i) => {
+      if(i === 0){
+        path += `M ${viewWidth/10}, ${getPositionY(rp)} `
+      }else{
+        path += `L ${(i+1)*viewWidth/10}, ${getPositionY(rp)} M ${(i+1)*viewWidth/10}, ${getPositionY(rp)} `
+      }
+    });
+
+    return path
   }
 }
 
