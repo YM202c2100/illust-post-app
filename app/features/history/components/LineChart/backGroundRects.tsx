@@ -1,4 +1,4 @@
-import { rankTierBoundary, TickRange } from "../lineChart"
+import { tierRectBoundary, TickRange } from "../lineChart"
 
 export type BackGroundRectsProps = {
   tickRange: TickRange
@@ -15,13 +15,13 @@ export const BackGroundRects:React.FC<BackGroundRectsProps> = ({
   const maxRP = tickRange.max - padding
 
   return(<>
-    {maxRP > rankTierBoundary.diamond && 
-      <rect y={0} width={"100%"} height={calcHeightPixel(tickRange.max-rankTierBoundary.master)} stroke='black' fill='purple' opacity={0.3}/>
+    {maxRP > tierRectBoundary.diamond && 
+      <rect y={0} width={"100%"} height={calcHeightPixel(tickRange.max-tierRectBoundary.master)} stroke='black' fill='purple' opacity={0.3}/>
     }
 
-    {[rankTierBoundary.master, 
-      rankTierBoundary.diamond, 
-      rankTierBoundary.gold   ].map((boundory)=>(
+    {[tierRectBoundary.master, 
+      tierRectBoundary.diamond, 
+      tierRectBoundary.gold   ].map((boundory)=>(
       <rect 
         key={boundory}
         y={getPositionY(boundory)} 
@@ -33,10 +33,10 @@ export const BackGroundRects:React.FC<BackGroundRectsProps> = ({
     ))}
 
     <rect 
-      y={getPositionY(rankTierBoundary.silver)} 
-      width={"100%"} height={calcHeightPixel(rankTierBoundary.silver)} 
+      y={getPositionY(tierRectBoundary.silver)} 
+      width={"100%"} height={calcHeightPixel(tierRectBoundary.silver)} 
       stroke='black' 
-      fill={getColorBelowOneRank(rankTierBoundary.silver)}
+      fill={getColorBelowOneRank(tierRectBoundary.silver)}
       opacity={0.3}
     />
   </>)
@@ -47,13 +47,13 @@ export const BackGroundRects:React.FC<BackGroundRectsProps> = ({
 
   function getColorBelowOneRank(rankTier:number){
     switch (rankTier - gapBetweenTier) {
-      case rankTierBoundary.diamond:
+      case tierRectBoundary.diamond:
         return "blue"
-      case rankTierBoundary.gold:
+      case tierRectBoundary.gold:
         return "yellow"
-      case rankTierBoundary.silver:
+      case tierRectBoundary.silver:
         return "gray"
-      case rankTierBoundary.bronze:
+      case tierRectBoundary.bronze:
         return "brown"
     }
   }

@@ -6,7 +6,7 @@ export type TickRange = {
   diff: number
 }
 
-export const rankTierBoundary = {
+export const tierRectBoundary = {
   bronze:1000,
   silver:1250,
   gold:1500,
@@ -58,21 +58,21 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
     const minRP = Math.min(...RPHistory)
     const tickRange = {max:0, min:0, diff:0}
 
-    const rankTierArray = Object.values(rankTierBoundary)
-    for (let i=0; i<rankTierArray.length; i++){
+    const tierBoundaryValues = Object.values(tierRectBoundary)
+    for (let i=0; i<tierBoundaryValues.length; i++){
       tickRange.max = maxRP + padding
 
-      if(maxRP <= rankTierArray[i]){
-        tickRange.max = rankTierArray[i] + padding
+      if(maxRP <= tierBoundaryValues[i]){
+        tickRange.max = tierBoundaryValues[i] + padding
         break;
       }
     }
 
-    for (let i=0; i<rankTierArray.length; i++){
+    for (let i=0; i<tierBoundaryValues.length; i++){
       tickRange.min = (minRP===0) ? minRP : minRP - padding
 
-      if(minRP >= rankTierArray.toReversed()[i]){
-        tickRange.min = rankTierArray.toReversed()[i] - padding
+      if(minRP >= tierBoundaryValues.toReversed()[i]){
+        tickRange.min = tierBoundaryValues.toReversed()[i] - padding
         break;
       }
     }
