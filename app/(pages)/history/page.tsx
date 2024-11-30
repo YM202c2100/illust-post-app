@@ -1,4 +1,4 @@
-import {LineChart} from "@/app/features/history/components/lineChart";
+import {LineChart} from "@/app/features/history/components/LineChart/lineChart";
 
 export default function History(){
   const rankPointsHistory = [

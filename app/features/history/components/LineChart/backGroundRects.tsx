@@ -1,4 +1,4 @@
-import { tierRectBoundary, TickRange } from "../lineChart"
+import { tierRectBoundary, TickRange } from "./lineChart"
 
 export type BackGroundRectsProps = {
   tickRange: TickRange

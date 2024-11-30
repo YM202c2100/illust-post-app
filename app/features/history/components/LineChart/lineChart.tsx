@@ -1,4 +1,4 @@
-import { BackGroundRects, BackGroundRectsProps } from "./LineChart/backGroundRects"
+import { BackGroundRects, BackGroundRectsProps } from "./backGroundRects"
 
 export type TickRange = {
   min: number,
