@@ -1,4 +1,5 @@
-import {LineChart} from "@/app/features/history/components/LineChart/lineChart";
+import {LineChart} from "@/app/features/history/components/RankPointsGraph/LineChart/lineChart";
+import { TierLabel } from "@/app/features/history/components/TierLabel.tsx/tierLabel";
 
 export default function History(){
   const rankPointsHistory = [
