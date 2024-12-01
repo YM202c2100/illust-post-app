@@ -27,21 +27,18 @@ export const LineChart:React.FC<{RPHistory:number[]}> = ({RPHistory})=>{
   }
 
   return(
-    <div className="mx-auto">
-      <svg xmlns="http://www.w3.org/2000/svg" 
-        viewBox={`0 0 ${viewWidth} ${viewHeight}`} 
-        width={viewWidth} height={viewHeight} 
-        className="mx-auto"
-      >
-        <path 
-          d={getPath(RPHistory)}
-          stroke="red"
-          strokeWidth={2}
-        />
-        <BackGroundRects {...backGroundRectsProps}/>
-        <rect x='0' y='0' width='100%' height='100%' stroke='cadetblue' strokeWidth={4} fill='none' />
-      </svg>
-    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" 
+      viewBox={`0 0 ${viewWidth} ${viewHeight}`} 
+      width={viewWidth} height={viewHeight} 
+    >
+      <path 
+        d={getPath(RPHistory)}
+        stroke="red"
+        strokeWidth={2}
+      />
+      <BackGroundRects {...backGroundRectsProps}/>
+      <rect x='0' y='0' width='100%' height='100%' stroke='cadetblue' strokeWidth={4} fill='none' />
+    </svg>
   )
 
   function getTickRange(RPHistory:number[]):TickRange{
