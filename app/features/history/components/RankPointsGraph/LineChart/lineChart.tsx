@@ -5,7 +5,6 @@ export type LineChartProps = {
   RPHistory:number[]
   tickRange: TickRange
   viewHeight: number,
-  padding: number,
   getPositionY: (value:number)=>number
 }
 
@@ -13,14 +12,12 @@ export const LineChart:React.FC<LineChartProps> = ({
   RPHistory,
   tickRange,
   viewHeight,
-  padding,
   getPositionY
 })=>{
   const viewWidth = 800
 
   const backGroundRectsProps:BackGroundRectsProps = {
     tickRange:tickRange,
-    padding:padding,
     getPositionY:getPositionY
   }
 

@@ -2,20 +2,17 @@ import { TickRange, tierRectBoundary } from "../rankPointsGraph"
 
 export type BackGroundRectsProps = {
   tickRange: TickRange
-  padding: number
   getPositionY: (value:number)=>number
 }
 
 export const BackGroundRects:React.FC<BackGroundRectsProps> = ({
   tickRange, 
-  padding, 
   getPositionY
 })=>{
   const gapBetweenTier = 250
-  const maxRP = tickRange.max - padding
 
   return(<>
-    {maxRP > tierRectBoundary.diamond && 
+    {tickRange.max > tierRectBoundary.master && 
       <rect y={0} width={"100%"} height={calcHeightPixel(tickRange.max-tierRectBoundary.master)} stroke='black' fill='purple' opacity={0.3}/>
     }
 

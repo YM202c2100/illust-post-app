@@ -24,7 +24,6 @@ export const RankPointsGraph:React.FC<{rankPointsHistory:number[]}> = ({rankPoin
     RPHistory:rankPointsHistory,
     tickRange:tickRange,
     viewHeight:viewHeight,
-    padding: padding,
     getPositionY:getPositionY
   }
 
