@@ -2,12 +2,14 @@ import { tierRectBoundary } from "../RankPointsGraph/rankPointsGraph"
 
 export type TierLabelProps = {
   viewHeight:number
+  tickMin:number
   getPositionY:(value:number)=>number
 }
 
-export const TierLabel:React.FC<TierLabelProps> = ({viewHeight, getPositionY})=>{
+export const TierLabel:React.FC<TierLabelProps> = ({viewHeight, tickMin, getPositionY})=>{
   const viewWidth = 80
   const tierBoundaryPairs = Object.entries(tierRectBoundary)
+  console.log(getLowerLimitLabel(tickMin));
   
   return(
     <svg xmlns="http://www.w3.org/2000/svg" 
@@ -21,7 +23,18 @@ export const TierLabel:React.FC<TierLabelProps> = ({viewHeight, getPositionY})=>
           )
         }
       })}
-      <text x={viewWidth} y={viewHeight} textAnchor="end">bronze</text>
+      <text x={viewWidth} y={viewHeight} textAnchor="end">{getLowerLimitLabel(tickMin)}</text>
     </svg>
   )
+
+  function getLowerLimitLabel(tickMin:number){
+    const tierBoundaryPairsDesc = tierBoundaryPairs.toReversed()
+    for (const [tierLabel, boundaryValue] of tierBoundaryPairsDesc){
+      if(tickMin >= boundaryValue){
+        return tierLabel
+      }
+    }
+
+    return "bronze"
+  }
 }

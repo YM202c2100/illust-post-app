@@ -22,6 +22,7 @@ export const RankPointsGraph:React.FC<{rankPointsHistory:number[]}> = ({rankPoin
 
   const tierLabelProps:TierLabelProps = {
     viewHeight:viewHeight,
+    tickMin:tickRange.min,
     getPositionY:getPositionY
   }
   const lineChartProps:LineChartProps = {
