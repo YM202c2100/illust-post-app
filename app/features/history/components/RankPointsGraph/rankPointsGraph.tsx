@@ -1,4 +1,4 @@
-import { TierLabel } from "../TierLabel.tsx/tierLabel"
+import { TierLabel, TierLabelProps } from "../TierLabel.tsx/tierLabel"
 import { LineChart, LineChartProps } from "./LineChart/lineChart"
 
 export type TickRange = {
@@ -20,6 +20,10 @@ export const RankPointsGraph:React.FC<{rankPointsHistory:number[]}> = ({rankPoin
   const padding = 50
   const tickRange = getTickRange(rankPointsHistory)
 
+  const tierLabelProps:TierLabelProps = {
+    viewHeight:viewHeight,
+    getPositionY:getPositionY
+  }
   const lineChartProps:LineChartProps = {
     RPHistory:rankPointsHistory,
     tickRange:tickRange,
@@ -29,7 +33,7 @@ export const RankPointsGraph:React.FC<{rankPointsHistory:number[]}> = ({rankPoin
 
   return(
     <div className="flex justify-center">
-      <TierLabel/>
+      <TierLabel {...tierLabelProps}/>
       <LineChart {...lineChartProps}/>
     </div>
   )
