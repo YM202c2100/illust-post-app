@@ -9,7 +9,6 @@ export type TierLabelProps = {
 export const TierLabel:React.FC<TierLabelProps> = ({viewHeight, tickMin, getPositionY})=>{
   const viewWidth = 80
   const tierBoundaryPairs = Object.entries(tierRectBoundary)
-  console.log(getLowerLimitLabel(tickMin));
   
   return(
     <svg xmlns="http://www.w3.org/2000/svg" 
