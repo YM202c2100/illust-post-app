@@ -55,7 +55,7 @@ export const RankPointsGraph:React.FC<{rankPointsHistory:number[]}> = ({rankPoin
     }
 
     for (let i=0; i<tierBoundaryValues.length; i++){
-      tickRange.min = (minRP===0) ? minRP : minRP - padding
+      tickRange.min = (minRP<=padding) ? minRP : minRP - padding
 
       if(minRP >= tierBoundaryValues.toReversed()[i]){
         tickRange.min = tierBoundaryValues.toReversed()[i] - padding
