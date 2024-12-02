@@ -3,7 +3,9 @@ namespace db;
 
 require_once __DIR__."/libs/dbConnection.php";
 require_once __DIR__."/../models/RecieveModel/contest.recieve.php";
+require_once __DIR__."/../models/RecieveModel/history.recieve.php";
 use models\ContestRecieveModel;
+use models\HistoryReceiveModel;
 use PDO;
 
 class ContestsQuery {
@@ -50,5 +52,21 @@ class ContestsQuery {
     $sql = "SELECT * from contests
             where id = ". ContestsQuery::$targetId;
     return $db->fetch($sql, [], PDO::FETCH_CLASS, ContestRecieveModel::class, fetchOne:true);
+  }
+
+  public static function fetchContestHistory($userId){
+    $db = new DbConnection();
+    $sql = "SELECT con.round_num, con.subject, com.rank_points, img.file_name 
+              from illust_post.contests con 
+              inner join illust_post.competitors com 
+                on com.contest_id = con.id 
+              inner join illust_post.images img 
+                on img.contest_id = com.contest_id
+                and img.user_id = com.user_id 
+            where now() > con.judge_end_date
+              and com.user_id = :user_id
+            order by con.round_num  asc";
+
+    return $db->fetch($sql, [':user_id'=>$userId], PDO::FETCH_CLASS, HistoryReceiveModel::class);
   }
 }
