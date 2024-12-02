@@ -1,21 +1,22 @@
+import { GET } from "@/app/api/getRequest";
 import { RankPointsGraph } from "@/app/features/history/components/RankPointsGraph/rankPointsGraph";
+import { HistoryDataGET } from "@/app/models/pages/history.model";
+import { redirect } from "next/navigation";
 
-export default function History(){
-  const rankPointsHistory = [
-    1500,
-    1500,
-    1520,
-    1523,
-    1530,
-    1510,
-    1520,
-    1521,
-    1532,
-    1504,
-    1550
-  ];
+export default async function History(){
+  const res = await GET("history")
+  if(!res.ok){
+    console.error(res.status)
+  }
+  const data:HistoryDataGET = await res.json()
+
+  if(!data.isLogin){
+    redirect("login")
+  }
+
+  const RPHistory = data.history.map((pastData) => pastData.rankPoints)
 
   return(
-    <RankPointsGraph rankPointsHistory={rankPointsHistory}/>
+    <RankPointsGraph rankPointsHistory={RPHistory}/>
   )
 }
