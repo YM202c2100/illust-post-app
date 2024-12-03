@@ -15,6 +15,7 @@ export const LineChart:React.FC<LineChartProps> = ({
   getPositionY
 })=>{
   const viewWidth = 800
+  const drawingWidth = (RPHistory.length*100 > viewWidth) ? RPHistory.length*100 : viewWidth
 
   const backGroundRectsProps:BackGroundRectsProps = {
     tickRange:tickRange,
@@ -22,27 +23,30 @@ export const LineChart:React.FC<LineChartProps> = ({
   }
 
   return(
-    <svg xmlns="http://www.w3.org/2000/svg" 
-      viewBox={`0 0 ${viewWidth} ${viewHeight}`} 
-      width={viewWidth} height={viewHeight} 
-    >
-      <path 
-        d={getPath(RPHistory)}
-        stroke="red"
-        strokeWidth={2}
-      />
-      <BackGroundRects {...backGroundRectsProps}/>
-      <rect x='0' y='0' width='100%' height='100%' stroke='cadetblue' strokeWidth={4} fill='none' />
-    </svg>
+    <div className="overflow-auto" style={{width:`${viewWidth}px`}}>
+      <svg xmlns="http://www.w3.org/2000/svg" 
+        viewBox={`0 0 ${drawingWidth} ${viewHeight}`} 
+        width={drawingWidth} height={viewHeight} 
+      >
+        <path 
+          d={getPath(RPHistory)}
+          stroke="red"
+          strokeWidth={2}
+        />
+        <BackGroundRects {...backGroundRectsProps}/>
+        <rect x='0' y='0' width='100%' height='100%' stroke='cadetblue' strokeWidth={4} fill='none' />
+      </svg>
+    </div>
   )
 
   function getPath(RankPointsArray:number[]):string{
+    const dataPointSpacing = drawingWidth/RPHistory.length
     let path = ""
     RankPointsArray.forEach((rp, i) => {
       if(i === 0){
-        path += `M ${viewWidth/10}, ${getPositionY(rp)} `
+        path += `M ${dataPointSpacing}, ${getPositionY(rp)} `
       }else{
-        path += `L ${(i+1)*viewWidth/10}, ${getPositionY(rp)} M ${(i+1)*viewWidth/10}, ${getPositionY(rp)} `
+        path += `L ${(i+1)*dataPointSpacing}, ${getPositionY(rp)} M ${(i+1)*dataPointSpacing}, ${getPositionY(rp)} `
       }
     });
 
