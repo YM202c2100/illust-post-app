@@ -1,5 +1,5 @@
-import { TierLabel, TierLabelProps } from "../TierLabel.tsx/tierLabel"
 import { LineChart, LineChartProps } from "./LineChart/lineChart"
+import { TierLabel, TierLabelProps } from "./TierLabel.tsx/tierLabel"
 
 export type TickRange = {
   min: number,

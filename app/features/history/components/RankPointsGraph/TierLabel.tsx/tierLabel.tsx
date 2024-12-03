@@ -1,4 +1,4 @@
-import { tierRectBoundary } from "../RankPointsGraph/rankPointsGraph"
+import { tierRectBoundary } from "../rankPointsGraph"
 
 export type TierLabelProps = {
   viewHeight:number
