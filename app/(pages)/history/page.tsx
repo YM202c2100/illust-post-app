@@ -14,9 +14,7 @@ export default async function History(){
     redirect("login")
   }
 
-  const RPHistory = data.history.map((pastData) => pastData.rankPoints)
-
   return(
-    <RankPointsGraph rankPointsHistory={RPHistory}/>
+    <RankPointsGraph history={data.history}/>
   )
 }

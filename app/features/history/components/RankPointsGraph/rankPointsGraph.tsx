@@ -1,3 +1,4 @@
+import { HistoryElem } from "@/app/models/pages/history.model"
 import { LineChart, LineChartProps } from "./LineChart/lineChart"
 import { TierLabel, TierLabelProps } from "./TierLabel.tsx/tierLabel"
 
@@ -15,9 +16,10 @@ export const tierRectBoundary = {
   master:2000
 }
 
-export const RankPointsGraph:React.FC<{rankPointsHistory:number[]}> = ({rankPointsHistory})=>{
+export const RankPointsGraph:React.FC<{history:HistoryElem[]}> = ({history})=>{
   const viewHeight = 600
   const padding = 50
+  const rankPointsHistory = history.map(history => history.rankPoints)
   const tickRange = getTickRange(rankPointsHistory)
 
   const tierLabelProps:TierLabelProps = {
@@ -26,7 +28,7 @@ export const RankPointsGraph:React.FC<{rankPointsHistory:number[]}> = ({rankPoin
     getPositionY:getPositionY
   }
   const lineChartProps:LineChartProps = {
-    RPHistory:rankPointsHistory,
+    history:history,
     tickRange:tickRange,
     viewHeight:viewHeight,
     getPositionY:getPositionY

@@ -1,25 +1,34 @@
+import { HistoryElem } from "@/app/models/pages/history.model"
 import { TickRange } from "../rankPointsGraph"
 import { BackGroundRects, BackGroundRectsProps } from "./backGroundRects"
+import { DataPoints, DataPointsProps } from "./dataPoints"
 
 export type LineChartProps = {
-  RPHistory:number[]
+  history:HistoryElem[]
   tickRange: TickRange
   viewHeight: number,
   getPositionY: (value:number)=>number
 }
 
 export const LineChart:React.FC<LineChartProps> = ({
-  RPHistory,
+  history,
   tickRange,
   viewHeight,
   getPositionY
 })=>{
   const viewWidth = 800
+  const RPHistory = history.map(history => history.rankPoints)
   const drawingWidth = (RPHistory.length*100 > viewWidth) ? RPHistory.length*100 : viewWidth
+  const dataPointSpacing = drawingWidth/RPHistory.length
 
   const backGroundRectsProps:BackGroundRectsProps = {
     tickRange:tickRange,
     getPositionY:getPositionY
+  }
+  const dataPointsProps: DataPointsProps = {
+    history: history,
+    dataPointsSpacing: dataPointSpacing,
+    getPositionY: getPositionY
   }
 
   return(
@@ -33,6 +42,7 @@ export const LineChart:React.FC<LineChartProps> = ({
           stroke="red"
           strokeWidth={2}
         />
+        <DataPoints {...dataPointsProps}/>
         <BackGroundRects {...backGroundRectsProps}/>
         <rect x='0' y='0' width='100%' height='100%' stroke='cadetblue' strokeWidth={4} fill='none' />
       </svg>
@@ -40,7 +50,6 @@ export const LineChart:React.FC<LineChartProps> = ({
   )
 
   function getPath(RankPointsArray:number[]):string{
-    const dataPointSpacing = drawingWidth/RPHistory.length
     let path = ""
     RankPointsArray.forEach((rp, i) => {
       if(i === 0){
