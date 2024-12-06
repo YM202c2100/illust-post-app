@@ -9,7 +9,7 @@ export type DataPointsProps = {
 export const DataPoints:React.FC<DataPointsProps> = ({history, dataPointsSpacing, getPositionY})=>{
   return <>
     {history.map((history, i) => (
-      <circle cx={(i+1)*dataPointsSpacing} cy={getPositionY(history.rankPoints)} r={4}/>
+      <circle key={i} cx={(i+1)*dataPointsSpacing} cy={getPositionY(history.rankPoints)} r={4}/>
     ))}
   </>
 }
