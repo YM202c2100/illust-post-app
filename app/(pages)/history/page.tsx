@@ -1,5 +1,5 @@
 import { GET } from "@/app/api/getRequest";
-import { SubmissionHistory } from "@/app/features/history/components/SubmissionHistory/submissionHistory";
+import { SubmissionHistory } from "@/app/features/history/components/submissionHistory";
 import { HistoryDataGET } from "@/app/models/pages/history.model";
 import { redirect } from "next/navigation";
 
