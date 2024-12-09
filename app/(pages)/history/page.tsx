@@ -1,5 +1,5 @@
 import { GET } from "@/app/api/getRequest";
-import { RankPointsGraph } from "@/app/features/history/components/RankPointsGraph/rankPointsGraph";
+import { SubmissionHistory } from "@/app/features/history/components/SubmissionHistory/submissionHistory";
 import { HistoryDataGET } from "@/app/models/pages/history.model";
 import { redirect } from "next/navigation";
 
@@ -15,6 +15,6 @@ export default async function History(){
   }
 
   return(
-    <RankPointsGraph history={data.history}/>
+    <SubmissionHistory history={data.history}/>
   )
 }
