@@ -2,19 +2,22 @@ import { HistoryElem } from "@/app/models/pages/history.model"
 import { TickRange } from "../rankPointsGraph"
 import { BackGroundRects, BackGroundRectsProps } from "./backGroundRects"
 import { DataPoints, DataPointsProps } from "./dataPoints"
+import { Dispatch, SetStateAction } from "react"
 
 export type LineChartProps = {
   history:HistoryElem[]
   tickRange: TickRange
   viewHeight: number,
   getPositionY: (value:number)=>number
+  setSelectedHistory: Dispatch<SetStateAction<HistoryElem|null>>
 }
 
 export const LineChart:React.FC<LineChartProps> = ({
   history,
   tickRange,
   viewHeight,
-  getPositionY
+  getPositionY,
+  setSelectedHistory
 })=>{
   const viewWidth = 800
   const RPHistory = history.map(history => history.rankPoints)
@@ -28,7 +31,8 @@ export const LineChart:React.FC<LineChartProps> = ({
   const dataPointsProps: DataPointsProps = {
     history: history,
     dataPointsSpacing: dataPointSpacing,
-    getPositionY: getPositionY
+    getPositionY: getPositionY,
+    setSelectedHistory: setSelectedHistory
   }
 
   return(
