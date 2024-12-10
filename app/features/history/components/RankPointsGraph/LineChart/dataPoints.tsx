@@ -17,6 +17,7 @@ export const DataPoints:React.FC<DataPointsProps> = ({history, dataPointsSpacing
         cx={(i+1)*dataPointsSpacing} 
         cy={getPositionY(historyElem.rankPoints)} 
         r={4}
+        onClick={()=>setSelectedHistory(historyElem)}
       />
     ))}
   </>
