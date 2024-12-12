@@ -4,7 +4,7 @@ import Image from "next/image"
 
 export const HistoryDetail:React.FC<{selectedHistory:HistoryElem}> = ({selectedHistory})=>{
   return(
-    <div>
+    <div className="w-[80%] aspect-[2] mx-auto grid grid-cols-2">
       <div className="relative">
         <Image src={convertToValidSrc(selectedHistory.filePath)}
           alt="submitted illust"
