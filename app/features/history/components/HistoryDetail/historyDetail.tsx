@@ -13,6 +13,7 @@ export const HistoryDetail:React.FC<{selectedHistory:HistoryElem}> = ({selectedH
         />
       </div>
       <div>
+        <p>{selectedHistory.contest.judgeEndDate}</p>
         <p>第{selectedHistory.contest.roundNum}回コンテスト結果</p>
         <p>お題：{selectedHistory.contest.subject}</p>
         <p>最終ランクポイント：{selectedHistory.rankPoints}</p>

@@ -12,5 +12,6 @@ export type HistoryElem = {
 
 export type ContestOverview = {
   roundNum:number,
-  subject:string
+  subject:string,
+  judgeEndDate:string
 }

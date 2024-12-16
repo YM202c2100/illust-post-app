@@ -56,7 +56,7 @@ class ContestsQuery {
 
   public static function fetchContestHistory($userId){
     $db = new DbConnection();
-    $sql = "SELECT con.round_num, con.subject, com.rank_points, img.file_name 
+    $sql = "SELECT con.round_num, con.subject, con.judge_end_date, com.rank_points, img.file_name 
               from illust_post.contests con 
               inner join illust_post.competitors com 
                 on com.contest_id = con.id 
