@@ -11,7 +11,7 @@ export type DataPointsProps = {
 export const DataPoints:React.FC<DataPointsProps> = ({history, dataPointsSpacing, getPositionY, setSelectedHistory})=>{
   return <>
     {history.map((historyElem, i) => (
-      <>
+      <g>
         <circle 
           key={i} 
           cx={(i+1)*dataPointsSpacing} 
@@ -27,8 +27,7 @@ export const DataPoints:React.FC<DataPointsProps> = ({history, dataPointsSpacing
           fill="transparent"
           onClick={()=>setSelectedHistory(historyElem)}
         />
-      </>
-      
+      </g>
     ))}
   </>
 }
