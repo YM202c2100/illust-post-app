@@ -17,7 +17,7 @@ export const HistoryDetail:React.FC<{selectedHistory:HistoryElem}> = ({selectedH
           style={{objectFit:"contain"}}
         />
       </div>
-      <div className="text-2xl text-center my-auto">
+      <div className="text-2xl text-center my-auto space-y-2">
         <p>{formatDate(selectedHistory.contest.judgeEndDate)}</p>
         <p>第{selectedHistory.contest.roundNum}回コンテスト結果</p>
         <p>お題：{selectedHistory.contest.subject}</p>
