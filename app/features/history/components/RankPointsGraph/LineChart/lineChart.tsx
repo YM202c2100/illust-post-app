@@ -2,7 +2,7 @@ import { HistoryElem } from "@/app/models/pages/history.model"
 import { TickRange } from "../rankPointsGraph"
 import { BackGroundRects, BackGroundRectsProps } from "./backGroundRects"
 import { DataPoints, DataPointsProps } from "./dataPoints"
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 
 export type LineChartProps = {
   history:HistoryElem[]
@@ -19,7 +19,25 @@ export const LineChart:React.FC<LineChartProps> = ({
   getPositionY,
   setSelectedHistory
 })=>{
-  const viewWidth = 800
+  const [viewWidth, setViewWidth] = useState<number>(800)
+  useEffect(()=>{
+    function calcViewWidth(){
+      if(window.innerWidth > 1000){
+        setViewWidth(800)
+      }else{
+        setViewWidth(window.innerWidth * 0.8)
+      }
+    }
+
+    calcViewWidth()
+
+    window.addEventListener("resize", calcViewWidth)
+
+    return ()=>{
+      window.removeEventListener("resize", calcViewWidth)
+    }
+  },[])
+
   const RPHistory = history.map(history => history.rankPoints)
   const drawingWidth = (RPHistory.length*100 > viewWidth) ? RPHistory.length*100 : viewWidth
   const dataPointSpacing = drawingWidth/RPHistory.length
