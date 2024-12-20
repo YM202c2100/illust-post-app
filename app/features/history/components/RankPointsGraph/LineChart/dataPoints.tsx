@@ -11,16 +11,14 @@ export type DataPointsProps = {
 export const DataPoints:React.FC<DataPointsProps> = ({history, dataPointsSpacing, getPositionY, setSelectedHistory})=>{
   return <>
     {history.map((historyElem, i) => (
-      <g>
+      <g key={i}>
         <circle 
-          key={i} 
           cx={(i+1)*dataPointsSpacing} 
           cy={getPositionY(historyElem.rankPoints)} 
           r={4}
         />
         <circle 
           className="cursor-pointer z-10 absolute"
-          key={i} 
           cx={(i+1)*dataPointsSpacing} 
           cy={getPositionY(historyElem.rankPoints)} 
           r={15}
