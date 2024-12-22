@@ -1,6 +1,5 @@
 import { HistoryElem } from "@/app/models/pages/history.model"
 import { LineChart, LineChartProps } from "./LineChart/lineChart"
-import { TierLabel, TierLabelProps } from "./TierLabel.tsx/tierLabel"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 
 export type TickRange = {
