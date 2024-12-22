@@ -7,7 +7,8 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react"
 export type LineChartProps = {
   history:HistoryElem[]
   tickRange: TickRange
-  viewHeight: number,
+  viewWidth: number
+  viewHeight: number
   getPositionY: (value:number)=>number
   setSelectedHistory: Dispatch<SetStateAction<HistoryElem|null>>
 }
@@ -15,28 +16,12 @@ export type LineChartProps = {
 export const LineChart:React.FC<LineChartProps> = ({
   history,
   tickRange,
+  viewWidth,
   viewHeight,
   getPositionY,
   setSelectedHistory
 })=>{
-  const [viewWidth, setViewWidth] = useState<number>(800)
-  useEffect(()=>{
-    function calcViewWidth(){
-      if(window.innerWidth > 1000){
-        setViewWidth(800)
-      }else{
-        setViewWidth(window.innerWidth * 0.8)
-      }
-    }
-
-    calcViewWidth()
-
-    window.addEventListener("resize", calcViewWidth)
-
-    return ()=>{
-      window.removeEventListener("resize", calcViewWidth)
-    }
-  },[])
+  
 
   const RPHistory = history.map(history => history.rankPoints)
   const drawingWidth = (RPHistory.length*100 > viewWidth) ? RPHistory.length*100 : viewWidth

@@ -1,7 +1,7 @@
 import { HistoryElem } from "@/app/models/pages/history.model"
 import { LineChart, LineChartProps } from "./LineChart/lineChart"
 import { TierLabel, TierLabelProps } from "./TierLabel.tsx/tierLabel"
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 
 export type TickRange = {
   min: number,
@@ -18,7 +18,26 @@ export const tierRectBoundary = {
 }
 
 export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHisotry:Dispatch<SetStateAction<HistoryElem|null>>}> = ({history, setSelectedHisotry})=>{
-  const viewHeight = 600
+  const [viewWidth, setViewWidth] = useState<number>(800)
+  useEffect(()=>{
+    function calcViewWidth(){
+      if(window.innerWidth > 1000){
+        setViewWidth(800)
+      }else{
+        setViewWidth(window.innerWidth * 0.8)
+      }
+    }
+
+    calcViewWidth()
+
+    window.addEventListener("resize", calcViewWidth)
+
+    return ()=>{
+      window.removeEventListener("resize", calcViewWidth)
+    }
+  },[])
+
+  const viewHeight = viewWidth * 3/4
   const padding = 50
   const rankPointsHistory = history.map(history => history.rankPoints)
   const tickRange = getTickRange(rankPointsHistory)
@@ -31,6 +50,7 @@ export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHisotry
   const lineChartProps:LineChartProps = {
     history:history,
     tickRange:tickRange,
+    viewWidth:viewWidth,
     viewHeight:viewHeight,
     getPositionY:getPositionY,
     setSelectedHistory: setSelectedHisotry
