@@ -42,11 +42,6 @@ export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHisotry
   const rankPointsHistory = history.map(history => history.rankPoints)
   const tickRange = getTickRange(rankPointsHistory)
 
-  const tierLabelProps:TierLabelProps = {
-    viewHeight:viewHeight,
-    tickMin:tickRange.min,
-    getPositionY:getPositionY
-  }
   const lineChartProps:LineChartProps = {
     history:history,
     tickRange:tickRange,
@@ -58,7 +53,6 @@ export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHisotry
 
   return(
     <div className="flex justify-center">
-      <TierLabel {...tierLabelProps}/>
       <LineChart {...lineChartProps}/>
     </div>
   )

@@ -7,23 +7,21 @@ export type TierLabelProps = {
 }
 
 export const TierLabel:React.FC<TierLabelProps> = ({viewHeight, tickMin, getPositionY})=>{
-  const viewWidth = 80
+  const offsetX = 3
+  const offsetY = 3
   const tierBoundaryPairs = Object.entries(tierRectBoundary)
   
   return(
-    <svg xmlns="http://www.w3.org/2000/svg" 
-      viewBox={`0 0 ${viewWidth} ${viewHeight}`} 
-      width={viewWidth} height={viewHeight}
-    >
+    <g>
       {tierBoundaryPairs.map(([key, value]) => {
         if(key !== "bronze"){
           return(
-            <text key={key} x={viewWidth} y={getPositionY(value)} textAnchor="end">{key}</text>
+            <text key={key} x={offsetX} y={getPositionY(value) - offsetY} textAnchor="start">{key}</text>
           )
         }
       })}
-      <text x={viewWidth} y={viewHeight} textAnchor="end">{getLowerLimitLabel(tickMin)}</text>
-    </svg>
+      <text x={offsetX} y={viewHeight - offsetY} textAnchor="start">{getLowerLimitLabel(tickMin)}</text>
+    </g>
   )
 
   function getLowerLimitLabel(tickMin:number){

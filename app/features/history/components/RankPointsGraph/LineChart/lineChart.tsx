@@ -3,6 +3,7 @@ import { TickRange } from "../rankPointsGraph"
 import { BackGroundRects, BackGroundRectsProps } from "./backGroundRects"
 import { DataPoints, DataPointsProps } from "./dataPoints"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { TierLabel, TierLabelProps } from "../TierLabel.tsx/tierLabel"
 
 export type LineChartProps = {
   history:HistoryElem[]
@@ -37,6 +38,11 @@ export const LineChart:React.FC<LineChartProps> = ({
     getPositionY: getPositionY,
     setSelectedHistory: setSelectedHistory
   }
+  const tierLabelProps:TierLabelProps = {
+    viewHeight:viewHeight,
+    tickMin:tickRange.min,
+    getPositionY:getPositionY
+  }
 
   return(
     <div className="overflow-auto" style={{width:`${viewWidth}px`}}>
@@ -51,6 +57,7 @@ export const LineChart:React.FC<LineChartProps> = ({
         />
         <BackGroundRects {...backGroundRectsProps}/>
         <DataPoints {...dataPointsProps}/>
+        <TierLabel {...tierLabelProps}/>
         <rect x='0' y='0' width='100%' height='100%' stroke='cadetblue' strokeWidth={4} fill='none' />
       </svg>
     </div>
