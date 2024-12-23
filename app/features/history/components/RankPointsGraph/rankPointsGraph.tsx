@@ -1,6 +1,9 @@
 import { HistoryElem } from "@/app/models/pages/history.model"
-import { LineChart, LineChartProps } from "./LineChart/lineChart"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { LinePath, LinePathProps } from "./LineChart/linePath"
+import { BackGroundRects, BackGroundRectsProps } from "./LineChart/backGroundRects"
+import { DataPoints, DataPointsProps } from "./LineChart/dataPoints"
+import { TierLabel, TierLabelProps } from "./TierLabel.tsx/tierLabel"
 
 export type TickRange = {
   min: number,
@@ -36,23 +39,50 @@ export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHistory
     }
   },[])
 
-  const viewHeight = viewWidth * 3/4
-  const padding = 50
-  const rankPointsHistory = history.map(history => history.rankPoints)
-  const tickRange = getTickRange(rankPointsHistory)
+  const RPHistory = history.map(history => history.rankPoints)
 
-  const lineChartProps:LineChartProps = {
-    history:history,
+  const viewHeight = viewWidth * 3/4
+  const drawingWidth = (RPHistory.length*100 > viewWidth) ? RPHistory.length*100 : viewWidth
+
+  const padding = 50
+  const tickRange = getTickRange(RPHistory)
+  const dataPointSpacing = drawingWidth/RPHistory.length
+
+  const linePathProps:LinePathProps = {
+    RPHistory: RPHistory,
+    dataPointSpacing: dataPointSpacing,
+    getPositionY: getPositionY
+  }
+  const backGroundRectsProps:BackGroundRectsProps = {
     tickRange:tickRange,
-    viewWidth:viewWidth,
+    getPositionY:getPositionY
+  }
+  const dataPointsProps: DataPointsProps = {
+    history: history,
+    dataPointsSpacing: dataPointSpacing,
+    getPositionY: getPositionY,
+    setSelectedHistory: setSelectedHistory
+  }
+  const tierLabelProps:TierLabelProps = {
     viewHeight:viewHeight,
-    getPositionY:getPositionY,
-    setSelectedHistory: setSelectedHisotry
+    tickMin:tickRange.min,
+    getPositionY:getPositionY
   }
 
   return(
-    <div className="flex justify-center">
-      <LineChart {...lineChartProps}/>
+    <div 
+      className="overflow-auto mx-auto" 
+      style={{width:`${viewWidth}px`}}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" 
+        viewBox={`0 0 ${drawingWidth} ${viewHeight}`} 
+        width={drawingWidth} height={viewHeight} 
+      >
+        <LinePath {...linePathProps}/>
+        <BackGroundRects {...backGroundRectsProps}/>
+        <DataPoints {...dataPointsProps}/>
+        <TierLabel {...tierLabelProps}/>
+      </svg>
     </div>
   )
 
