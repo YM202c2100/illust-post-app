@@ -4,6 +4,7 @@ import { BackGroundRects, BackGroundRectsProps } from "./backGroundRects"
 import { DataPoints, DataPointsProps } from "./dataPoints"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { TierLabel, TierLabelProps } from "../TierLabel.tsx/tierLabel"
+import { LinePath, LinePathProps } from "./linePath"
 
 export type LineChartProps = {
   history:HistoryElem[]
@@ -28,6 +29,11 @@ export const LineChart:React.FC<LineChartProps> = ({
   const drawingWidth = (RPHistory.length*100 > viewWidth) ? RPHistory.length*100 : viewWidth
   const dataPointSpacing = drawingWidth/RPHistory.length
 
+  const linePathProps:LinePathProps = {
+    RPHistory: RPHistory,
+    dataPointSpacing: dataPointSpacing,
+    getPositionY: getPositionY
+  }
   const backGroundRectsProps:BackGroundRectsProps = {
     tickRange:tickRange,
     getPositionY:getPositionY
@@ -50,11 +56,7 @@ export const LineChart:React.FC<LineChartProps> = ({
         viewBox={`0 0 ${drawingWidth} ${viewHeight}`} 
         width={drawingWidth} height={viewHeight} 
       >
-        <path 
-          d={getPath(RPHistory)}
-          stroke="red"
-          strokeWidth={2}
-        />
+        <LinePath {...linePathProps}/>
         <BackGroundRects {...backGroundRectsProps}/>
         <DataPoints {...dataPointsProps}/>
         <TierLabel {...tierLabelProps}/>
@@ -62,18 +64,5 @@ export const LineChart:React.FC<LineChartProps> = ({
       </svg>
     </div>
   )
-
-  function getPath(RankPointsArray:number[]):string{
-    let path = ""
-    RankPointsArray.forEach((rp, i) => {
-      if(i === 0){
-        path += `M ${dataPointSpacing}, ${getPositionY(rp)} `
-      }else{
-        path += `L ${(i+1)*dataPointSpacing}, ${getPositionY(rp)} M ${(i+1)*dataPointSpacing}, ${getPositionY(rp)} `
-      }
-    });
-
-    return path
-  }
 }
 
