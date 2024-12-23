@@ -60,7 +60,6 @@ export const LineChart:React.FC<LineChartProps> = ({
         <BackGroundRects {...backGroundRectsProps}/>
         <DataPoints {...dataPointsProps}/>
         <TierLabel {...tierLabelProps}/>
-        <rect x='0' y='0' width='100%' height='100%' stroke='cadetblue' strokeWidth={4} fill='none' />
       </svg>
     </div>
   )
