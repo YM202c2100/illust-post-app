@@ -9,7 +9,7 @@ export const SubmissionHistory:React.FC<{history:HistoryElem[]}> = ({history})=>
 
   return(
     <div>
-      <RankPointsGraph history={history} setSelectedHisotry={setSelectedHistory}/>
+      <RankPointsGraph history={history} setSelectedHistory={setSelectedHistory}/>
       {selectedHistory && 
         <HistoryDetail selectedHistory={selectedHistory}/>
       }

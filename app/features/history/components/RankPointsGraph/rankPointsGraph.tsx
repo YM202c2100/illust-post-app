@@ -16,7 +16,7 @@ export const tierRectBoundary = {
   master:2000
 }
 
-export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHisotry:Dispatch<SetStateAction<HistoryElem|null>>}> = ({history, setSelectedHisotry})=>{
+export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHistory:Dispatch<SetStateAction<HistoryElem|null>>}> = ({history, setSelectedHistory})=>{
   const [viewWidth, setViewWidth] = useState<number>(800)
   useEffect(()=>{
     function calcViewWidth(){
