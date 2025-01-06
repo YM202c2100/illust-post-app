@@ -28,7 +28,7 @@ export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHistory
   const viewHeight = viewWidth * 3/4
   const drawingWidth = (RPHistory.length*100 > viewWidth) ? RPHistory.length*100 : viewWidth
 
-  const padding = 50
+  const paddingY = 50
   const tickRange = getTickRange(RPHistory)
   const dataPointSpacing = drawingWidth/RPHistory.length
 
@@ -77,19 +77,19 @@ export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHistory
 
     const tierBoundaryValues = Object.values(tierRectBoundary)
     for (let i=0; i<tierBoundaryValues.length; i++){
-      tickRange.max = maxRP + padding
+      tickRange.max = maxRP + paddingY
 
       if(maxRP <= tierBoundaryValues[i]){
-        tickRange.max = tierBoundaryValues[i] + padding
+        tickRange.max = tierBoundaryValues[i] + paddingY
         break;
       }
     }
 
     for (let i=0; i<tierBoundaryValues.length; i++){
-      tickRange.min = (minRP<=padding) ? minRP : minRP - padding
+      tickRange.min = (minRP<=paddingY) ? minRP : minRP - paddingY
 
       if(minRP >= tierBoundaryValues.toReversed()[i]){
-        tickRange.min = tierBoundaryValues.toReversed()[i] - padding
+        tickRange.min = tierBoundaryValues.toReversed()[i] - paddingY
         break;
       }
     }
