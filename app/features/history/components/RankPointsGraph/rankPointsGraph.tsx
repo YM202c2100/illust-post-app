@@ -64,8 +64,8 @@ export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHistory
       >
         <LinePath {...linePathProps}/>
         <BackGroundRects {...backGroundRectsProps}/>
-        <DataPoints {...dataPointsProps}/>
         <TierLabel {...tierLabelProps}/>
+        <DataPoints {...dataPointsProps}/>
       </svg>
     </div>
   )
