@@ -1,12 +1,14 @@
 export type LinePathProps = {
   RPHistory: number[]
   dataPointSpacing: number
+  plotOffsetX: number,
   getPositionY: (value:number)=>number
 }
 
 export const LinePath:React.FC<LinePathProps> = ({
   RPHistory, 
   dataPointSpacing, 
+  plotOffsetX, 
   getPositionY
 })=>{
   return(
@@ -21,9 +23,9 @@ export const LinePath:React.FC<LinePathProps> = ({
     let path = ""
     RankPointsArray.forEach((rp, i) => {
       if(i === 0){
-        path += `M ${dataPointSpacing}, ${getPositionY(rp)} `
+        path += `M ${(i)*dataPointSpacing + plotOffsetX}, ${getPositionY(rp)} `
       }else{
-        path += `L ${(i+1)*dataPointSpacing}, ${getPositionY(rp)} M ${(i+1)*dataPointSpacing}, ${getPositionY(rp)} `
+        path += `L ${(i)*dataPointSpacing + plotOffsetX}, ${getPositionY(rp)} M ${(i)*dataPointSpacing + plotOffsetX}, ${getPositionY(rp)} `
       }
     });
 

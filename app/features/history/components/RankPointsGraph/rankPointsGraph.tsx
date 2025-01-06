@@ -29,12 +29,14 @@ export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHistory
   const drawingWidth = (RPHistory.length*100 > viewWidth) ? RPHistory.length*100 : viewWidth
 
   const paddingY = 50
+  const offsetX = 80
   const tickRange = getTickRange(RPHistory)
   const dataPointSpacing = drawingWidth/RPHistory.length
 
   const linePathProps:LinePathProps = {
     RPHistory: RPHistory,
     dataPointSpacing: dataPointSpacing,
+    plotOffsetX: offsetX,
     getPositionY: getPositionY
   }
   const backGroundRectsProps:BackGroundRectsProps = {
@@ -44,6 +46,7 @@ export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHistory
   const dataPointsProps: DataPointsProps = {
     history: history,
     dataPointsSpacing: dataPointSpacing,
+    plotOffsetX: offsetX,
     getPositionY: getPositionY,
     setSelectedHistory: setSelectedHistory
   }

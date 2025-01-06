@@ -4,22 +4,23 @@ import { Dispatch, SetStateAction } from "react"
 export type DataPointsProps = {
   history: HistoryElem[],
   dataPointsSpacing: number
+  plotOffsetX: number,
   getPositionY: (value:number)=>number
   setSelectedHistory: Dispatch<SetStateAction<HistoryElem|null>>
 }
 
-export const DataPoints:React.FC<DataPointsProps> = ({history, dataPointsSpacing, getPositionY, setSelectedHistory})=>{
+export const DataPoints:React.FC<DataPointsProps> = ({history, dataPointsSpacing, plotOffsetX, getPositionY, setSelectedHistory})=>{
   return <>
     {history.map((historyElem, i) => (
       <g key={i}>
         <circle 
-          cx={(i+1)*dataPointsSpacing} 
+          cx={(i)*dataPointsSpacing + plotOffsetX} 
           cy={getPositionY(historyElem.rankPoints)} 
           r={4}
         />
         <circle 
           className="cursor-pointer z-10 absolute"
-          cx={(i+1)*dataPointsSpacing} 
+          cx={(i)*dataPointsSpacing + plotOffsetX} 
           cy={getPositionY(historyElem.rankPoints)} 
           r={15}
           fill="transparent"
