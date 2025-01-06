@@ -4,6 +4,7 @@ import { LinePath, LinePathProps } from "./LineChart/linePath"
 import { BackGroundRects, BackGroundRectsProps } from "./LineChart/backGroundRects"
 import { DataPoints, DataPointsProps } from "./LineChart/dataPoints"
 import { TierLabel, TierLabelProps } from "./TierLabel.tsx/tierLabel"
+import { useViewWidth } from "../../hooks/useViewWidth"
 
 export type TickRange = {
   min: number,
@@ -20,24 +21,7 @@ export const tierRectBoundary = {
 }
 
 export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHistory:Dispatch<SetStateAction<HistoryElem|null>>}> = ({history, setSelectedHistory})=>{
-  const [viewWidth, setViewWidth] = useState<number>(800)
-  useEffect(()=>{
-    function calcViewWidth(){
-      if(window.innerWidth > 1000){
-        setViewWidth(800)
-      }else{
-        setViewWidth(window.innerWidth * 0.8)
-      }
-    }
-
-    calcViewWidth()
-
-    window.addEventListener("resize", calcViewWidth)
-
-    return ()=>{
-      window.removeEventListener("resize", calcViewWidth)
-    }
-  },[])
+  const viewWidth = useViewWidth()
 
   const RPHistory = history.map(history => history.rankPoints)
 
