@@ -58,7 +58,7 @@ export const RankPointsGraph:React.FC<{history:HistoryElem[], setSelectedHistory
 
   return(
     <div 
-      className="overflow-auto mx-auto" 
+      className="overflow-auto mx-auto mt-3" 
       style={{width:`${viewWidth}px`}}
     >
       <svg xmlns="http://www.w3.org/2000/svg" 

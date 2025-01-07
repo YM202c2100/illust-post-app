@@ -9,6 +9,7 @@ export const SubmissionHistory:React.FC<{history:HistoryElem[]}> = ({history})=>
 
   return(
     <div>
+      <p className="text-3xl text-center">過去のランクポイント推移</p>
       <RankPointsGraph history={history} setSelectedHistory={setSelectedHistory}/>
       {selectedHistory && 
         <HistoryDetail selectedHistory={selectedHistory}/>
