@@ -4,6 +4,7 @@ import { HigherRankImages } from "@/app/features/result/components/higherRankIma
 import { SubmissionResult } from "@/app/features/result/components/SubmissionResult/submissionResult";
 import { Top3Images } from "@/app/features/result/components/top3Images";
 import { ResultDataGET } from "@/app/models/pages/result.model";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function Result(){
@@ -37,6 +38,9 @@ export default async function Result(){
         <div className="text-3xl">第{data.prevContestInfo.round_num}回コンテスト</div>
         <div className="text-4xl">「{data.prevContestInfo.subject}」</div>
         <div className="text-4xl mt-4">最終結果</div>
+        <div className="text-end">
+          <Link href={"history"}>過去の作品を見る ＞</Link>
+        </div>
       </div>
 
       <SubmissionResult {...data}/>
