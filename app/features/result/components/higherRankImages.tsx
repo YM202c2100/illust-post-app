@@ -8,7 +8,7 @@ export const HigherRankImages:React.FC<{images:ImageWithRP[]}> = ({images})=>{
       
       <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-4">
         {images.map((image)=>(
-          <HigherRankSubmission image={image}/>
+          <HigherRankSubmission image={image} key={image.user_name+image.rank_points}/>
         ))}
       </div>
     </div>
@@ -17,7 +17,7 @@ export const HigherRankImages:React.FC<{images:ImageWithRP[]}> = ({images})=>{
 
 const HigherRankSubmission:React.FC<{image: ImageWithRP}> = ({image})=>{
   return(
-    <div key={image.user_name+image.rank_points} className="w-[90%]">
+    <div className="w-[90%]">
       <OthersImage image={image}/>
     </div>
   )
