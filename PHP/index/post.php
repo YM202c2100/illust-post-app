@@ -61,7 +61,7 @@ try{
 
     Session::setIsSubmitted(true);
     
-    move_uploaded_file($image['tmp_name'], '../../public/'. $image['name']);
+    move_uploaded_file($image['tmp_name'], '../../public/postedImages/'. $image['name']);
     echo json_encode([]);
   }
 }catch (\Throwable $th){
