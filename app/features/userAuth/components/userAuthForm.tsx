@@ -1,12 +1,10 @@
 "use client"
 
 import { ErrorMessage } from "@/app/models/pages/common.model"
-import { usePathname } from "next/navigation"
 import { FormEvent } from "react"
 
-export const UserAuthForm:React.FC = ()=>{
-  const currentPath = usePathname()
-  const isRegisterPage = (currentPath === "/register")
+export const UserAuthForm:React.FC<{pageName:"register"|"login"}> = ({pageName})=>{
+  const isRegisterPage = (pageName==="register")
 
   return(
     <div 
