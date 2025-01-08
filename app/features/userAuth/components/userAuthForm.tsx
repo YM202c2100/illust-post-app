@@ -35,7 +35,11 @@ export const UserAuthForm:React.FC = ()=>{
           </div>
         }
 
-        <button type="submit" className="border border-black rounded-md">登録</button>
+        <button type="submit" 
+          className="border border-black rounded-md"
+        >
+          {isRegisterPage ? "新規登録":"ログイン"}
+        </button>
       </form>
     </div>
   )
