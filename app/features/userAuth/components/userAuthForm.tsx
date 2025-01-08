@@ -11,7 +11,7 @@ export const UserAuthForm:React.FC = ()=>{
   return(
     <div 
       className="w-[80%] max-w-[600px] mx-auto
-        border-2 border-black p-5 text-lg
+        border-2 border-black rounded-xl p-5 text-lg
         absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
     >
       <form method="post" 
@@ -35,7 +35,7 @@ export const UserAuthForm:React.FC = ()=>{
           </div>
         }
 
-        <button type="submit" className="border border-black">登録</button>
+        <button type="submit" className="border border-black rounded-md">登録</button>
       </form>
     </div>
   )
@@ -67,6 +67,6 @@ export const UserAuthForm:React.FC = ()=>{
 
 const AuthFormInput:React.FC<{type:"text"|"password", name:string}> = ({type, name})=>{
   return(
-    <input type={type} name={name} className="border border-black w-full"/>
+    <input type={type} name={name} className="border border-black w-full rounded-md"/>
   )
 }
