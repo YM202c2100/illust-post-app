@@ -12,7 +12,7 @@ export const ConfirmButton:React.FC<ConfirmButtonProps> = ({selectedSide, limitC
   const [isPending, setIsPending] = useState<boolean>(false)
   const isButtonDisable = (selectedSide===null) || isPending
   return(
-    <div className="text-center my-2">
+    <div className="text-center my-5">
       <button
         disabled={isButtonDisable}
         className={`text-gray-100 p-3 rounded-2xl ${isButtonDisable ? "bg-gray-400":"bg-green-500"}`}

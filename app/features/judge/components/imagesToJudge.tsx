@@ -48,7 +48,7 @@ export const ImagesToJudge:React.FC<ImagesToJudgeProps> = ({allImages, initialLi
       className="w-[90%] md:w-[85%] mx-auto
       overflow-auto snap-x snap-mandatory
       flex md:justify-center md:gap-4
-      md:py-10 md:px-4 mb-4
+      md:py-4 md:px-4 mb-4
       shadow-md md:shadow-none shadow-slate-400"
     >
       <ImageUnderJudging {...leftImageProps}/>
