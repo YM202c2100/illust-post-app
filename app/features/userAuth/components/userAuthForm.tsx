@@ -20,18 +20,18 @@ export const UserAuthForm:React.FC = ()=>{
       >
         <div>
           <p>ID</p>
-          <input type="text" name="id" className="border border-black w-full"/>
+          <AuthFormInput type="text" name="id"/>
         </div>
 
         <div>
           <p>パスワード</p>
-          <input type="password" name="pwd" className="border border-black w-full"/>
+          <AuthFormInput type="password" name="pwd"/>
         </div>
 
         {isRegisterPage &&
           <div>
             <p>ユーザーネーム</p>
-            <input type="text" name="userName" className="border border-black w-full"/>
+            <AuthFormInput type="text" name="userName"/>
           </div>
         }
 
@@ -63,4 +63,10 @@ export const UserAuthForm:React.FC = ()=>{
       console.error(`submitHandler:${error}`);
     }
   }
+}
+
+const AuthFormInput:React.FC<{type:"text"|"password", name:string}> = ({type, name})=>{
+  return(
+    <input type={type} name={name} className="border border-black w-full"/>
+  )
 }
