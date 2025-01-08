@@ -12,6 +12,9 @@ export const UserAuthForm:React.FC<{pageName:"register"|"login"}> = ({pageName})
         border-2 border-black rounded-xl p-5 text-lg
         absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
     >
+      <p className="text-2xl text-center">
+        {isRegisterPage ? "新規登録用フォーム":"ログイン用フォーム"}
+      </p>
       <form method="post" 
         onSubmit={submitHandler}
         className="space-y-4"
