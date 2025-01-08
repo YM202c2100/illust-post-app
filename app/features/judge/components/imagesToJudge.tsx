@@ -42,6 +42,7 @@ export const ImagesToJudge:React.FC<ImagesToJudgeProps> = ({allImages, initialLi
 
   return(
     <>
+    <ConfirmButton {...confirmButtonProps}/>
     <div 
       ref={scrollContainerRef}
       className="w-[90%] md:w-[85%] mx-auto
@@ -53,8 +54,6 @@ export const ImagesToJudge:React.FC<ImagesToJudgeProps> = ({allImages, initialLi
       <ImageUnderJudging {...leftImageProps}/>
       <ImageUnderJudging {...rightImageProps}/>
     </div>
-
-    <ConfirmButton {...confirmButtonProps}/>
     </>
   )
 
