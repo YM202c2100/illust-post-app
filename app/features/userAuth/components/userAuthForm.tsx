@@ -71,6 +71,11 @@ export const UserAuthForm:React.FC = ()=>{
 
 const AuthFormInput:React.FC<{type:"text"|"password", name:string}> = ({type, name})=>{
   return(
-    <input type={type} name={name} className="border border-black w-full rounded-md"/>
+    <input 
+      type={type} 
+      name={name} 
+      required
+      className="border border-black w-full rounded-md"
+    />
   )
 }
