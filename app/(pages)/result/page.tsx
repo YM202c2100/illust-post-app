@@ -1,5 +1,6 @@
 import { PHP_ROOT_PATH } from "@/app/api/config"
 import { getHeaderWithSessId } from "@/app/api/cookieHeader";
+import { GET } from "@/app/api/getRequest";
 import { HigherRankImages } from "@/app/features/result/components/higherRankImages";
 import { SubmissionResult } from "@/app/features/result/components/SubmissionResult/submissionResult";
 import { Top3Images } from "@/app/features/result/components/top3Images";
@@ -8,12 +9,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function Result(){
-  const reqHeader = getHeaderWithSessId()
-  const res = await fetch(PHP_ROOT_PATH+"result.php",{
-    method:"get",
-    credentials:"include",
-    headers:reqHeader
-  });
+  const res = await GET("result")
 
   if(!res.ok){
     console.error(res.status);
