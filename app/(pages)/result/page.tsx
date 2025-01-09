@@ -1,5 +1,3 @@
-import { PHP_ROOT_PATH } from "@/app/api/config"
-import { getHeaderWithSessId } from "@/app/api/cookieHeader";
 import { GET } from "@/app/api/getRequest";
 import { HigherRankImages } from "@/app/features/result/components/higherRankImages";
 import { SubmissionResult } from "@/app/features/result/components/SubmissionResult/submissionResult";
